@@ -481,6 +481,7 @@ function wave(str) {
 
   characters.forEach(function (char, index) {
     if (char === " ") {
+      return;
     }
     const charactersCopy = [...characters];
     charactersCopy[index] = char.toUpperCase();
@@ -493,22 +494,80 @@ function wave(str) {
 console.log(wave("hello"));
 
 //
-
+//Opción 1
 function countSmileys(arr) {
-  const goodSmileys = [];
+  let counter = 0;
   arr.forEach(function (smiley, index) {
     if (
-      smiley.includes(
-        ":" &&
-          smiley.includes(";") &&
-          smiley.includes(")") &&
-          smiley.includes("D")
-      )
+      (smiley[0] === ":" || smiley[0] === ";") &&
+      (smiley[1] === ")" || smiley[1] === "D")
     ) {
-      goodSmileys.push(smiley);
+      counter += 1;
+    }
+
+    if (
+      (smiley[0] === ":" || smiley[0] === ";") &&
+      (smiley[1] === "-" || smiley[1] === "~") &&
+      (smiley[2] === ")" || smiley[2] === "D")
+    ) {
+      counter += 1;
     }
   });
-  return goodSmileys;
+  return counter;
 }
 
-console.log(countSmileys([";]", ":[", ";*", ":$", ";-D"]));
+console.log(countSmileys([":-)", ";~D", ":-D", ":_D"]));
+
+//Opción 2
+function countSmileys(arr) {
+  let counter = 0;
+  arr.forEach(function (smiley, index) {
+    if (
+      smiley === ":)" ||
+      smiley === ":D" ||
+      smiley === ";D" ||
+      smiley === ";)" ||
+      smiley === ":-)" ||
+      smiley === ":-D" ||
+      smiley === ";-D" ||
+      smiley === ";-)" ||
+      smiley === ":~)" ||
+      smiley === ":~D" ||
+      smiley === ";~D" ||
+      smiley === ";~)"
+    ) {
+      counter += 1;
+    }
+  });
+  return counter;
+}
+console.log(countSmileys([":-)", ";~D", ":-D", ":_D"]));
+
+//Ejercicio piramide
+
+// 1. Crear una variable que determine el número de * que hay que poner en la fila base de la pirámide: let starRowBase = nFloors * 2 -1
+// 2. Crear un array vacío en el que se vayan copiando las distintas filas
+// 3. Crear un contador que irá aumentando de tamaño para sustituir los valores del principio por ' '
+// 4. Crear un contador que tendrá el valor de straRowBase y que irá disminuyendo progresivamente
+// 3. Crear una función forEach que progresivamente vaya sustituyendo las ** en el número de filas,m para ello el forEach debe modificar constantemente el valor original
+// 6. Antes de terminar el ForEach se debe hacer un join() de lo que vayamos a hacer unshift
+
+function towerBuilder(nFloors) {
+  const star = "*";
+  let starsNumber = nFloors * 2 - 1;
+  baseStars = star.repeat(starsNumber);
+  console.log(baseStars);
+  const towerStars = [baseStars];
+  let starsNumberCounter = nFloors - 1;
+
+  towerStars.forEach(function (starRow, index) {
+    if (towerStars.length <= nFloors) {
+      towerStars[index] = " ";
+      towerStars[starsNumberCounter] = " ";
+      console.log(towerStars);
+      towerStars.unshift[starRow];
+    }
+    return towerStars;
+  });
+}
+console.log(towerBuilder(4));
