@@ -556,18 +556,33 @@ function towerBuilder(nFloors) {
   const star = "*";
   let starsNumber = nFloors * 2 - 1;
   baseStars = star.repeat(starsNumber);
-  console.log(baseStars);
-  const towerStars = [baseStars];
-  let starsNumberCounter = nFloors - 1;
+  const towerStars = baseStars.split("");
+  const towerStarsFinal = [];
 
   towerStars.forEach(function (starRow, index) {
-    if (towerStars.length <= nFloors) {
-      towerStars[index] = " ";
-      towerStars[starsNumberCounter] = " ";
-      console.log(towerStars);
-      towerStars.unshift[starRow];
+    starsNumber -= 1;
+    towerStars[index] = " ";
+    towerStars[starsNumber] = " ";
+    let joinedTowerStars = towerStars.join("");
+
+    if (joinedTowerStars.includes("*")) {
+      towerStarsFinal.unshift(joinedTowerStars);
     }
-    return towerStars;
   });
+  towerStarsFinal.push(baseStars);
+  return towerStarsFinal;
 }
-console.log(towerBuilder(4));
+console.log(towerBuilder(5));
+
+//
+function powersOfTwo(n) {
+  powersOfTwoArr = [1];
+  const counter = 0;
+
+  powersOfTwoArr.forEach(function (number) {});
+
+  if (n > 0) {
+    n * 2;
+  }
+  return powersOfTwoArr;
+}
