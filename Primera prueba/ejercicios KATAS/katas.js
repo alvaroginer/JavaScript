@@ -576,13 +576,107 @@ console.log(towerBuilder(5));
 
 //
 function powersOfTwo(n) {
-  powersOfTwoArr = [1];
-  const counter = 0;
+  const highestTwoPower = n * 2;
+  powersOfTwoArr = [highestTwoPower];
 
-  powersOfTwoArr.forEach(function (number) {});
-
-  if (n > 0) {
-    n * 2;
-  }
+  powersOfTwoArr.forEach(function (number, index) {
+    if (powersOfTwoArr[index] > 1 && powersOfTwoArr[index] < highestTwoPower) {
+      highestTwoPower = highestTwoPower / 2;
+      powersOfTwoArr.unshift(highestTwoPower);
+    }
+  });
   return powersOfTwoArr;
 }
+
+console.log(powersOfTwo(2));
+
+//
+
+function findNextSquare(sq) {
+  if (Number.isInteger(Math.sqrt(sq))) {
+    return (Math.sqrt(sq) + 1) ** 2;
+  }
+  return -1;
+}
+
+//
+function findDifference(a, b) {
+  let finalResult = 0;
+  const aMultiplied = a.reduce(function (accumulator, currentValue) {
+    return accumulator * currentValue;
+  });
+
+  const bMultiplied = b.reduce(function (accumulator2, currentValue2) {
+    return accumulator2 * currentValue2;
+  });
+
+  if (aMultiplied >= bMultiplied) {
+    return (finalResult = aMultiplied - bMultiplied);
+  }
+  return (finalResult = bMultiplied - aMultiplied);
+}
+
+console.log(findDifference([2, 2, 3], [5, 4, 1]));
+
+//
+
+function oddOrEven(array) {
+  if (array.length === 0) {
+    return "even";
+  }
+  const multipliedArr = array.reduce(function (accumulator, currentValue) {
+    return accumulator + currentValue;
+  });
+
+  if (multipliedArr % 2 === 0) {
+    return "even";
+  }
+  return "odd";
+}
+
+console.log(oddOrEven([]));
+
+//
+function hoopCount(n) {
+  if (n >= 10) {
+    return "Great, now move on to tricks";
+  }
+  return "Keep at it until you get it";
+}
+
+//
+
+function validatePIN(pin) {
+  let pinArr = [];
+  if (pin === "0000" || pin === "000000") {
+    return true;
+  }
+  if (pin.length === 4 || pin.length === 6) {
+    pinArr = pin.split("");
+    const allNumbers = pinArr.every(function (value) {
+      return value >= "0" && value <= "9";
+    });
+    return allNumbers;
+  }
+  return false;
+}
+
+console.log(validatePIN("098765"));
+
+//
+
+function alphabetPosition(text) {
+  const textToArr = text.toLowerCase().split("");
+  const arrToAbc = [];
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+  textToArr.forEach(function (letter) {
+    const position = alphabet.indexOf(letter) + 1;
+    if (position > 0) {
+      arrToAbc.push(position);
+    }
+  });
+
+  return arrToAbc.join(" ");
+}
+console.log(alphabetPosition("aAa b a"));
