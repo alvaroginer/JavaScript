@@ -572,7 +572,7 @@ function towerBuilder(nFloors) {
   towerStarsFinal.push(baseStars);
   return towerStarsFinal;
 }
-console.log(towerBuilder(5));
+console.log(towerBuilder(10));
 
 //
 function powersOfTwo(n) {
