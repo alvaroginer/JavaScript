@@ -680,3 +680,153 @@ function alphabetPosition(text) {
   return arrToAbc.join(" ");
 }
 console.log(alphabetPosition("aAa b a"));
+
+//
+
+function greet(language) {
+  if (language === "polish") {
+    return "Witamy";
+  }
+
+  if (language === "dutch") {
+    return "Welkom";
+  }
+  return "Welcome";
+}
+
+function arithmetic(a, b, operator) {
+  if (operator === "add") {
+    return a + b;
+  }
+
+  if (operator === "substract") {
+    return a - b;
+  }
+
+  if (operator === "multiply") {
+    return a * b;
+  }
+
+  if (operator === "divide") {
+    return a - b;
+  }
+}
+
+//
+
+function reverseList(list) {
+  const reverseArr = [];
+  list.forEach(function (number) {
+    reverseArr.unshift(number);
+  });
+  return reverseArr;
+}
+
+console.log(reverseList([1, 2, 3, 4]));
+
+function sum(numbers) {
+  if (numbers.length < 1) {
+    return 0;
+  }
+  const addedNumbers = numbers.reduce(function (accumulator, currentValue) {
+    return accumulator + currentValue;
+  });
+  return addedNumbers;
+}
+
+console.log(sum([1, 5.2, 4, 0, -1]));
+
+//
+//Isograms
+// convertir todas las letras a toLowerCase
+//convertir el string en un array
+// hacer un every con la condición de que cada str[index] sea distinto entre sí
+
+function isIsogram(str) {
+  const strToArr = str.toLowerCase().split("");
+  const hasIsogram = strToArr.every(function (letter, index) {
+    return strToArr.indexOf(letter) === strToArr.lastIndexOf(letter);
+  });
+  if (str === "") {
+    return true;
+  }
+  return hasIsogram;
+}
+
+//
+
+function digitize(n) {
+  const reverseArr2 = [];
+  const newN = n.toString().split("");
+  newN.forEach(function (number, index) {
+    reverseArr2.unshift(Number(number));
+  });
+  return reverseArr2;
+}
+console.log(digitize(35231));
+
+//
+// hay que comprobar en que posición de la constante alphabet está letter
+// una vez comprobado debes sustituir letter por ese índice y sumarle la diferencia que pida key
+// una vez hecho deberías unir el array con un join(' ') para que coja las palabras enteras
+
+function encryptor(key, message) {
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const mesageArr = message.split("");
+  const encriptedMessage = mesageArr.map(function (letter, index) {
+    let abcPosition = alphabet.indexOf(letter);
+    let newPosition = (abcPosition + key) % 26;
+    return alphabet[newPosition];
+  });
+  return encriptedMessage.join;
+}
+
+console.log(encryptor(13, "Caesar Cipher"));
+
+// SIN RESOLVER
+
+// Duplicate Encoder
+// 1. Pasar el string a toLowerCase, separarlo y convertirlo en array
+// 2. hacer un map con los cambios utilizando un if con indexOf y lastindeXof
+// 3. hacer un join después
+
+function duplicateEncode(word) {
+  const wordtoArr = word.toLowerCase().split("");
+  const codedWord = wordtoArr.map(function (letter) {
+    if (wordtoArr.indexOf(letter) === wordtoArr.lastIndexOf(letter)) {
+      return "(";
+    }
+    return ")";
+  });
+  return codedWord.join("");
+}
+
+console.log(duplicateEncode("recede"));
+
+//
+
+function sumMix(x) {
+  const allNum = x.map(function (number) {
+    return (letter = Number(number));
+  });
+  const addedNum = allNum.reduce(function (accumulate, currentValue) {
+    return accumulate + currentValue;
+  });
+  return addedNum;
+}
+
+console.log(sumMix([9, 3, "7", "3"]));
+
+//
+// para comprobar nums.lenght era necesario comprobar primero que era un array
+function solution(nums) {
+  if (!Array.isArray(nums) || nums.length === 0 || nums[0] === null) {
+    return [];
+  }
+  const sortedArr = nums.sort(function (a, b) {
+    return a - b;
+  });
+  return sortedArr;
+}
+
+console.log(solution([1, 2, 3, 10, 5]));
