@@ -830,3 +830,58 @@ function solution(nums) {
 }
 
 console.log(solution([1, 2, 3, 10, 5]));
+
+//
+//Comprobar si un caracter es mayúscula
+// saber el index de ese caracter
+// hacer un split a partir del index y luego un join del texto al completo
+
+function solution(string) {
+  const stringToArr = string.split("");
+  const result = [];
+  stringToArr.forEach(function (character) {
+    if (character === character.toUpperCase()) {
+      result.push(" ");
+    }
+    result.push(character);
+  });
+  return result.join("");
+}
+
+console.log(solution(""));
+
+// Primero hay que hacer un sort de pequeño a grande
+// y luego hacer que los index [0] y [1] se sumen
+
+function sumTwoSmallestNumbers(numbers) {
+  const sortedNums = numbers.sort(function (a, b) {
+    return a - b;
+  });
+  return sortedNums[0] + sortedNums[1];
+}
+
+console.log(sumTwoSmallestNumbers([19, 5, 42, 2, 77]));
+
+//
+function minMax(arr) {
+  result = [];
+  const sortedNums2 = arr.sort(function (a, b) {
+    return a - b;
+  });
+  const totalLenght = sortedNums2.length;
+  result.push(sortedNums2[0]);
+  result.push(sortedNums2[totalLenght - 1]);
+  return result;
+}
+
+console.log(minMax([1]));
+
+//
+function gimme(triplet) {
+  const sortedTriplet = [...triplet].sort(function (a, b) {
+    return a - b;
+  });
+  return triplet.indexOf(sortedTriplet[1]);
+}
+
+console.log(gimme([2, 3, 1]));
