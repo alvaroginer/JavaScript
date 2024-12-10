@@ -981,3 +981,11 @@ function combat(health, damage) {
   }
   return health - damage;
 }
+
+// Crear un nuevo array vacío
+// Crear un forEach que comprueba si sumando el número a otro es igual al límite que se pone
+// Es posible hacerlo con una función que ponga algo así (abcPosition + key) % 26
+
+function twoSum(numbers, target) {
+  return [0, 1];
+}
