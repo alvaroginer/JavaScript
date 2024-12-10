@@ -885,3 +885,99 @@ function gimme(triplet) {
 }
 
 console.log(gimme([2, 3, 1]));
+
+// Filter
+//Hay que comprobar cuantas veces aparece un elemento en un array
+//crear un contador para comprobar el número de veces que un elemento aparece en el arrayu
+//hacer un filter de esa palabra en la nueva constante y comprobar si esta es mayor a n
+
+function deleteNth(arr, n) {
+  const deletedArr = arr.filter(function (number, index) {
+    if (arr.indexOf(number) !== arr.lastIndexOf(number)) {
+      return true;
+    }
+  });
+}
+
+// separar el array de números pares e impares
+// ordenar todos los números impares en un nuevo array con filter
+// crear una variable contador
+// crear un map de una copia del array original
+
+function sortArray(array) {
+  const onlyOddNumbers = array.filter(function (number) {
+    if (number % 2 !== 0) {
+      return number;
+    }
+  });
+  onlyOddNumbers.sort(function (a, b) {
+    return a - b;
+  });
+  let oddIndex = 0;
+  const finalResult = array.map(function (number) {
+    if (number % 2 !== 0) {
+      return onlyOddNumbers[oddIndex++];
+    }
+    return number;
+  });
+  return finalResult;
+}
+
+console.log(sortArray([]));
+
+//
+function smallEnough(a, limit) {
+  const allPassed = a.every(function (number) {
+    return number <= limit;
+  });
+  return allPassed;
+}
+
+console.log(smallEnough([78, 117, 110, 99, 104, 117, 107, 115], 100));
+
+//
+var capitals = function (word) {
+  const wordArr = word.split("");
+  const indexofCapital = [];
+  wordArr.forEach(function (number, index) {
+    if (number === number.toUpperCase()) {
+      indexofCapital.push(index);
+    }
+    return;
+  });
+  return indexofCapital;
+};
+
+console.log(capitals("AAA"));
+
+//
+function gooseFilter(birds) {
+  var geese = ["African", "Roman Tufted", "Toulouse", "Pilgrim", "Steinbacher"];
+  const arrWithoutGeese = birds.filter(function (bird, index) {
+    if (birds.includes(bird) && geese.includes(bird)) {
+      return;
+    }
+    return bird;
+  });
+  return arrWithoutGeese;
+}
+
+console.log(
+  gooseFilter([
+    "Mallard",
+    "Hook Bill",
+    "African",
+    "Crested",
+    "Pilgrim",
+    "Toulouse",
+    "Blue Swedish",
+  ])
+);
+
+//
+function combat(health, damage) {
+  if (health - damage < 0) {
+    return 0;
+  }
+  return health - damage;
+}
