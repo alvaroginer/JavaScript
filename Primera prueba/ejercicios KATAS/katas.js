@@ -987,5 +987,72 @@ function combat(health, damage) {
 // Es posible hacerlo con una función que ponga algo así (abcPosition + key) % 26
 
 function twoSum(numbers, target) {
-  return [0, 1];
+  const resultArr = [];
+  numbers.forEach(function (number, index) {
+    if (number + numbers[(index + 1) % 3] === target) {
+      resultArr.push(numbers.indexOf(number));
+    }
+
+    if (number + numbers[(index + 2) % 3] === target) {
+      resultArr.push(numbers.lastIndexOf(number));
+    }
+  });
+  return resultArr;
 }
+
+console.log(twoSum([2, 3, 1], 3));
+
+//
+
+function openOrSenior(data) {
+  const memberStatus = data.map(function ([age, handicap], index) {
+    if (age >= 55 && handicap > 7) {
+      return "Senior";
+    }
+    return "Open";
+  });
+  return memberStatus;
+}
+
+console.log(
+  openOrSenior([
+    [45, 12],
+    [55, 21],
+    [19, -2],
+    [104, 20],
+  ])
+);
+
+//
+function noBoringZeros(n) {
+  while (n % 10 === 0 && n !== 0) {
+    n = n / 10;
+  }
+  return number;
+}
+
+//
+// Dividir el title por palabras
+// poner title y minorWords en toLowerCase
+// crear un forEach en el que ponga que todas las primeras letras de un string deben ir en mayúsculas
+// poner un condicional en el que ponga que si letter es igual que minorWords.includes(letter) la letra vaya en to LowerCase
+// devolver el valor de la primera letra mayúscula a la primera palabra de letter
+
+function titleCase(title, minorWords) {
+  const titleArr = title.toLowerCase().split(" ");
+  const minorWordsArr = minorWords.toLowerCase().split(" ");
+  const resultArr = [];
+
+  titleArr.forEach(function (letter, index) {
+    if (index === 0 || !minorWordsArr.includes(letter)) {
+      const separatedWord = letter[0].toUpperCase() + letter.slice(1);
+      resultArr.push(separatedWord);
+    } else {
+      resultArr.push(letter);
+    }
+  });
+  const resultString = resultArr.join(" ");
+  return resultString;
+}
+
+console.log(titleCase("a clash of KINGS", "a an the of"));
