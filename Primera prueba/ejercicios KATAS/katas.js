@@ -1005,7 +1005,7 @@ console.log(twoSum([2, 3, 1], 3));
 //
 
 function openOrSenior(data) {
-  const memberStatus = data.map(function ([age, handicap], index) {
+  const memberStatus = data.map(function ([age, handicap]) {
     if (age >= 55 && handicap > 7) {
       return "Senior";
     }
@@ -1038,21 +1038,25 @@ function noBoringZeros(n) {
 // poner un condicional en el que ponga que si letter es igual que minorWords.includes(letter) la letra vaya en to LowerCase
 // devolver el valor de la primera letra mayúscula a la primera palabra de letter
 
-function titleCase(title, minorWords) {
-  const titleArr = title.toLowerCase().split(" ");
-  const minorWordsArr = minorWords.toLowerCase().split(" ");
-  const resultArr = [];
+function countSmileys(arr) {
+  let counter = 0;
+  const validSmiles = arr.filter(function (smiley, index) {
+    if (
+      (smiley[0] === ":" || smiley[0] === ";") &&
+      (smiley[1] === ")" || smiley[1] === "D")
+    ) {
+      return true;
+    }
 
-  titleArr.forEach(function (letter, index) {
-    if (index === 0 || !minorWordsArr.includes(letter)) {
-      const separatedWord = letter[0].toUpperCase() + letter.slice(1);
-      resultArr.push(separatedWord);
-    } else {
-      resultArr.push(letter);
+    if (
+      (smiley[0] === ":" || smiley[0] === ";") &&
+      (smiley[1] === "-" || smiley[1] === "~") &&
+      (smiley[2] === ")" || smiley[2] === "D")
+    ) {
+      return true;
     }
   });
-  const resultString = resultArr.join(" ");
-  return resultString;
+  return validSmiles.length;
 }
 
-console.log(titleCase("a clash of KINGS", "a an the of"));
+console.log(countSmileys([":-)", ";~D", ":-D", ":_D"]));
