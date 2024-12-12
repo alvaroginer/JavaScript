@@ -1070,3 +1070,39 @@ function position(letter) {
 console.log(position("a"));
 
 //
+function roundToNext5(n) {
+  while (n % 5 !== 0) {
+    n++;
+  }
+  return n;
+}
+
+console.log(roundToNext5(11));
+
+//
+// Dividir el string un array por letras con split('') y hacerlo toLowerCase
+// crear una variable aplhabet con el abecedario
+// hacer un map((letter) => {} y sacar el indexof de cada letra en la variable alphabet.indexOf(letter)
+// marcar que en caso de que letter sea un espacio ha de devolver un espacio
+// hacer un join() para que las letras se junten en palabras
+// hacer un reduce de cada letra
+// devolver la palabra de mayor tamaño con Math.max
+
+function high(x) {
+  const xToArr = x.toLowerCase().split("");
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+  const letterToNumber = xToArr.map(function (letter, index) {
+    let abcPosition = alphabet.indexOf(letter);
+    let newPosition = abcPosition % 26;
+    return (letter = newPosition);
+  });
+
+  console.log(letterToNumber);
+
+  const joinedNumbers = letterToNumber.join(""); // aquí falla el código
+
+  console.log(joinedNumbers);
+}
+
+console.log(high("take me to semynak"));
