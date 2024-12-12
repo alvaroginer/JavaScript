@@ -74,31 +74,3 @@ function titleCase(title, minorWords) {
 }
 
 console.log(titleCase("the quick brown fox"));
-
-// Katas Ternarios
-/** Crear una función que, dados dos parámetros, name y age:
- * Si name y age tienen un valor devolveremos Hola me llamo [NAME] y tengo [AGE] años
- * Si age no tiene valor pero name si devolveremos Hola me llamo [NAME]
- * Si ninguno tiene valor devolvermos No quiero decirte mi nombre, pringao
- */
-
-// const whatName = (name1, age) => {
-//   if (name1 !== undefined && age !== undefined){
-//     return `Hola me llamo ${name1} y tengo ${age} años`
-//   } else if (name1 !== undefined && age === undefined){
-//     return `Hola me llamo ${name1}`
-//   }
-//   return 'No quiero decirte mi nombre, pringao'
-// }
-
-const whatName = (name1, age) => {
-  const personNameAndAge =
-    name1 !== undefined && age !== undefined
-      ? `Hola me llamo ${name1} y tengo ${age} años`
-      : name1 !== undefined && age === undefined
-      ? `Hola me llamo ${name1}`
-      : "No quiero decirte mi nombre, pringao";
-  return personNameAndAge;
-};
-
-console.log(whatName("Alvaro"));
