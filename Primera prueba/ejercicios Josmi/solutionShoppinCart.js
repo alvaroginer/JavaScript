@@ -85,6 +85,11 @@ const addOrderCost = (orderCountries) => {
     0
   );
 
+  // Este ejercicio simplemente es coger la función del ejercico anterior y ponerle un ternario con la codición de que si finalCost > 100 || shoopinCart.country === 'Francia' se añaden 100 euros al final de gastos de envío
+  //if(totalFinalCost > 100 && cartWithCuponAndOrder.country !== 'Francia'){
+  //return [...cartWithCuponAndOrder,{ orderCostSpecialState, finalCostAndSpecialOrder: 0}]
+  //}
+
   if (orderCountries.country === "España") {
     const orderCost = 1.5;
     const orderCostSpecialState = 2;
@@ -118,4 +123,5 @@ const addOrderCost = (orderCountries) => {
   return cartWithCuponAndOrder;
 };
 
-// Imprimir soluciones Ejercicio 4 y 5: console.log(addOrderCost(orderCountries[1]));
+// Imprimir soluciones Ejercicio 4 y 5:
+console.log(addOrderCost(orderCountries[1]));
