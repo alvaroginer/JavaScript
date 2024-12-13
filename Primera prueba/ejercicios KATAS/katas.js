@@ -1098,11 +1098,55 @@ function high(x) {
     return (letter = newPosition);
   });
 
-  console.log(letterToNumber);
+  //console.log(letterToNumber);
 
-  const joinedNumbers = letterToNumber.join(""); // aquí falla el código
+  const joinedNumbers = letterToNumber.join("").split(-1);
 
-  console.log(joinedNumbers);
+  const stringtoNumber = joinedNumbers.map(function (word, index) {
+    const letters = word.split("");
+    return letters.reduce((accumulator, currentValue) => {
+      return accumulator + Number(currentValue);
+    }, 0);
+  });
+  //console.log(stringtoNumber);
+  const addedWord = stringtoNumber.indexOf(Math.max(...stringtoNumber));
+  const xToArr2 = x.split(" ");
+  return xToArr2[addedWord];
 }
 
-console.log(high("take me to semynak"));
+console.log(high("what time are we climbing up the volcano"));
+
+//
+function betterThanAverage(classPoints, yourPoints) {
+  const classSum = classPoints.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
+  const classAverage = classSum / classPoints.length;
+  return classAverage < yourPoints ? true : false;
+}
+
+console.log(betterThanAverage([12, 23, 34, 45, 56, 67, 78, 89, 90], 9));
+
+//
+
+function expressionMatter(a, b, c) {
+  const results = [];
+
+  results.push(a + b + c);
+  results.push(a + b * c);
+  results.push(a * b + c);
+  results.push(a * b * c);
+  results.push(a + b + c);
+  results.push(a * b + c);
+  results.push((a + b) * c);
+  results.push(a * b * c);
+  results.push(a + (b + c));
+  results.push(a + b * c);
+  results.push(a * (b + c));
+  results.push(a * (b * c));
+
+  return Math.max(...results);
+}
+
+console.log(expressionMatter(2, 3, 4));
