@@ -48,6 +48,7 @@ const applyCoupon = (shoppingCart, cupon) => {
       shoppingCartWithDiscount.push({
         ...updatedProduct,
         productWithDiscountAndNoTaxes,
+        cupon,
       });
     } else if (
       product.finalCost >= cupon.minimum &&
@@ -63,10 +64,11 @@ const applyCoupon = (shoppingCart, cupon) => {
       shoppingCartWithDiscount.push({
         ...updatedProduct,
         productWithDiscountAndNoTaxes,
+        cupon,
       });
     }
   });
-  return shoppingCartWithDiscount;
+  return [...shoppingCartWithDiscount];
 };
 
 //Imprimir soluciones Ejercico 3: console.log(applyCoupon(shoppingCartwithTaxes2, cupons[1]));
@@ -85,22 +87,29 @@ const addOrderCost = (orderCountries) => {
     0
   );
 
-  // Este ejercicio simplemente es coger la función del ejercico anterior y ponerle un ternario con la codición de que si finalCost > 100 || shoopinCart.country === 'Francia' se añaden 100 euros al final de gastos de envío
-  //if(totalFinalCost > 100 && cartWithCuponAndOrder.country !== 'Francia'){
-  //return [...cartWithCuponAndOrder,{ orderCostSpecialState, finalCostAndSpecialOrder: 0}]
-  //}
+  if (totalFinalCost > 100 && orderCountries.country !== "Francia") {
+    const orderCost = 0;
+    const finalCostAndOrder = totalFinalCost + orderCost;
+    return [
+      ...cartWithCuponAndOrder,
+      { orderCost, finalCost: finalCostAndOrder },
+    ];
+  }
 
   if (orderCountries.country === "España") {
     const orderCost = 1.5;
     const orderCostSpecialState = 2;
     const finalCostAndOrder = totalFinalCost + orderCost;
     const finalCostAndSpecialOrder = totalFinalCost + orderCostSpecialState;
-    return orderCountries.region.includes(specialStates)
+    return specialStates.includes(orderCountries.region)
       ? [
           ...cartWithCuponAndOrder,
-          { orderCostSpecialState, finalCostAndSpecialOrder },
+          {
+            orderCost: orderCostSpecialState,
+            finalCost: finalCostAndSpecialOrder,
+          },
         ]
-      : [...cartWithCuponAndOrder, orderCost, finalCostAndOrder];
+      : [...cartWithCuponAndOrder, { orderCost, finalCost: finalCostAndOrder }];
   } else if (orderCountries.country === "Francia") {
     const orderCost = 500;
     const orderCostSpecialState = 5;
@@ -109,19 +118,22 @@ const addOrderCost = (orderCountries) => {
     return orderCountries.region === "Alsacia"
       ? [
           ...cartWithCuponAndOrder,
-          { orderCostSpecialState, finalCostAndSpecialOrder },
+          {
+            orderCost: orderCostSpecialState,
+            finalCost: finalCostAndSpecialOrder,
+          },
         ]
-      : [...cartWithCuponAndOrder, orderCost, finalCostAndOrder];
+      : [...cartWithCuponAndOrder, { orderCost, finalCost: finalCostAndOrder }];
   } else if (orderCountries.country === "Andorra") {
     const orderCost = 500;
     const finalCostAndOrder = totalFinalCost + orderCost;
     return [
       ...cartWithCuponAndOrder,
-      { orderCostSpecialState, finalCostAndOrder },
+      { orderCost, finalCost: finalCostAndOrder },
     ];
   }
   return cartWithCuponAndOrder;
 };
 
 // Imprimir soluciones Ejercicio 4 y 5:
-console.log(addOrderCost(orderCountries[1]));
+console.log(addOrderCost(orderCountries[0]));
