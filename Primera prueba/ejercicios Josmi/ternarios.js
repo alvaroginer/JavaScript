@@ -29,10 +29,10 @@ console.log(whatName1("Alvaro"));
 
 //Opción 2 - If y Ternario
 const whatName2 = (name1, age) => {
-  if (name1 !== undefined && age !== undefined) {
+  if (age && name1) {
     return `Hola me llamo ${name1} y tengo ${age} años`;
   }
-  return name1 !== undefined && age === undefined
+  return name1 && !age === undefined
     ? `Hola me llamo ${name1}`
     : "No quiero decirte mi nombre, pringao";
 };

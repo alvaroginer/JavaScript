@@ -1088,6 +1088,8 @@ console.log(roundToNext5(11));
 // hacer un reduce de cada letra
 // devolver la palabra de mayor tamaño con Math.max
 
+//
+
 function high(x) {
   const xToArr = x.toLowerCase().split("");
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -1100,8 +1102,7 @@ function high(x) {
 
   console.log(letterToNumber);
 
-  const joinedNumbers = letterToNumber.join(""); // aquí falla el código
-
+  const joinedNumbers = letterToNumber.join("").split(-1);
   console.log(joinedNumbers);
 }
 
