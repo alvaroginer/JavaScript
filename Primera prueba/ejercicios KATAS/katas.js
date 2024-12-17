@@ -1180,7 +1180,3 @@ function filter_list(l) {
 }
 
 console.log(filter_list([1, 2, "a", "b"]));
-
-// dividir los números por el número de n que haya
-// en
-function queueTime(customers, n) {}

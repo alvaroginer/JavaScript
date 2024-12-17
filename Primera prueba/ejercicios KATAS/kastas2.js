@@ -207,3 +207,42 @@ const reverseSeq = (n) => {
 };
 
 console.log(reverseSeq(5));
+
+// Queue time
+//
+function queueTime(customers, n) {
+  const checkouts = [];
+  for (let i = 0; checkouts.length < n; i++) {
+    checkouts.push(0);
+  }
+  customers.forEach(function (number, index) {
+    const minIndex = checkouts.indexOf(Math.min(...checkouts));
+    checkouts[minIndex] += number;
+  });
+  return Math.max(...checkouts);
+}
+
+console.log(queueTime([2, 2, 3, 3, 4, 4], 2));
+
+//
+
+function howMuchILoveYou(nbPetals) {
+  const nbPetalsIndex = ((nbPetals - 1) % 6) + 1;
+
+  switch (nbPetalsIndex) {
+    case 1:
+      return "I love you";
+    case 2:
+      return "a little";
+    case 3:
+      return "a lot";
+    case 4:
+      return "passionately";
+    case 5:
+      return "madly";
+    case 6:
+      return "not at all";
+  }
+}
+
+console.log(howMuchILoveYou(6));
