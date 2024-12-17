@@ -1153,3 +1153,34 @@ function expressionMatter(a, b, c) {
 }
 
 console.log(expressionMatter(2, 3, 4));
+
+//
+
+function order(words) {
+  const sortedWords = [];
+  words.split(" ").forEach(function (word) {
+    const number = word.split("").find((char) => {
+      return Number(char);
+    });
+    sortedWords[number - 1] = word;
+  });
+  return sortedWords.join(" ");
+}
+
+console.log(order("is2 Thi1s T4est 3a"));
+
+//
+function filter_list(l) {
+  const onlyNum = l.filter(function (number) {
+    if (typeof number === "number") {
+      return number;
+    }
+  });
+  return onlyNum;
+}
+
+console.log(filter_list([1, 2, "a", "b"]));
+
+// dividir los números por el número de n que haya
+// en
+function queueTime(customers, n) {}

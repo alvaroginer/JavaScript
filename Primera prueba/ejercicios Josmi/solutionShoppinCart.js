@@ -1,9 +1,9 @@
 const shoppingCart = [
-  { product: "botella de agua", quantity: 7, price: 700 },
-  { product: "palomitas", quantity: 2, price: 255.5 },
+  { product: "botella de agua", quantity: 7, price: 100 },
+  { product: "palomitas", quantity: 2, price: 127.75 },
   { product: "azúcar", quantity: 1, price: 1000 },
-  { product: "pan de hamburguesa", quantity: 728, price: 928 },
-  { product: "tofu ahumado", quantity: 28, price: 2223 },
+  { product: "pan de hamburguesa", quantity: 728, price: 1.27 },
+  { product: "tofu ahumado", quantity: 28, price: 79.39 },
 ];
 
 const specialStates = ["Ceuta", "Melilla", "Canarias"];
@@ -36,6 +36,7 @@ const cupons = [
 
 const applyCoupon = (shoppingCart, cupon) => {
   const shoppingCartWithDiscount = [];
+
   shoppingCart.forEach((product) => {
     if (product.finalCost >= cupon.minimum && !specialStates.includes(state)) {
       const updatedProduct = { ...product };
@@ -132,7 +133,12 @@ const addOrderCost = (orderCountries) => {
       { orderCost, finalCost: finalCostAndOrder },
     ];
   }
-  return cartWithCuponAndOrder;
+  const orderCost = 30;
+  const finalCostAndOrder = totalFinalCost + orderCost;
+  return [
+    ...cartWithCuponAndOrder,
+    { orderCost, finalCost: finalCostAndOrder },
+  ];
 };
 
 // Imprimir soluciones Ejercicio 4 y 5:

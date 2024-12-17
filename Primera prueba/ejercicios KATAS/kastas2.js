@@ -196,3 +196,14 @@ function powersOfTwo(n) {
 }
 
 console.log(powersOfTwo(2));
+
+//
+const reverseSeq = (n) => {
+  const reverseN = [];
+  for (n; n > 0; n--) {
+    reverseN.push(n);
+  }
+  return reverseN;
+};
+
+console.log(reverseSeq(5));
