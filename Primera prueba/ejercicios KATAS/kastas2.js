@@ -109,3 +109,90 @@ function findOdd(A) {
 }
 
 console.log(findOdd([20, 1, -1, 2, -2, 3, 3, 5, 5, 1, 2, 4, 20, 4, -1, -2, 5]));
+
+//
+function capitalize(s) {
+  const newS = s.split("");
+  const integerLetters = [];
+  newS.forEach(function (letter, index) {
+    if (index % 2 === 0) {
+      integerLetters.push(letter.toUpperCase());
+    } else {
+      integerLetters.push(letter);
+    }
+  });
+
+  const oddLetters = [];
+  newS.forEach(function (letter, index) {
+    if (index % 2 !== 0) {
+      oddLetters.push(letter.toUpperCase());
+    } else {
+      oddLetters.push(letter);
+    }
+  });
+
+  return [integerLetters.join(""), oddLetters.join("")];
+}
+
+console.log(capitalize("abcdef"));
+
+//
+function sumDigits(number) {
+  if (number < 0) {
+    const toPositive = number * -1;
+    const addedNumber = Array.from(String(toPositive), Number);
+    console.log(addedNumber);
+    const finalNum = addedNumber.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+    return finalNum;
+  }
+  const addedNumber = Array.from(String(number), Number);
+  console.log(addedNumber);
+  const finalNum = addedNumber.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
+  return finalNum;
+}
+
+console.log(sumDigits(32));
+
+//
+function deleteNth(arr, n) {
+  arrToObj = {};
+  return arr.filter(function (x) {
+    arrToObj[x] = arrToObj[x || 0] + 1;
+    return arrToObj[x] <= n;
+  });
+}
+
+console.log(deleteNth([20, 37, 20, 21], 1));
+
+//
+//debería crea una especie de bucle en el que haga push dentro de un array todas las veces que h * bounce sea >= window
+function bouncingBall(h, bounce, window) {
+  let viewedBall = 1;
+  const howManyBounces = [h];
+  if ((bounce > 0 && bounce < 1) || window < h || h > 0) {
+    for (let i = 0; howManyBounces[i] * bounce > window; i++) {
+      howManyBounces.push(howManyBounces[i] * bounce);
+      viewedBall = viewedBall + 2;
+    }
+    return viewedBall;
+  }
+  return -1;
+}
+
+console.log(bouncingBall(2, 0.5, 1));
+
+function powersOfTwo(n) {
+  const powerTwo = [];
+  for (let i = 0; powerTwo.length <= n; i++) {
+    powerTwo.push(2 ** i);
+  }
+  return powerTwo;
+}
+
+console.log(powersOfTwo(2));
