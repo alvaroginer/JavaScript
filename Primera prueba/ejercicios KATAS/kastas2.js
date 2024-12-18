@@ -246,3 +246,30 @@ function howMuchILoveYou(nbPetals) {
 }
 
 console.log(howMuchILoveYou(6));
+
+function add(a, b) {
+  const numberA = Number(a);
+  const numberB = Number(b);
+  return (BigInt(a) + BigInt(b)).toString(); // Fix me!
+}
+console.log(add("123", "321"));
+
+//
+// utilizas un forEach
+// el objetivo es seleccionar el número mayor de la fila
+// posteriromente tienes que seleccionar el número más grande entre el número con el mismo index que el de la fila de antes o con uno más
+//
+//
+function longestSlideDown(pyramid) {
+  const biggestNumbers = [];
+  pyramid.forEach(function (row, index) {
+    pyramid[0] = biggestNumbers.push(Math.max(row[index - 1], row[index - 2]));
+  });
+  console.log(biggestNumbers);
+  //return biggestNumbers.reduce(
+  //(accumulator, currentValue) => accumulator + currentValue,
+  //0,
+  //)
+}
+
+console.log(longestSlideDown([[3], [7, 4], [2, 4, 6], [8, 5, 9, 3]]));
