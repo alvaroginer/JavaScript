@@ -263,7 +263,31 @@ console.log(add("123", "321"));
 function longestSlideDown(pyramid) {
   const biggestNumbers = [];
   pyramid.forEach(function (row, index) {
-    pyramid[0] = biggestNumbers.push(Math.max(row[index - 1], row[index - 2]));
+    pyramid = biggestNumbers.push(
+      Math.max(row[(index - 1) % row.length], row[(index - 2) % row.length])
+    );
+  });
+  console.log(biggestNumbers);
+  //return biggestNumbers.reduce(
+  //(accumulator, currentValue) => accumulator + currentValue,
+  //0,
+  //)
+}
+
+console.log(longestSlideDown([[3], [7, 4], [2, 4, 6], [8, 5, 9, 3]]));
+
+
+// Prueba 2
+
+function longestSlideDown(pyramid) {
+  const biggestNumbers = [];
+  pyramid.forEach(function (row, indexRow) {
+    row.forEach(function (number, indexNumber){
+      if (row.length <= 2){
+        biggestNumbers.push(Math.max(row))
+      }
+      biggestNumbers.push(Math.max(row[index1], row[]))
+    })
   });
   console.log(biggestNumbers);
   //return biggestNumbers.reduce(
