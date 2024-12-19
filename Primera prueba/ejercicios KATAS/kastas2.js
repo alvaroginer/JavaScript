@@ -361,3 +361,33 @@ multiplicationTable = function (size) {
 };
 
 console.log(multiplicationTable(3));
+
+//
+// en algún momento hay que utilizar un filter y que devuelva todo lo que esté entre 'www.' y termine un '.'
+// antes de eso habría que eliminar todo aquello que vaya antes de '//'
+
+function domainName(url) {
+  const http = "http://";
+  if (url.startsWith("http://www.")) {
+    url = url.replace("http://www.", "");
+  } else if (url.startsWith("https://www.")) {
+    url = url.replace("https://www.", "");
+  } else if (url.startsWith("http://")) {
+    url = url.replace("http://", "");
+  } else if (url.startsWith("https://")) {
+    url = url.replace("https://", "");
+  } else if (url.startsWith("www.")) {
+    url = url.replace("www.", "");
+  }
+
+  const finalUrlIndex = url.indexOf(".");
+  const onlyUrlName = url.slice(0, finalUrlIndex);
+  return onlyUrlName;
+}
+
+console.log(domainName("http://github.com/carbonfive/raygun"));
+
+// hacer un split o subtring del array cuando este supere la longitud sz y copiarlo en un nuevo array
+// una vez separados puedes hacer un filter de ese array y devolver los que tengan una length === sz
+// con el resultado de filter haces un forEach con un condicional con (if "array" % 2 === 0) lo pegas del revés, sino number = finalarr[index + 1]
+// finalmente lo juntas todo en un string con un join
