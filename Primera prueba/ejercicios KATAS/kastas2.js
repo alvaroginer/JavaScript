@@ -387,7 +387,61 @@ function domainName(url) {
 
 console.log(domainName("http://github.com/carbonfive/raygun"));
 
-// hacer un split o subtring del array cuando este supere la longitud sz y copiarlo en un nuevo array
-// una vez separados puedes hacer un filter de ese array y devolver los que tengan una length === sz
-// con el resultado de filter haces un forEach con un condicional con (if "array" % 2 === 0) lo pegas del revés, sino number = finalarr[index + 1]
-// finalmente lo juntas todo en un string con un join
+//Hacer un for Each con dos slice en el que esté el index dentro del slice
+// hacer un push de los 2 nuevos arrays dentro de un array a un array vacío
+// newArr.push([arrPart1, arrPart2], arr[index])
+// después hacer un forEach en el que se haga un reduce de arr[0] y otro reduce de arr[1], si el resultado es igual se devuelve arr[2]
+
+function findEvenIndex(arr) {
+  const indexesArr = [];
+
+  arr.forEach((array, index) => {
+    const arr1 = arr.slice(0, index);
+    const arr2 = arr.slice(index + 1, array.length);
+    const redArr1 = arr1.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+    const redArr2 = arr2.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+
+    if (redArr1 === redArr2) {
+      indexesArr.push(index);
+    }
+    return;
+  });
+
+  if (indexesArr.length >= 1) {
+    return indexesArr[0];
+  } else if (indexesArr <= 0) {
+    return -1;
+  }
+}
+
+console.log(findEvenIndex([1, 2, 3, 4, 5, 6]));
+
+// crear un forEach en el que en cada palabra se haga un bucle en el que se sume letter + la siguiente palabra del array, hasta que i = k
+
+function longestConsec(strarr, k) {
+  if (k > strarr || k <= 0 || strarr.length === 0) {
+    return "";
+  }
+  const finalWords = [];
+  strarr.forEach((word, index) => {
+    for (let i = 1; i + index < k + index; i++) {
+      word = word + strarr[index + i];
+      finalWords.push(word);
+    }
+  });
+  finalWords.splice(finalWords.length - 1, 1);
+  const longestWord = finalWords.reduce((a, b) =>
+    a.length >= b.length ? a : b
+  );
+  return longestWord;
+}
+
+console.log(
+  longestConsec(["zone", "abigail", "theta", "form", "libe", "zas"], 2)
+);
