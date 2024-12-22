@@ -41,10 +41,22 @@ function isConnected(network) {
  * 2. Crea una función que, dado el nombre de una red social, te diga cual es la cuenta del usuario
  */
 
-function accountName(network) {
-  const finalNetwork = network.toLowerCase();
-  return CONNECTED_NETWORKS_ACCOUNTS[finalNetwork];
-}
+const CONNECTED_NETWORKS_ACCOUNTS_2 = {
+  twitter: "232424124314",
+  facebook: undefined,
+  instagram: "gutufacio",
+  tikTok: undefined,
+  youtube: "robustio",
+};
+
+const accountName = (network) => {
+  if (isNaN(CONNECTED_NETWORKS_ACCOUNTS_2[network]) === false) {
+    return (CONNECTED_NETWORKS_ACCOUNTS_2[network] = "Usuario anónimo");
+  } else {
+    const finalNetwork = network.toLowerCase();
+    return CONNECTED_NETWORKS_ACCOUNTS_2[finalNetwork];
+  }
+};
 
 /**
  * 3. Crea una función que, dado un array de redes sociales, te devuelva otro array indicando la red,
@@ -54,9 +66,9 @@ function accountName(network) {
  * [{ network: 'twitter', isConnected: true, username: 'josmidgg' }, { network: 'youtube', isConnected: false }]
  */
 
-function accountConnected(AVAILABLE_NETWORKS) {
+const accountConnected = (AVAILABLE_NETWORKS) => {
   let accountData = [];
-  AVAILABLE_NETWORKS.forEach(function (account) {
+  AVAILABLE_NETWORKS.forEach((account) => {
     if (CONNECTED_NETWORKS[account] === true) {
       account = {
         network: account,
@@ -73,7 +85,7 @@ function accountConnected(AVAILABLE_NETWORKS) {
     }
   });
   return accountData;
-}
+};
 
 //console.log(accountConnected(AVAILABLE_NETWORKS));
 
@@ -102,7 +114,7 @@ const socialMediaName = {
 
 const socialMediaInfo = (AVAILABLE_NETWORKS) => {
   const whatAccountConected = accountConnected(AVAILABLE_NETWORKS).map(
-    function (network) {
+    (network) => {
       return { ...network, platformName: socialMediaName[network.network] };
     }
   );
@@ -117,9 +129,7 @@ const socialMediaInfo = (AVAILABLE_NETWORKS) => {
  */
 
 const infoActiveAccounts = (AVAILABLE_NETWORKS) => {
-  const finalInfo = socialMediaInfo(AVAILABLE_NETWORKS).filter(function (
-    account
-  ) {
+  const finalInfo = socialMediaInfo(AVAILABLE_NETWORKS).filter((account) => {
     if (account.isConnected === true) {
       return { ...account };
     }
@@ -127,7 +137,7 @@ const infoActiveAccounts = (AVAILABLE_NETWORKS) => {
   return finalInfo;
 };
 
-console.log(infoActiveAccounts(AVAILABLE_NETWORKS));
+//console.log(infoActiveAccounts(AVAILABLE_NETWORKS));
 
 /**
  * 8. Algunas redes sociales no te dan el nombre correcto del usuario y te dan un número muy largo como cadena
@@ -135,20 +145,25 @@ console.log(infoActiveAccounts(AVAILABLE_NETWORKS));
  * el nombre del usuario que devuelva sea "Usuario anónimo" en todos los casos.
  */
 
-const CONNECTED_NETWORKS_ACCOUNTS_2 = {
-  twitter: "232424124314",
-  facebook: undefined,
-  instagram: "gutufacio",
-  tikTok: undefined,
-  youtube: "robustio",
-};
-
 /**
  * 9. Crea una función a la que le vamos a pasar un único parámetro, la red social. Usando alguna de las
  * funciones que has creado anteriormente y una de las variables definidas (deduce cual), debe devolver
  * el nombre del usuario en esa red social si tenemos su información, o 'Nunca has conectado tu cuenta'
  * si no la tenemos.
  */
+
+const socialMediaData = (network) => {
+  const networkLowerCase = network.toLowerCase();
+  if (
+    isConnected(network) === true &&
+    socialMediaName[networkLowerCase] !== undefined
+  ) {
+    return accountName(networkLowerCase);
+  }
+  return "Nunca has conectado tu cuenta";
+};
+
+console.log(socialMediaData("twiTter"));
 
 /**
  * 10. Modifica todas las funciones anteriores para que sean Arrow functions
@@ -165,3 +180,94 @@ const CONNECTED_NETWORKS_ACCOUNTS_2 = {
  * Por ejemplo, si tikTokPersonal o tikTokBusiness están conectado, al introducir isConnected('tikTok') debería
  * decir true.
  */
+
+// creas con el for una línea con el número de asteriscos que marque n
+// luego simultaneamente haces un forEach con un push y luego otro forEach con un unshift
+// ir haciendo replace o slice de los * y luego poner un early return para que los forEach paren cuando no vaya haber más *
+// en cada iteración se elimina un espacio, el espacio 0
+// y se añade un espacio
+
+function diamond(n) {
+  if (n < 0 || n % 2 === 0) {
+    return null;
+  }
+  const finalResult = [];
+  for (const i = "*"; finalResult.length < n; finalResult.push(i)) {
+    finalResult;
+  }
+  finalResult.push("\n");
+  const joinedResult = [finalResult.join("")];
+  //console.log(joinedResult)
+  const newArr = joinedResult.map((star, index) => {
+    star = [...joinedResult];
+  });
+  return joinedResult;
+}
+
+console.log(diamond(5));
+
+//
+//si el array es más largo de diez hay que devolver falso o menor que diez e impar hay que devolver falso
+// creas un forEach
+function isValidWalk(walk) {
+  let totalN = 0;
+  let totalS = 0;
+  let totalE = 0;
+  let totalW = 0;
+
+  walk.forEach((direction) => {
+    if (direction === "n") {
+      totalN += 1;
+    } else if (direction === "s") {
+      totalS += 1;
+    } else if (direction === "e") {
+      totalE += 1;
+    } else if (direction === "w") {
+      totalW += 1;
+    }
+  });
+
+  if (
+    walk.length === 10 &&
+    walk.length % 2 === 0 &&
+    totalE === totalW &&
+    totalN === totalS
+  ) {
+    return true;
+  }
+  return false;
+}
+
+console.log(isValidWalk(["n", "n", "n", "s", "n", "s", "n", "s", "n", "s"]));
+
+//
+
+function calculateAge(birth, actual) {
+  const age = actual - birth;
+  const toBeBorn = birth - actual;
+
+  if (birth < actual && age === 1) {
+    return `You are ${age} year old.`;
+  } else if (birth < actual && age > 1) {
+    return `You are ${age} years old.`;
+  } else if (birth === actual) {
+    return "You were born this very year!";
+  } else if (birth > actual && toBeBorn === 1) {
+    return `You will be born in ${toBeBorn} year.`;
+  } else if (birth > actual && toBeBorn !== 1) {
+    // Aquí corregimos el caso
+    return `You will be born in ${Math.abs(toBeBorn)} years.`; // Aseguramos que sea un valor positivo
+  }
+}
+
+console.log(calculatetoAge(2000, 1990));
+
+function squareSum(numbers) {
+  const multipliedNumbers = numbers.map((number) => {
+    return (number = Math.pow(number, 2));
+  });
+  const sum = multipliedNumbers.reduce((acc, num) => acc + num, 0);
+  return sum;
+}
+
+console.log(squareSum([1, 2, 2]));
