@@ -1180,3 +1180,348 @@ function filter_list(l) {
 }
 
 console.log(filter_list([1, 2, "a", "b"]));
+
+function diamond(n) {
+  if (n < 0 || n % 2 === 0) {
+    return null;
+  }
+  const finalResult = [];
+  for (const i = "*"; finalResult.length < n; finalResult.push(i)) {
+    finalResult;
+  }
+  finalResult.push("\n");
+  const joinedResult = [finalResult.join("")];
+  //console.log(joinedResult)
+  const newArr = joinedResult.map((star, index) => {
+    star = [...joinedResult];
+  });
+  return joinedResult;
+}
+
+console.log(diamond(5));
+
+//
+//si el array es más largo de diez hay que devolver falso o menor que diez e impar hay que devolver falso
+// creas un forEach
+function isValidWalk(walk) {
+  let totalN = 0;
+  let totalS = 0;
+  let totalE = 0;
+  let totalW = 0;
+
+  walk.forEach((direction) => {
+    if (direction === "n") {
+      totalN += 1;
+    } else if (direction === "s") {
+      totalS += 1;
+    } else if (direction === "e") {
+      totalE += 1;
+    } else if (direction === "w") {
+      totalW += 1;
+    }
+  });
+
+  if (
+    walk.length === 10 &&
+    walk.length % 2 === 0 &&
+    totalE === totalW &&
+    totalN === totalS
+  ) {
+    return true;
+  }
+  return false;
+}
+
+console.log(isValidWalk(["n", "n", "n", "s", "n", "s", "n", "s", "n", "s"]));
+
+//
+
+function calculateAge(birth, actual) {
+  const age = actual - birth;
+  const toBeBorn = birth - actual;
+
+  if (birth < actual && age === 1) {
+    return `You are ${age} year old.`;
+  } else if (birth < actual && age > 1) {
+    return `You are ${age} years old.`;
+  } else if (birth === actual) {
+    return "You were born this very year!";
+  } else if (birth > actual && toBeBorn === 1) {
+    return `You will be born in ${toBeBorn} year.`;
+  } else if (birth > actual && toBeBorn !== 1) {
+    return `You will be born in ${Math.abs(toBeBorn)} years.`;
+  }
+}
+
+console.log(calculatetoAge(2000, 1990));
+
+function squareSum(numbers) {
+  const multipliedNumbers = numbers.map((number) => {
+    return (number = Math.pow(number, 2));
+  });
+  const sum = multipliedNumbers.reduce((acc, num) => acc + num, 0);
+  return sum;
+}
+
+console.log(squareSum([1, 2, 2]));
+
+//
+//
+
+function deleteNth(arr, n) {
+  const noRepeatPhotos = [];
+  const count = {};
+  arr.forEach((number) => {
+    if (!count[number]) {
+      count[number] = 0;
+    }
+
+    if (count[number] < n) {
+      noRepeatPhotos.push(number);
+      count[number]++;
+    }
+  });
+  return noRepeatPhotos;
+}
+
+console.log(deleteNth([20, 37, 20, 21], 1));
+
+// Ejercicio similar para prácticar
+
+const filterNumbersByLimit = (arr, n) => {
+  const noExtraNumbers = [];
+  const count = {};
+
+  arr.forEach((number) => {
+    if (!count[number]) {
+      count[number] = 0;
+    }
+
+    if (count[number] < n) {
+      noExtraNumbers.push(number);
+      count[number]++;
+    }
+  });
+  return noExtraNumbers;
+};
+
+console.log(filterNumbersByLimit([1, 2, 3, 1, 2, 1, 2, 3], 2));
+
+//
+// declaramos un array vacío
+// podría crear un forEach con un bucle en el que hay una constante i = 1, y una condición en la que pone hasta que number + numbers[index + i] === target, i++
+// y dentro se hace un push de indexOf(number) y indexOf(number[index + i]
+// finalmente devolvemos la variable vacía del principio
+
+function twoSum(numbers, target) {
+  const finalNumbers = [];
+  numbers.forEach((number, index) => {
+    let i = 1;
+    while (index + i < numbers.length) {
+      let sumOfNumbers = number + numbers[index + i];
+      if (sumOfNumbers === target) {
+        finalNumbers.push(index); // Usa `index` directamente
+        finalNumbers.push(index + i); // Usa `index + i` directamente
+        return;
+      }
+      i++;
+    }
+  });
+  return finalNumbers;
+}
+
+console.log(twoSum([1, 2, 3], 4));
+
+//
+// intentar separar el string a partir de un número que no sea 0 y partirlo en otro substring hasta el final
+// convertir el string en un array y ahcer un array del primer numeromque sea mayor que 0
+// pasar ese substring a Num y sumarle uno
+// más tarde sumarle el substring al string de antes sin el substring
+
+function incrementString(strng) {
+  const finalLetterIndex = strng
+    .split("")
+    .findLastIndex((char) => isNaN(Number(char)));
+  const subStr1 = strng.substring(0, finalLetterIndex + 1);
+  const subStr2 = strng.substring(finalLetterIndex + 1);
+  const incrementedNumber = String(Number(subStr2) + 1);
+
+  console.log(incrementedNumber);
+
+  if (finalLetterIndex === -1) {
+    const leadZeros = strng.length - incrementedNumber.length;
+    const finalNum = "0".repeat(Math.max(0, leadZeros)) + incrementedNumber;
+    return String(finalNum);
+  }
+
+  const leadingZeros = subStr2.length - incrementedNumber.length;
+  const finalNumber = "0".repeat(Math.max(0, leadingZeros)) + incrementedNumber;
+
+  return subStr1 + finalNumber;
+}
+
+console.log(incrementString("01"));
+
+// Encripta el mensaje
+var encryptThis = function (text) {
+  const encryptedMessage = [];
+  const asciiLetters = {
+    A: 65,
+    B: 66,
+    C: 67,
+    D: 68,
+    E: 69,
+    F: 70,
+    G: 71,
+    H: 72,
+    I: 73,
+    J: 74,
+    K: 75,
+    L: 76,
+    M: 77,
+    N: 78,
+    O: 79,
+    P: 80,
+    Q: 81,
+    R: 82,
+    S: 83,
+    T: 84,
+    U: 85,
+    V: 86,
+    W: 87,
+    X: 88,
+    Y: 89,
+    Z: 90,
+    a: 97,
+    b: 98,
+    c: 99,
+    d: 100,
+    e: 101,
+    f: 102,
+    g: 103,
+    h: 104,
+    i: 105,
+    j: 106,
+    k: 107,
+    l: 108,
+    m: 109,
+    n: 110,
+    o: 111,
+    p: 112,
+    q: 113,
+    r: 114,
+    s: 115,
+    t: 116,
+    u: 117,
+    v: 118,
+    w: 119,
+    x: 120,
+    y: 121,
+    z: 122,
+  };
+  text.split(" ").forEach((word) => {
+    const wordToArr = word.split("");
+    wordToArr[0] = asciiLetters[wordToArr[0]];
+    const secondValue = wordToArr[1]; //Copia de seguridad
+    wordToArr[1] = wordToArr[word.length - 1];
+    wordToArr[word.length - 1] = secondValue;
+    encryptedMessage.push(wordToArr.join(""));
+  });
+  return encryptedMessage.join(" ");
+};
+
+console.log(encryptThis("hello"));
+
+// Descifra el mensaje
+
+function decipherThis(str) {
+  const decipheredMessage = [];
+  const asciiLettersReversed = {
+    65: "A",
+    66: "B",
+    67: "C",
+    68: "D",
+    69: "E",
+    70: "F",
+    71: "G",
+    72: "H",
+    73: "I",
+    74: "J",
+    75: "K",
+    76: "L",
+    77: "M",
+    78: "N",
+    79: "O",
+    80: "P",
+    81: "Q",
+    82: "R",
+    83: "S",
+    84: "T",
+    85: "U",
+    86: "V",
+    87: "W",
+    88: "X",
+    89: "Y",
+    90: "Z",
+    97: "a",
+    98: "b",
+    99: "c",
+    100: "d",
+    101: "e",
+    102: "f",
+    103: "g",
+    104: "h",
+    105: "i",
+    106: "j",
+    107: "k",
+    108: "l",
+    109: "m",
+    110: "n",
+    111: "o",
+    112: "p",
+    113: "q",
+    114: "r",
+    115: "s",
+    116: "t",
+    117: "u",
+    118: "v",
+    119: "w",
+    120: "x",
+    121: "y",
+    122: "z",
+  };
+  str.split(" ").forEach((word) => {
+    const wordToArr = word.split("");
+
+    // Encontrar el índice donde empiezan las letras
+    const indexToSplit = wordToArr.findIndex((char) => isNaN(Number(char)));
+
+    if (indexToSplit === -1) {
+      // Caso donde toda la palabra es un número
+      const substNumber = word;
+      decipheredMessage.push(asciiLettersReversed[substNumber]);
+    } else {
+      // Dividir en números y letras
+      const substNumber = word.substring(0, indexToSplit);
+      const firstLetter = asciiLettersReversed[substNumber];
+
+      const substWord = word.substring(indexToSplit);
+      const substWordArr = substWord.split("");
+
+      // Reordenar las letras solo si hay más de un carácter
+      if (substWordArr.length > 1) {
+        const secondLetter = substWordArr[0];
+        substWordArr[0] = substWordArr[substWordArr.length - 1];
+        substWordArr[substWordArr.length - 1] = secondLetter;
+      }
+
+      // Combinar la letra descifrada con la palabra reordenada
+      const fullWord = firstLetter + substWordArr.join("");
+      decipheredMessage.push(fullWord);
+    }
+  });
+
+  return decipheredMessage.join(" ");
+}
+
+console.log(decipherThis("97"));
