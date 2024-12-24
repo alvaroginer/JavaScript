@@ -1525,3 +1525,54 @@ function decipherThis(str) {
 }
 
 console.log(decipherThis("97"));
+
+// pasar el número a string y después convewrtirlo en array
+// crear una función forEach que cada vez coja un number haga un subtring con esta y mida el length que tenga
+// después se hace un 0.repeat(substring.length - 1)
+// no obstante, este forEach debe tener un codicional y cuando number sea 0 debe hacer un early return
+// todo esto se copia en un array vacío
+
+function expandedForm(num) {
+  const addedNums = [];
+  const numToString = String(num);
+  const numToArr = numToString.split("");
+  numToArr.forEach((number, index) => {
+    if (number === "0") {
+      return;
+    }
+
+    const substr = numToString.substring(index);
+    const leadZeros = "0".repeat(Math.max(0, substr.length - 1));
+    addedNums.push(number + leadZeros);
+  });
+  return addedNums.join(" + ");
+}
+
+console.log(expandedForm(420370022));
+
+// primero habría que coger el array de categorías y transformarlo en un objeto con un map
+// hacer un forEach para book y separar el array por el espacio
+// transformar book[1] en un Number()
+// crear un condicional que ponga que si book empieza por alguna letra del objeto se le suma a lo que había book[1]
+
+function stockList(books, categories) {
+  const totalBooks = categories.map((category, index) => {
+    return { [category]: 0 };
+  });
+
+  books.forEach((book, index) => {
+    bookToArr = book.split(" ");
+    bookToArr[1] = Number(bookToArr[1]);
+
+    //falta revisar esta parte
+    if (totalBooks.startsWith(book[0])) {
+    }
+  });
+}
+
+console.log(
+  stockList(
+    ["BBAR 150", "CDXE 515", "BKWR 250", "BTSQ 890", "DRTY 600"],
+    ["A", "B", "C", "D"]
+  )
+);
