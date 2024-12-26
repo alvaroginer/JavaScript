@@ -1556,18 +1556,28 @@ console.log(expandedForm(420370022));
 // crear un condicional que ponga que si book empieza por alguna letra del objeto se le suma a lo que había book[1]
 
 function stockList(books, categories) {
-  const totalBooks = categories.map((category, index) => {
-    return { [category]: 0 };
-  });
+  if (books.length === 0 || categories.length === 0) {
+    return "";
+  }
+  let totalBooks = categories.reduce((acc, category) => {
+    acc[category] = 0;
+    return acc;
+  }, {});
 
   books.forEach((book, index) => {
-    bookToArr = book.split(" ");
-    bookToArr[1] = Number(bookToArr[1]);
+    const category = book[0];
+    const bookToArr = book.split(" ");
+    const quantity = Number(bookToArr[1]);
 
-    //falta revisar esta parte
-    if (totalBooks.startsWith(book[0])) {
+    if (category in totalBooks) {
+      totalBooks[category] += quantity;
     }
   });
+
+  totalBooks = Object.entries(totalBooks)
+    .map(([key, value]) => `(${key} : ${value})`)
+    .join(` - `);
+  return totalBooks;
 }
 
 console.log(
