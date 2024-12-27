@@ -52,3 +52,79 @@ const getFileNameWithoutExtension = (fileName) => {
 •	Ajuste: Es importante notar que si el archivo no tiene una extensión (como en file sin .txt), el substring devolverá el nombre completo sin cambios.
 5.	Manejo de errores con try...catch:
 •	Correcto: La función está envuelta en un bloque try...catch para manejar cualquier error que pueda ocurrir, como si la URL es inválida o si no se puede crear un objeto URL. Si hay un error, se captura y se muestra un mensaje en la consola. */
+
+/**
+ * 1. Averigüa qué debería hacer esta función
+ * Esta función coge como parámetro los segundos que le das y los desglosa en días, horas, minutos y segundos
+ *
+ * 2. La función no está funcionando bien, averigua qué está fallando y arréglalo.
+ *
+ * 3. Añade un parámetro a la función para que el usuario pueda elegir si quiere que salgan los días como horas.
+ */
+
+const MINUTE_IN_SECONDS = 60;
+const HOUR_IN_SECONDS = MINUTE_IN_SECONDS * 60;
+const DAY_IN_SECONDS = HOUR_IN_SECONDS * 24;
+
+const getCountdownShapeFromSeconds = (seconds, daysInHours) => {
+  const days = Math.floor(seconds / DAY_IN_SECONDS);
+  const hours = Math.floor((seconds % DAY_IN_SECONDS) / HOUR_IN_SECONDS);
+
+  if (!seconds) {
+    return {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+    };
+  } else if (daysInHours === true) {
+    return {
+      hours: Math.floor(seconds / HOUR_IN_SECONDS),
+      minutes: Math.floor((seconds % HOUR_IN_SECONDS) / 60),
+      seconds: Math.floor(seconds % 60),
+    };
+  } else {
+    return {
+      days: days,
+      hours: hours,
+      minutes: Math.floor((seconds % HOUR_IN_SECONDS) / 60),
+      seconds: Math.floor(seconds % 60),
+    };
+  }
+};
+
+console.log(getCountdownShapeFromSeconds(4578495, true));
+
+/*
+ * 1. Averigua qué debería hacer esta función. Tip: tiene cosas que pueden o no pasarse
+ */
+const getCountdownFormatted = (params) => {
+  const { days, hours, minutes, seconds } = params;
+
+  const zeroPad = (value) => {
+    if (value > 10) {
+      return `0${value}`;
+    }
+    return value;
+  };
+
+  const getFormattedPadOrEmpty = (value) => {
+    return value === "undefined" ? "" : `${zeroPad(value)}:`;
+  };
+
+  const formattedDays = getFormattedPadOrEmpty(days);
+  const formattedHours = getFormattedPadOrEmpty(hours);
+  const formattedMinutes = getFormattedPadOrEmpty(minutes);
+
+  return `${formattedDays}${formattedHours}${formattedMinutes}${zeroPad(
+    seconds
+  )}`;
+};
+
+/**
+ * 2. Arregla los bugs de la función.
+ */
+
+/**
+ * 3. Añádele un parámetro para que los días vayan en horas.
+ */
