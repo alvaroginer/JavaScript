@@ -99,8 +99,10 @@ console.log(getCountdownShapeFromSeconds(4578495, true));
  * 1. Averigua qué debería hacer esta función. Tip: tiene cosas que pueden o no pasarse
  */
 const getCountdownFormatted = (params) => {
+  //Aquí fomatea la función y pasa params a un objeto
   const { days, hours, minutes, seconds } = params;
 
+  //Aquí añade 0 a los valores, pero se los añade a cada valor??
   const zeroPad = (value) => {
     if (value > 10) {
       return `0${value}`;
@@ -108,6 +110,7 @@ const getCountdownFormatted = (params) => {
     return value;
   };
 
+  // Aquí parece que se vuelve a formatear value y se le dá un valor undefined
   const getFormattedPadOrEmpty = (value) => {
     return value === "undefined" ? "" : `${zeroPad(value)}:`;
   };
