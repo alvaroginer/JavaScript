@@ -93,36 +93,11 @@ const getCountdownShapeFromSeconds = (seconds, daysInHours) => {
   }
 };
 
-console.log(getCountdownShapeFromSeconds(4578495, true));
+console.log(getCountdownShapeFromSeconds(4578495, false));
 
 /*
  * 1. Averigua qué debería hacer esta función. Tip: tiene cosas que pueden o no pasarse
  */
-const getCountdownFormatted = (params) => {
-  //Aquí fomatea la función y pasa params a un objeto
-  const { days, hours, minutes, seconds } = params;
-
-  //Aquí añade 0 a los valores, pero se los añade a cada valor??
-  const zeroPad = (value) => {
-    if (value > 10) {
-      return `0${value}`;
-    }
-    return value;
-  };
-
-  // Aquí parece que se vuelve a formatear value y se le dá un valor undefined
-  const getFormattedPadOrEmpty = (value) => {
-    return value === "undefined" ? "" : `${zeroPad(value)}:`;
-  };
-
-  const formattedDays = getFormattedPadOrEmpty(days);
-  const formattedHours = getFormattedPadOrEmpty(hours);
-  const formattedMinutes = getFormattedPadOrEmpty(minutes);
-
-  return `${formattedDays}${formattedHours}${formattedMinutes}${zeroPad(
-    seconds
-  )}`;
-};
 
 /**
  * 2. Arregla los bugs de la función.
@@ -131,3 +106,40 @@ const getCountdownFormatted = (params) => {
 /**
  * 3. Añádele un parámetro para que los días vayan en horas.
  */
+
+// Esta función recoge el resultado de una función como getCountdownShapeFromSeconds y lo formatea
+
+const getCountdownFormatted = (params, daysInHours) => {
+  //Aquí desestructura la función y esta pasa de { days: 52, hours: 23, minutes: 48, seconds: 15 } a const { days, hours, minutes, seconds } = params;
+  const { days, hours, minutes, seconds } = params;
+
+  //Aquí añade 0 a los valores menores de diez para tener un formato adecuado de hora/contrareloj??
+  const zeroPad = (value) => {
+    if (value < 10) {
+      value = `0${value}`;
+    }
+    return value;
+  };
+
+  // Aquí parece que comprueba si es undefined, pero parece que no lo hace bien del todo
+  const getFormattedPadOrEmpty = (value) => {
+    return !value ? (value = "") : (value = `${zeroPad(value)}:`);
+  };
+
+  // Estas constantes da un tipo de error y comienza a procesar los valores como undefined
+  const formattedDays = getFormattedPadOrEmpty(days);
+  let formattedHours = getFormattedPadOrEmpty(hours);
+  const formattedMinutes = getFormattedPadOrEmpty(minutes);
+
+  if (daysInHours === true) {
+    formattedHours = getFormattedPadOrEmpty(days * 24 + hours);
+    return `${formattedHours}${formattedMinutes}${zeroPad(seconds)}`;
+  }
+  return `${formattedDays}${formattedHours}${formattedMinutes}${zeroPad(
+    seconds
+  )}`;
+};
+
+console.log(
+  getCountdownFormatted({ days: 5, hours: 3, minutes: 48, seconds: 1 }, true)
+);

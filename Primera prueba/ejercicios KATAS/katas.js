@@ -1586,3 +1586,25 @@ console.log(
     ["A", "B", "C", "D"]
   )
 );
+
+// Directions Reduction
+
+function dirReduc(arr) {
+  const directions = {
+    NORTH: 0,
+    SOUTH: 0,
+    EAST: 0,
+    WEST: 0,
+  };
+  const finalDirection = [];
+
+  arr.forEach((direction, index) => {
+    directions[direction] += 1;
+  });
+
+  return directions;
+}
+
+console.log(
+  dirReduc(["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"])
+);
