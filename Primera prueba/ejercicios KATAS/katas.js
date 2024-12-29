@@ -1588,7 +1588,8 @@ console.log(
 );
 
 // Directions Reduction
-
+// hacer un filter en el que se elimina
+//
 function dirReduc(arr) {
   const directions = {
     NORTH: 0,
@@ -1601,10 +1602,55 @@ function dirReduc(arr) {
   arr.forEach((direction, index) => {
     directions[direction] += 1;
   });
-
-  return directions;
 }
 
 console.log(
   dirReduc(["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"])
 );
+
+//
+
+function dirReduc(arr) {
+  const filteredDirections = [];
+  arr.forEach((direction, index) => {
+    while (
+      (direction === "NORTH" &&
+        (arr[index + 1] === "SOUTH" || arr[index - 1] === "SOUTH")) ||
+      (direction === "SOUTH" &&
+        (arr[index + 1] === "NORTH" || arr[index - 1] === "NORTH")) ||
+      (direction === "EAST" &&
+        (arr[index + 1] === "WEST" || arr[index - 1] === "WEST")) ||
+      (direction === "WEST" &&
+        (arr[index + 1] === "EAST" || arr[index - 1] === "EAST"))
+    ) {
+      return;
+    }
+    filteredDirections.push(direction);
+  });
+
+  console.log(filteredDirections);
+
+  const finalDirection = [];
+  filteredDirections.forEach((direction, index) => {
+    while (
+      (direction === "NORTH" &&
+        (filteredDirections[index + 1] === "SOUTH" ||
+          filteredDirections[index - 1] === "SOUTH")) ||
+      (direction === "SOUTH" &&
+        (filteredDirections[index + 1] === "NORTH" ||
+          filteredDirections[index - 1] === "NORTH")) ||
+      (direction === "EAST" &&
+        (filteredDirections[index + 1] === "WEST" ||
+          filteredDirections[index - 1] === "WEST")) ||
+      (direction === "WEST" &&
+        (filteredDirections[index + 1] === "EAST" ||
+          filteredDirections[index - 1] === "EAST"))
+    ) {
+      return;
+    }
+    finalDirection.push(direction);
+  });
+  return finalDirection;
+}
+
+console.log(dirReduc([]));
