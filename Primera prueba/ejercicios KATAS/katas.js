@@ -1653,4 +1653,21 @@ function dirReduc(arr) {
   return finalDirection;
 }
 
-console.log(dirReduc([]));
+console.log(
+  dirReduc([
+    "NORTH",
+    "SOUTH",
+    "EAST",
+    "WEST",
+    "SOUTH",
+    "NORTH",
+    "NORTH",
+    "EAST",
+    "WEST",
+    "EAST",
+    "SOUTH",
+    "NORTH",
+    "EAST",
+    "WEST",
+  ])
+);
