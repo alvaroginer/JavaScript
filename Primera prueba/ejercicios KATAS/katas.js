@@ -1614,18 +1614,17 @@ function dirReduc(arr) {
   const filteredDirections = [];
   arr.forEach((direction, index) => {
     while (
-      (direction === "NORTH" &&
-        (arr[index + 1] === "SOUTH" || arr[index - 1] === "SOUTH")) ||
-      (direction === "SOUTH" &&
-        (arr[index + 1] === "NORTH" || arr[index - 1] === "NORTH")) ||
-      (direction === "EAST" &&
-        (arr[index + 1] === "WEST" || arr[index - 1] === "WEST")) ||
-      (direction === "WEST" &&
-        (arr[index + 1] === "EAST" || arr[index - 1] === "EAST"))
+      (direction === "NORTH" && arr[index + 1] === "SOUTH") ||
+      (direction === "SOUTH" && arr[index + 1] === "NORTH") ||
+      (direction === "EAST" && arr[index + 1] === "WEST") ||
+      (direction === "WEST" && arr[index + 1] === "EAST")
     ) {
+      arr[index + 1] = null;
       return;
     }
-    filteredDirections.push(direction);
+    if (direction !== null) {
+      filteredDirections.push(direction);
+    }
   });
 
   console.log(filteredDirections);
@@ -1633,22 +1632,17 @@ function dirReduc(arr) {
   const finalDirection = [];
   filteredDirections.forEach((direction, index) => {
     while (
-      (direction === "NORTH" &&
-        (filteredDirections[index + 1] === "SOUTH" ||
-          filteredDirections[index - 1] === "SOUTH")) ||
-      (direction === "SOUTH" &&
-        (filteredDirections[index + 1] === "NORTH" ||
-          filteredDirections[index - 1] === "NORTH")) ||
-      (direction === "EAST" &&
-        (filteredDirections[index + 1] === "WEST" ||
-          filteredDirections[index - 1] === "WEST")) ||
-      (direction === "WEST" &&
-        (filteredDirections[index + 1] === "EAST" ||
-          filteredDirections[index - 1] === "EAST"))
+      (direction === "NORTH" && filteredDirections[index + 1] === "SOUTH") ||
+      (direction === "SOUTH" && filteredDirections[index + 1] === "NORTH") ||
+      (direction === "EAST" && filteredDirections[index + 1] === "WEST") ||
+      (direction === "WEST" && filteredDirections[index + 1] === "EAST")
     ) {
+      filteredDirections[index + 1] = null;
       return;
     }
-    finalDirection.push(direction);
+    if (direction !== null) {
+      finalDirection.push(direction);
+    }
   });
   return finalDirection;
 }
@@ -1671,3 +1665,118 @@ console.log(
     "WEST",
   ])
 );
+
+// Primero tengo que coger el string entero y hacerlo toUppercase
+// Luego cojo y divido el string por ; y lo convierto en array y luego hago otro split con los : el resultado sería [['JOHN', 'WALL']],
+// luego hago un push de los resultados así newList.push((direction[1], direction[2])
+// luego cunaod lo tenga todo hago un sort normal
+// y después hago un sort peros esta vez que los ordene a partir de los nombres
+
+function meeting(s) {
+  const formatedS = s.toUpperCase().split(";");
+  const separatedS = [];
+  formatedS.forEach((names) => {
+    names = names.split(":");
+    separatedS.push([names[1], names[0]]);
+  });
+  const orderLastName = separatedS.sort();
+  const finalResult = orderLastName.map((names) => {
+    return `(${names[0]}, ${names[1]})`;
+  });
+  return finalResult.join("");
+}
+
+console.log(
+  meeting(
+    "Fred:Corwill;Wilfred:Corwill;Barney:Tornbull;Betty:Tornbull;Bjon:Tornbull;Raphael:Corwill;Alfred:Corwill"
+  )
+);
+
+// Me he equivocado al entender la función, conviene revisar
+var uniqueInOrder = function (iterable) {
+  if (typeof iterable === "object") {
+    const newArr = [];
+    iterable.forEach((char) => {
+      if (newArr.includes(char) === false) {
+        newArr.push(char);
+      }
+      return;
+    });
+    return newArr;
+  } else if (typeof iterable === "string") {
+    const strToArr = [];
+    iterable.split("").forEach((char) => {
+      if (strToArr.includes(char) === false) {
+        strToArr.push(char);
+      }
+      return;
+    });
+    return strToArr;
+  }
+};
+
+console.log(uniqueInOrder("AAAABBBCCDAABBB"));
+
+//
+var uniqueInOrder = function (iterable) {
+  if (!iterable || iterable.length === 0) {
+    return [];
+  }
+  const toStr = typeof iterable === "string" ? iterable : iterable.join("");
+  const newArr = toStr.match(/(.)\1*/g);
+  return newArr.map((group) =>
+    !Number(group[0]) ? group[0] : Number(group[0])
+  );
+};
+
+console.log(uniqueInOrder("AAAABBBCCDAABBB"));
+
+//
+function animal(obj) {
+  return `This ${obj.color} ${obj.name} has ${obj.legs} legs.`;
+}
+
+console.log(animal({ name: "dog", legs: 4, color: "white" }));
+
+//
+function reverse(string) {
+  const reversedWords = [];
+  string.split(" ").forEach((word) => {
+    reversedWords.unshift(word);
+  });
+  return reversedWords.join(" ");
+}
+
+console.log(reverse("Hello World"));
+
+//
+
+function dataReverse(data) {
+  if (!data || data.length === 0) {
+    return [];
+  }
+  const separatedData = data.join("").match(/.{1,8}/g);
+  const finalResult = [];
+  separatedData.forEach((byte) => {
+    finalResult.unshift(byte);
+  });
+  const resultArr = finalResult.join("");
+  const resultToNum = resultArr.split("").map((number) => {
+    return Number(number);
+  });
+  return resultToNum;
+}
+
+console.log(
+  dataReverse([
+    1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
+    0, 1, 0, 1, 0, 1, 0,
+  ])
+);
+
+//
+function noOdds(values) {
+  return values.filter((number) => number % 2 === 0);
+}
+
+console.log(noOdds([0, 1, 2, 3]));
