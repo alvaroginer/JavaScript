@@ -1780,3 +1780,46 @@ function noOdds(values) {
 }
 
 console.log(noOdds([0, 1, 2, 3]));
+
+//
+
+//hay que separa el número y convertirlo en un array, una vez hecho lo multiplicas
+function persistence(num) {
+  let counter = 0;
+  while (num >= 10) {
+    num = [...num.toString()].reduce((p, v) => p * v);
+    counter++;
+  }
+  return counter;
+}
+
+console.log(persistence(4));
+
+//
+//
+// crear dos constantes de abecedario y una con números, una para mayúsculas y otra para minúsculas
+// hacer un map y poner varios condicionales
+// si es número devuelve error
+// si es símbolo devolver lo mismo
+// sino devolver la letra con (index + 13) % 26
+
+function rot13(message) {
+  const lowercase_alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const uppercase_alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  const newMessage = message.split("").map((char, index) => {
+    const positionUpper = uppercase_alphabet.indexOf(char);
+    const positionLower = lowercase_alphabet.indexOf(char);
+
+    if (char === lowercase_alphabet[positionLower]) {
+      return (char = lowercase_alphabet[(positionLower + 13) % 26]);
+    } else if (char === uppercase_alphabet[positionUpper]) {
+      return (char = uppercase_alphabet[(positionUpper + 13) % 26]);
+    } else {
+      return char;
+    }
+  });
+  return newMessage.join("");
+}
+
+console.log(rot13("Test"));
