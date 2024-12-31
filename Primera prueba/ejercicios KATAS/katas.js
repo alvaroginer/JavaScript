@@ -1823,3 +1823,61 @@ function rot13(message) {
 }
 
 console.log(rot13("Test"));
+
+//
+//puedo hacer un while con contador y un map y pner que si index % 2 !== 0 push(number) y sino unshift(number)
+// si esto no fucniona puedo hacer un forEach e ir añadiéndolo cada vez que se da la vuelta al array, quedaría entonces un listado con los resultados y tan solo tendría que coger el último
+
+function encrypt(text, n) {
+  let counter = 0;
+  let evenIndex = [];
+  let oddIndex = [];
+
+  if (text.length === 0 || n < 0) {
+    return text;
+  }
+
+  while (counter < n) {
+    text.split("").forEach((char, index) => {
+      index % 2 === 0 ? evenIndex.push(char) : oddIndex.push(char);
+    });
+    text = oddIndex.join("") + evenIndex.join("");
+    counter++;
+    evenIndex = [];
+    oddIndex = [];
+  }
+  return text;
+}
+
+console.log(encrypt("01234", 3));
+
+function decrypt(encryptedText, n) {
+  if (!encryptedText || encryptedText.length === 0 || n <= 0 || n === null) {
+    return encryptedText;
+  }
+
+  let length = encryptedText.length;
+
+  while (n > 0) {
+    let half = Math.floor(length / 2);
+    let oddPart = encryptedText.slice(0, half); // Primera mitad (impares originales)
+    let evenPart = encryptedText.slice(half); // Segunda mitad (pares originales)
+
+    let decryptedText = [];
+    for (let i = 0; i < length; i++) {
+      // Alternar entre oddPart y evenPart
+      if (i % 2 === 0) {
+        decryptedText.push(evenPart[Math.floor(i / 2)]);
+      } else {
+        decryptedText.push(oddPart[Math.floor(i / 2)]);
+      }
+    }
+
+    encryptedText = decryptedText.join("");
+    n--;
+  }
+
+  return encryptedText;
+}
+
+console.log(decrypt("hsi  etTi sats!", 1));
