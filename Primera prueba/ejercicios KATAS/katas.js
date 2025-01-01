@@ -1881,3 +1881,114 @@ function decrypt(encryptedText, n) {
 }
 
 console.log(decrypt("hsi  etTi sats!", 1));
+
+//
+function race(v1, v2, g) {
+  if (v1 >= v2) {
+    return null;
+  }
+  const timeToCatch = g / (v2 - v1);
+  const wholeHours = Math.floor(timeToCatch);
+  const minutes = Math.floor((timeToCatch % 1) * 60);
+  const seconds = Math.floor((((timeToCatch % 1) * 60) % 1) * 60);
+
+  if (seconds === 60) {
+    return [wholeHours, minutes + 1, 0];
+  }
+
+  return [wholeHours, minutes, seconds];
+}
+
+console.log(race(720, 850, 70));
+
+//
+function listSquared(m, n) {
+  let numbersBetween = [];
+
+  for (let i = m; i <= n; i++) {
+    numbersBetween.push(i);
+  }
+
+  let result = [];
+
+  numbersBetween.forEach((num) => {
+    let divisors = [];
+
+    for (let i = 1; i <= num; i++) {
+      if (num % i === 0) {
+        divisors.push(i);
+      }
+    }
+
+    let sumOfDivisors = divisors.reduce(
+      (sum, divisor) => sum + divisor * divisor,
+      0
+    );
+
+    let sqrt = Math.sqrt(sumOfDivisors);
+    if (Number.isInteger(sqrt)) {
+      result.push([num, sumOfDivisors]);
+    }
+  });
+
+  return result;
+}
+
+//
+function sumMul(n, m) {
+  if (n <= 0 || m <= 0) {
+    return "INVALID";
+  }
+  const multiplications = [];
+  for (let i = 1; i < m; i++) {
+    const multipliedNum = n * i;
+    if (multipliedNum < m) {
+      multiplications.push(multipliedNum);
+    }
+  }
+
+  const result = multiplications.reduce((acc, value) => {
+    return acc + value;
+  }, 0);
+
+  return result;
+}
+
+console.log(sumMul(2, 9));
+
+//
+function check(a, x) {
+  const isValue = a.find((value) => {
+    return value === x;
+  });
+  return;
+}
+
+console.log(check([66, 101], 66));
+
+//
+// primer conviertes la palabra en un array y haces un foEach de esta en el que pusheas todas las consonantes a un nuevo array
+// para ello debes haber definido una variable de vocales
+// luego creas una variable de alphabet y haces un map donde sustituyes el valor de la palabra por su index + 1
+// finalmente haces un reduce de ese array
+
+// este código no está bien
+function solve(s) {
+  const vowels = "aeiou";
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const consonants = s.split("").map((letter) => {
+    if (letter === vowels[vowels.indexOf(letter)]) {
+      return " ";
+    }
+    return letter;
+  });
+  console.log(consonants);
+
+  const consonantValue = consonants.map((letter) => {
+    return (letter = alphabet.indexOf(letter) + 1);
+  });
+
+  console.log(consonantValue);
+}
+
+console.log(solve("chruschtschov"));
