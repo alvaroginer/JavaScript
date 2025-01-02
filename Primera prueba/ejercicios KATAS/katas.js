@@ -1982,7 +1982,6 @@ function solve(s) {
     }
     return letter;
   });
-  console.log(consonants);
 
   const consonantValue = consonants.map((letter) => {
     return (letter = alphabet.indexOf(letter) + 1);
@@ -1992,3 +1991,6 @@ function solve(s) {
 }
 
 console.log(solve("chruschtschov"));
+
+//
+function solve(s) {}
