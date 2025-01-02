@@ -1972,7 +1972,10 @@ console.log(check([66, 101], 66));
 // luego creas una variable de alphabet y haces un map donde sustituyes el valor de la palabra por su index + 1
 // finalmente haces un reduce de ese array
 
-// este código no está bien
+// faltaría hacer un foreach y dos contadores uno para currentValue y otro para maxValue
+// si el number no es 0 el currentValue + number
+// si el number es 0 mathMax de currentValue maxValue y se reinicia currentValue
+
 function solve(s) {
   const vowels = "aeiou";
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -1987,10 +1990,21 @@ function solve(s) {
     return (letter = alphabet.indexOf(letter) + 1);
   });
 
-  console.log(consonantValue);
+  let currentValue = 0;
+  let maxValue = 0;
+
+  consonantValue.forEach((num) => {
+    if (num > 0) {
+      currentValue += num;
+      maxValue = Math.max(currentValue, maxValue);
+    } else if (num === 0) {
+      maxValue = Math.max(currentValue, maxValue);
+      currentValue = 0;
+    }
+  });
+  return maxValue;
 }
 
-console.log(solve("chruschtschov"));
+console.log(solve("az"));
 
 //
-function solve(s) {}
