@@ -1972,7 +1972,10 @@ console.log(check([66, 101], 66));
 // luego creas una variable de alphabet y haces un map donde sustituyes el valor de la palabra por su index + 1
 // finalmente haces un reduce de ese array
 
-// este código no está bien
+// faltaría hacer un foreach y dos contadores uno para currentValue y otro para maxValue
+// si el number no es 0 el currentValue + number
+// si el number es 0 mathMax de currentValue maxValue y se reinicia currentValue
+
 function solve(s) {
   const vowels = "aeiou";
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -1982,15 +1985,27 @@ function solve(s) {
     }
     return letter;
   });
-  console.log(consonants);
 
   const consonantValue = consonants.map((letter) => {
     return (letter = alphabet.indexOf(letter) + 1);
   });
 
-  console.log(consonantValue);
+  let currentValue = 0;
+  let maxValue = 0;
+
+  consonantValue.forEach((num) => {
+    if (num > 0) {
+      currentValue += num;
+      maxValue = Math.max(currentValue, maxValue);
+    } else if (num === 0) {
+      maxValue = Math.max(currentValue, maxValue);
+      currentValue = 0;
+    }
+  });
+  return maxValue;
 }
 
+<<<<<<< HEAD
 console.log(solve("chruschtschov"));
 
 //puedo coger y hacer un filter y para cada número hacer un bucle en el que sumas num con cada numero del array y en caso de que den la suma devuelves ese número
@@ -2024,5 +2039,8 @@ function sumPairs(ints, s) {
 }
 
 console.log(sumPairs([1, 4, 8, 7, 3, 15], 8));
+=======
+console.log(solve("az"));
+>>>>>>> c019c4198006796701acf900ba50d5800b17d1aa
 
 //
