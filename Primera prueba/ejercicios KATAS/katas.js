@@ -1992,3 +1992,37 @@ function solve(s) {
 }
 
 console.log(solve("chruschtschov"));
+
+//puedo coger y hacer un filter y para cada número hacer un bucle en el que sumas num con cada numero del array y en caso de que den la suma devuelves ese número
+// si hago un bucle tendré que que hacer % en este para asegurarme de que lo recorre siempre
+// esta función se resuleve con un hashmap
+function sumPairs(ints, s) {
+  const result = [];
+  ints.forEach((num, index) => {
+    for (let i = index + 1; i < ints.length; i++) {
+      let addedNum = num + ints[i];
+      console.log(addedNum);
+      if (addedNum === s) {
+        result.push([num, ints[i], i]);
+      }
+    }
+  });
+
+  if (result.length === 0) {
+    return undefined;
+  } else if (result.length === 1) {
+    return result[0].slice(0, 2);
+  } else {
+    let bestPair = result[0];
+    result.forEach((arr) => {
+      if (arr[2] < bestPair[2]) {
+        bestPair = arr;
+      }
+    });
+    return bestPair.slice(0, 2);
+  }
+}
+
+console.log(sumPairs([1, 4, 8, 7, 3, 15], 8));
+
+//
