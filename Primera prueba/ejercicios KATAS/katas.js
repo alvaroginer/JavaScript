@@ -2005,7 +2005,6 @@ function solve(s) {
   return maxValue;
 }
 
-<<<<<<< HEAD
 console.log(solve("chruschtschov"));
 
 //puedo coger y hacer un filter y para cada número hacer un bucle en el que sumas num con cada numero del array y en caso de que den la suma devuelves ese número
@@ -2039,8 +2038,164 @@ function sumPairs(ints, s) {
 }
 
 console.log(sumPairs([1, 4, 8, 7, 3, 15], 8));
-=======
-console.log(solve("az"));
->>>>>>> c019c4198006796701acf900ba50d5800b17d1aa
 
 //
+function operation(a, b) {
+  let counter = 0;
+  if (a === b) {
+    return counter;
+  }
+  for (counter = 0; a !== b; counter++) {
+    if (a > b && a % 2 !== 0) {
+      a = (a - 1) / 2;
+    } else if (a > b && a % 2 === 0) {
+      a = a / 2;
+    } else if (a < b) {
+      a = a * 2;
+    }
+  }
+  return counter;
+}
+
+console.log(operation(1, 1));
+
+// hacer un bucle con todos los números entre 1 y number y pasarlo a un array vacío
+// coger ese array vacío y hacer un filter con las siguientes indicaciones num % 3 === 0 || num % 5 === 0 return
+
+function solution(number) {
+  const betweenNums = [];
+  for (let i = 1; i < number; i++) {
+    betweenNums.push(i);
+  }
+  const filteredNums = betweenNums.filter((num) => {
+    if (num % 3 === 0 || num % 5 === 0) {
+      return num;
+    }
+  });
+
+  const finalNum = filteredNums.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
+
+  return finalNum < 0 ? 0 : finalNum;
+}
+
+console.log(solution(10));
+
+// lo primero es pasar la palabra entera a toLowerCase entera
+//
+//
+function duplicateCount(text) {
+  const textToArr = text.toLowerCase().split("");
+  const filteredChars = textToArr.filter((char) => {
+    if (textToArr.indexOf(char) !== textToArr.lastIndexOf(char)) {
+      return char;
+    }
+  });
+
+  const finalResult = [];
+  filteredChars.forEach((char) => {
+    if (!finalResult.includes(char)) {
+      finalResult.push(char);
+    }
+  });
+  return finalResult.length;
+}
+
+console.log(duplicateCount("aabbcde"));
+
+//
+
+String.prototype.camelCase = function () {
+  if (this === "") {
+    return this;
+  }
+
+  const strToArr = this.split(" ");
+
+  const toCamelCase = strToArr.map((word, index) => {
+    return word[0].toUpperCase() + word.slice(1).toLowerCase();
+  });
+  return toCamelCase.join("");
+};
+
+console.log("".camelCase());
+
+//
+// separar el string por palabras y hacer un forEach
+// primero ponemos un condicional en el que decimos que si word.length < 5 sea pushea la palabra entera, sino se guarda la palabra en una nueva constante como un array separado y a esta se le hace otro forEach con unshift y luego esta constante se pushea a la constante de fuera del ciclo
+function spinWords(string) {
+  const result = [];
+  string.split(" ").forEach((word) => {
+    if (word.length < 5) {
+      result.push(word);
+    } else {
+      const separatedWord = word.split("");
+      const reversedWord = [];
+
+      separatedWord.forEach((char) => {
+        reversedWord.unshift(char);
+      });
+      result.push(reversedWord.join(""));
+    }
+  });
+  return result.join(" ");
+}
+
+console.log(spinWords("Hey fellow warriors"));
+
+//
+// pasar el número a
+//
+function digitalRoot(n) {
+  while (n >= 10) {
+    const digits = n.toString().split("");
+    const realDigits = digits.map(Number);
+    n = realDigits.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+  }
+  return n;
+}
+
+console.log(digitalRoot(456));
+
+// creas una variable de solo 0 y otra variable para el resto
+// creas un forEach y vas pusheando los valores a cada una de las variables
+// y luego haces un array.concat
+
+function moveZeros(arr) {
+  const onlyCeros = [];
+  const notCeros = [];
+
+  arr.forEach((char) => {
+    if (char === 0) {
+      onlyCeros.push(char);
+    } else {
+      notCeros.push(char);
+    }
+  });
+
+  return notCeros.concat(onlyCeros);
+}
+
+console.log(moveZeros([false, 1, 0, 1, 2, 0, 1, 3, "a"]));
+
+// primero de todo coger el string y separarlo en un array por palabras
+// hacer un forEach y hacer word.split
+// falta terminar la función
+
+function pigIt(str) {
+  const result = [];
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+  str.split(" ").forEach((word, index) => {
+    const separatedWord = word.split("");
+    result.push(word.slice(1) + separatedWord[0] + "ay");
+  });
+  return result.join(" ");
+}
+
+console.log(pigIt("Pig latin is cool"));
