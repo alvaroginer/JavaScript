@@ -2190,12 +2190,59 @@ console.log(moveZeros([false, 1, 0, 1, 2, 0, 1, 3, "a"]));
 function pigIt(str) {
   const result = [];
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const punctuationMarks = ".,;:!?-()[]{}\"'...";
 
   str.split(" ").forEach((word, index) => {
-    const separatedWord = word.split("");
-    result.push(word.slice(1) + separatedWord[0] + "ay");
+    if (punctuationMarks.includes(word)) {
+      return word;
+    }
+    const firstLetter = word[0];
+    result.push(word.slice(1) + firstLetter + "ay");
   });
   return result.join(" ");
 }
 
 console.log(pigIt("Pig latin is cool"));
+
+//
+function createPhoneNumber(numbers) {
+  if (numbers.length === 10) {
+    return `(${numbers[0]}${numbers[1]}${numbers[2]}) ${numbers[3]}${numbers[4]}${numbers[5]}-${numbers[6]}${numbers[7]}${numbers[8]}${numbers[9]}`;
+  }
+}
+
+console.log(createPhoneNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]));
+
+//
+
+function findOutlier(integers) {
+  const oddNums = [];
+  const evenNums = [];
+
+  integers.forEach((num) => {
+    num % 2 === 0 ? evenNums.push(num) : oddNums.push(num);
+  });
+
+  if (oddNums.length === 1) {
+    return oddNums[0];
+  }
+  return evenNums[0];
+}
+
+console.log(findOutlier([0, 1, 2]));
+
+//
+function toCamelCase(str) {
+  const wordCamelCase = str.split(/-|_/).map((word, index) => {
+    if (index === 0) {
+      return word;
+    } else {
+      const firstLetter = word[0];
+      return firstLetter.toUpperCase() + word.slice(1);
+    }
+  });
+
+  return wordCamelCase.join("");
+}
+
+console.log(toCamelCase("The-cat_Is_pipi"));
