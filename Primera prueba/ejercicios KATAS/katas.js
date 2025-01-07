@@ -2272,6 +2272,7 @@ function humanReadable(seconds) {
 
 console.log(humanReadable(3600));
 
+//
 function getDivisorsCnt(n) {
   let divisors = 0;
   for (let i = 1; i <= n; i++) {
@@ -2281,3 +2282,140 @@ function getDivisorsCnt(n) {
   }
   return divisors;
 }
+
+// Puedo hacer un split.(' ') y luego un map
+// luego coges cada palabra como un value y creas dentro una constante firstLetter = word[0] y esta constante la haces to UpperCase, lo devuelves con un join('')
+// una vez tengas el resultado compruebas que si el result es vacío o tiene un length > 140 lo devuelves
+
+function generateHashtag(str) {
+  const trimmedStr = str.trim();
+
+  if (trimmedStr === "") {
+    return false;
+  }
+  const formatedStr = trimmedStr.split(/\s+/).map((word) => {
+    const firstLetter = word[0];
+    return firstLetter.toUpperCase() + word.slice(1);
+  });
+
+  const withHashtag = "#" + formatedStr.join("");
+
+  return withHashtag.length > 140 ? false : withHashtag;
+}
+
+console.log(generateHashtag("   "));
+
+// hacer un for comprobando cada propiedad de los objetos con hasOwnProperty
+// pendiente de resolver
+function cakes(recipe, available) {
+  return available.hasOwnProperty(`${recipe[0]}`);
+}
+
+console.log(
+  cakes(
+    { flour: 500, sugar: 200, eggs: 1 },
+    { flour: 1200, sugar: 1200, eggs: 5, milk: 200 }
+  )
+);
+
+// hacer un find de la letra que solo aparezca una vez
+function firstNonRepeatingLetter(s) {
+  const toLowerCaseStr = s.toLowerCase();
+  const firstChar = s.split("").find((char) => {
+    const lowerChar = char.toLowerCase();
+    return (
+      toLowerCaseStr.indexOf(lowerChar) ===
+      toLowerCaseStr.lastIndexOf(lowerChar)
+    );
+  });
+
+  return firstChar || "";
+}
+
+console.log(firstNonRepeatingLetter("~0TB!&Tt/BP90N!~fJ!JB"));
+
+// crear una función que sume los digitos de un número entre sí, copiarlos en un nuevo array y ordenar los números en ese
+
+function orderWeight(strng) {
+  function sumOfDigit(strng) {
+    let sum = 0;
+
+    for (let digit of strng) {
+      sum += parseInt(digit);
+    }
+
+    return sum;
+  }
+  return strng.split("").sort(sumOfDigit(strng));
+}
+
+console.log(orderWeight("103 123 4444 99 2000"));
+
+// crear una función con un foreach y una constante que tenga que replicar la palabra de str2, si la letra encaja se le cambia el valor por un vacío
+// la función va bien, pero parece que falla por rendimiento
+
+function scramble(str1, str2) {
+  const repeatStr2 = [];
+  str1ToArr = str1.split("");
+  str2.split("").forEach((letter) => {
+    if (str1ToArr.includes(letter)) {
+      repeatStr2.push(letter);
+      str1ToArr[str1ToArr.indexOf(letter)] = "";
+    } else {
+      repeatStr2.push("undefined");
+    }
+  });
+
+  return str2 === repeatStr2.join("");
+}
+
+console.log(scramble("rkqodlw", "world"));
+
+// prueba a almacenar los valores en un objeto y comprobar que ambos
+
+// terminar mañana
+function findMissingLetter(array) {
+  const alphabet = [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z",
+  ];
+
+  const arrLower = array.join("").toLowerCase().split("");
+  const startIndex = alphabet.indexOf(arrLower[0]);
+  const completeAbc = alphabet.slice(
+    startIndex,
+    startIndex + arrLower.length + 1
+  );
+  const extraLetter = completeAbc.find((letter) => !arrLower.includes(letter));
+
+  return array[0] === array[0].toUpperCase()
+    ? extraLetter.toUpperCase()
+    : extraLetter;
+}
+
+console.log(findMissingLetter(["a", "b", "c", "d", "f"]));
+//
