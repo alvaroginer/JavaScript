@@ -2246,3 +2246,38 @@ function toCamelCase(str) {
 }
 
 console.log(toCamelCase("The-cat_Is_pipi"));
+
+// hay que tener cuidado porque cuando seconds o minutes sea 60 implica que son cero y el siguiente suma uno, sea 60 eso implica que
+
+function humanReadable(seconds) {
+  let hours = Math.floor(seconds / 3600);
+  let remainingSeconds = seconds % 3600;
+  let minutes = Math.floor(remainingSeconds / 60);
+  let finalSeconds = seconds % 60;
+
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  if (finalSeconds < 10) {
+    finalSeconds = `0${finalSeconds}`;
+  }
+
+  return `${hours}:${minutes}:${finalSeconds}`;
+}
+
+console.log(humanReadable(3600));
+
+function getDivisorsCnt(n) {
+  let divisors = 0;
+  for (let i = 1; i <= n; i++) {
+    if (n % i === 0) {
+      divisors++;
+    }
+  }
+  return divisors;
+}
