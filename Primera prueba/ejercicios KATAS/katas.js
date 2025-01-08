@@ -2418,4 +2418,65 @@ function findMissingLetter(array) {
 }
 
 console.log(findMissingLetter(["a", "b", "c", "d", "f"]));
+
 //
+
+function narcissistic(value) {
+  const digits = value.toString().split("");
+  const realDigits = digits.map(Number);
+
+  const poweredDigits = realDigits.map((number) => number ** digits.length);
+
+  const addedNums = poweredDigits.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
+
+  return addedNums === value;
+}
+
+console.log(narcissistic(153));
+
+//
+
+function solution(str) {
+  if (str === "") {
+    return [];
+  }
+
+  const regex = /.{1,2}/g;
+
+  const result = str.match(regex);
+  const formatedStr = result.map((letters) => {
+    if (letters.length < 2) {
+      return `${letters}_`;
+    }
+    return letters;
+  });
+  return formatedStr;
+}
+
+console.log(solution(""));
+
+//
+function inArray(array1, array2) {
+  const includedArrs = [];
+  array1.forEach((str) => {
+    const word = str;
+    array2.forEach((word2) => {
+      if (word2.includes(word) && !includedArrs.includes(word)) {
+        includedArrs.push(word);
+      }
+      return;
+    });
+  });
+
+  return includedArrs.sort();
+}
+
+console.log(
+  inArray(
+    ["xyz", "live", "strong"],
+    ["lively", "alive", "harp", "sharp", "armstrong"]
+  )
+);
