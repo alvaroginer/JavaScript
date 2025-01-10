@@ -2480,3 +2480,84 @@ console.log(
     ["lively", "alive", "harp", "sharp", "armstrong"]
   )
 );
+
+// Tres en raya
+// hacemos un forEach de la función y dentro de esa función hacemos un every de cada row para ver si sus números son todos 1 o 2 (comprobamos todas las soluciones verticales)
+// podemos crear un while dentro del primer forEach y poner que mientras que row[0]
+// para las de esquina a esquina hay que poner tan solo un condicional largo
+
+function isSolved(board) {
+  let state = 0;
+  const wonX = [1, 1, 1];
+  const wonO = [2, 2, 2];
+
+  // Comprueba el resultado horizontal
+  board.forEach((row) => {
+    if (JSON.stringify(row) === JSON.stringify(wonX)) {
+      state = 1;
+    } else if (JSON.stringify(row) === JSON.stringify(wonO)) {
+      state = 2;
+    }
+  });
+  // Comprueba si es 1 o 2
+  if (state > 0) {
+    return state;
+  }
+
+  // Comprueba el resultado vertical
+  const position0 = [];
+  const position1 = [];
+  const position2 = [];
+  board.forEach((row) => {
+    position0.push(row[0]);
+    position1.push(row[1]);
+    position2.push(row[2]);
+  });
+  if (
+    JSON.stringify(position0) === JSON.stringify(wonX) ||
+    JSON.stringify(position1) === JSON.stringify(wonX) ||
+    JSON.stringify(position2) === JSON.stringify(wonX)
+  ) {
+    return (state = 1);
+  } else if (
+    JSON.stringify(position0) === JSON.stringify(wonO) ||
+    JSON.stringify(position1) === JSON.stringify(wonO) ||
+    JSON.stringify(position2) === JSON.stringify(wonO)
+  ) {
+    return (state = 2);
+  }
+
+  // Comprueba el resultado diagonal
+  const firstRow = board[0];
+  const secondRow = board[1];
+  const thirdRow = board[2];
+  const diagonalOne = [firstRow[0], secondRow[1], thirdRow[2]];
+  const diagonalTwo = [firstRow[2], secondRow[1], thirdRow[0]];
+
+  if (
+    JSON.stringify(diagonalOne) === JSON.stringify(wonX) ||
+    JSON.stringify(diagonalTwo) === JSON.stringify(wonX)
+  ) {
+    return (state = 1);
+  } else if (
+    JSON.stringify(diagonalOne) === JSON.stringify(wonO) ||
+    JSON.stringify(diagonalTwo) === JSON.stringify(wonO)
+  ) {
+    return (state = 2);
+  } else if (
+    firstRow.includes(0) ||
+    secondRow.includes(0) ||
+    thirdRow.includes(0)
+  ) {
+    return (state = -1);
+  }
+  return state;
+}
+
+console.log(
+  isSolved([
+    [1, 1, 1],
+    [0, 2, 2],
+    [0, 0, 0],
+  ])
+);
