@@ -143,3 +143,14 @@ const getCountdownFormatted = (params, daysInHours) => {
 console.log(
   getCountdownFormatted({ days: 5, hours: 3, minutes: 48, seconds: 1 }, true)
 );
+
+//
+const names = "Alba Ana Maria";
+const separetedNames = (names) => {
+  const formtaedNames = names.split(" ").map((name) => {
+    return `Hola ${name}`;
+  });
+  return formtaedNames.join(" ");
+};
+
+console.log(separetedNames(names));
