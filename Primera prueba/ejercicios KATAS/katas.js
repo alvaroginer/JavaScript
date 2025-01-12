@@ -2561,3 +2561,23 @@ console.log(
     [0, 0, 0],
   ])
 );
+
+//
+function rot13(str) {
+  const toRot13 = str.split("").map((letter, index) => {
+    const alphabet_uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const alphabet_lowercase = "abcdefghijklmnopqrstuvwxyz";
+    if (alphabet_lowercase.includes(letter)) {
+      let indexLetter = alphabet_lowercase.indexOf(letter);
+      return (letter = alphabet_lowercase[(indexLetter + 13) % 26]);
+    } else if (alphabet_uppercase.includes(letter)) {
+      let indexLetter = alphabet_uppercase.indexOf(letter);
+      return (letter = alphabet_uppercase[(indexLetter + 13) % 26]);
+    } else {
+      return letter;
+    }
+  });
+  return toRot13.join("");
+}
+
+console.log(rot13("EBG13 rknzcyr."));
