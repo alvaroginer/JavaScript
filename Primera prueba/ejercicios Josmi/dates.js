@@ -128,6 +128,55 @@ console.log(passedTime(now3, date3, parameters));
  * 9. Crea una función como la anterior, pero que indique cuánto tiempo queda para una fecha específica.
  */
 
+const now4 = new Date();
+const date4 = new Date("2025-03-25T00:00:00.000Z");
+const parameters1 = { minutes: false, seconds: false };
+
+const howMuchTime = (now, date, { days, hours, minutes, seconds }) => {
+  const time = date.getTime() - now.getTime();
+
+  let timeInDays = Math.floor(time / (1000 * 60 * 60 * 24));
+  let timeInH = Math.floor((time / (1000 * 60 * 60)) % 24);
+  let timeInMin = Math.floor((time / (1000 * 60)) % 60);
+  let timeInSec = Math.floor((time / 1000) % 60);
+
+  let result = `El tiempo que falta para el ${date.toLocaleDateString("es", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  })} es de `;
+
+  if (timeInDays > 0 && days !== false) {
+    result += `${timeInDays} ${timeInDays > 1 ? "días" : "día"}, `;
+  } else if (days === false) {
+    timeInH = Math.floor(time / (1000 * 60 * 60));
+  }
+
+  if (timeInH > 0 && hours !== false) {
+    result += `${timeInH} ${timeInH > 1 ? "horas" : "hora"}, `;
+  } else if (hours === false) {
+    timeInMin = Math.floor(time / (1000 * 60));
+  }
+
+  if (timeInMin > 0 && minutes !== false) {
+    result += `${timeInMin} ${timeInMin > 1 ? "minutos" : "minuto"}, `;
+  } else if (minutes === false) {
+    timeInSec = Math.floor(time / 1000);
+  }
+
+  if (timeInSec > 0 && seconds !== false) {
+    result += `${timeInSec} ${timeInSec > 1 ? "segundos" : "segundo"}`;
+  } else if (seconds === false) {
+    result;
+  }
+
+  result = result.endsWith(", ") ? result.slice(0, -2) : result;
+
+  return result.replace(/,([^,]*)$/, " y$1");
+};
+
+console.log(howMuchTime(now4, date4, parameters1));
+
 /**
  * 10. Dado el array de ejemplo que pongo, haz una función que filtre las tareas completadas el 9 de enero durante todo el día
  */
