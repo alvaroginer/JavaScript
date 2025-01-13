@@ -2593,3 +2593,42 @@ function toUnderscore(string) {
 }
 
 console.log(toUnderscore(1));
+
+//
+function mixFruit(arr) {
+  const regularFruits = ["banana", "orange", "apple", "lemon", "grapes"];
+  const sepcialFruits = ["avocado", "strawberry", "mango"];
+  let price = 0;
+
+  arr.forEach((fruit) => {
+    if (regularFruits.includes(fruit.toLowerCase())) {
+      price += 5;
+    } else if (sepcialFruits.includes(fruit.toLowerCase())) {
+      price += 7;
+    } else {
+      price += 9;
+    }
+  });
+
+  return Math.round(price / arr.length);
+}
+
+console.log(mixFruit(["melon", "Mango", "kiwi"]));
+
+// Habría que sumar ambas constantes y pasarla a array
+// luego habría que crear un array vacío en el que se pushea poco a poco cada letra, una vez se pushea esa letra esta se convierte en un * (para evitar palabras repetidas)
+// finalmente se compara nuestra constante con s
+// falta meter un sort
+
+function isMerge(s, part1, part2) {
+  const parts = part1 + part2;
+  const result = [];
+
+  parts.split("").forEach((char) => {
+    if (s.includes(char)) {
+      result.push(char);
+      char = "*";
+    }
+  });
+}
+console.log(isMerge("codewars", "cdwr", "oeas"));
