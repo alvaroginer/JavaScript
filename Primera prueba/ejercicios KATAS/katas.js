@@ -2622,7 +2622,7 @@ console.log(mixFruit(["melon", "Mango", "kiwi"]));
 
 function isMerge(s, part1, part2) {
   const parts = part1 + part2;
-  const result = [];
+  let result = [];
 
   parts.split("").forEach((char) => {
     if (s.includes(char)) {
@@ -2630,5 +2630,13 @@ function isMerge(s, part1, part2) {
       char = "*";
     }
   });
+
+  result = result.sort((a, b) => {
+    return s.indexOf(a) - s.indexOf(b);
+  });
+
+  console.log(result);
+
+  return result.join("") === s;
 }
-console.log(isMerge("codewars", "cdwr", "oeas"));
+console.log(isMerge("xcyc", "xc", "yc"));
