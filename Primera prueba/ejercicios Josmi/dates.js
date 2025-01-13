@@ -195,7 +195,7 @@ const tasks = [
   {
     text: "Comer a clase",
     completed: true,
-    completedAt: "2025-01-9T14:00:40.088Z",
+    completedAt: "2025-01-09T14:00:40.088Z",
   },
   {
     text: "Repasar javascript",
