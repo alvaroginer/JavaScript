@@ -2581,3 +2581,15 @@ function rot13(str) {
 }
 
 console.log(rot13("EBG13 rknzcyr."));
+
+//
+
+function toUnderscore(string) {
+  if (typeof string === `number`) {
+    return string.toString();
+  }
+  const formatedText = string.replace(/(?<!^)([A-Z])/g, "_$1");
+  return formatedText.toLowerCase();
+}
+
+console.log(toUnderscore(1));
