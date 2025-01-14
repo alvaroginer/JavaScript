@@ -3,9 +3,9 @@
  * 3. Modifica la función del ejercicio 1 para que sea más genérica y que permita sumar días, horas, minutos o segundos
  */
 
-const now = new Date();
-const time = { days: 20, hours: 3, minutes: 40, seconds: 15 };
-const addDays = ({ days, hours, minutes, seconds }, date) => {
+const addDays = (unitToSum, date) => {
+  const { days = 0, hours = 0, minutes = 0, seconds = 0 } = unitToSum;
+
   //Pasamos los valores a minisegundos
   const daysToMs = days * 24 * 60 * 60 * 1000;
   const hoursToMs = hours * 60 * 60 * 1000;
@@ -14,13 +14,11 @@ const addDays = ({ days, hours, minutes, seconds }, date) => {
 
   return new Date(
     date.getTime() + daysToMs + hoursToMs + minsToMs + secondsToMs
-  ).toLocaleDateString("es", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "2-digit",
-  });
+  ).toLocaleString("es");
 };
 
+const now = new Date();
+const time = { hours: 3, minutes: 40, seconds: 15 };
 console.log(addDays(time, now));
 
 /**
@@ -52,15 +50,16 @@ console.log(restDays(time1, now1));
  * 5. Crea una función que compruebe si una fecha está entre otras dos fechas.
  */
 
-const now2 = new Date();
-const date1 = new Date("2025-01-01T00:00:00.000Z");
-const date2 = new Date("2025-01-31T00:00:00.000Z");
-
-const isBetweenDates = (date1, date2, now) => {
-  return now.getTime() > date1.getTime() && now.getTime() < date2.getTime()
-    ? true
-    : false;
+const isBetweenDates = (startDate, finishDate, isMiddledate) => {
+  return (
+    isMiddledate.getTime() >= startDate.getTime() &&
+    isMiddledate.getTime() <= finishDate.getTime()
+  );
 };
+
+const isMiddledate = new Date();
+const startDate = new Date("2025-01-01T00:00:00.000Z");
+const finishDate = new Date("2025-01-31T00:00:00.000Z");
 
 console.log(isBetweenDates(date1, date2, now2));
 
@@ -74,10 +73,6 @@ console.log(isBetweenDates(date1, date2, now2));
  * 8. Modifica la función anterior para que se le pueda pasar un objeto que permita desactivar los días, las horas, los minutos o los segundos
  * Por ejemplo, si le paso { days: false, hours: false } la función debe devolver solo los minutos y los segundos que han pasado.
  */
-
-const now3 = new Date();
-const date3 = new Date("2024-03-25T00:00:00.000Z");
-const parameters = { minutes: false, seconds: false };
 
 const passedTime = (now, date, { days, hours, minutes, seconds }) => {
   const time = now.getTime() - date.getTime();
@@ -121,6 +116,10 @@ const passedTime = (now, date, { days, hours, minutes, seconds }) => {
 
   return result.replace(/,([^,]*)$/, " y$1");
 };
+
+const now3 = new Date();
+const date3 = new Date("2024-03-25T00:00:00.000Z");
+const parameters = { hours: false, seconds: false };
 
 console.log(passedTime(now3, date3, parameters));
 

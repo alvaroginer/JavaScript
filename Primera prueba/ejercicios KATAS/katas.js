@@ -2656,8 +2656,9 @@ console.log(isMerge("xcyc", "xc", "yc"));
 // convertir los strings en un array y crear un objeto que cuente el número de veces que aparece una letra
 
 function mix(s1, s2) {
-  const counter1 = {};
-  const counter2 = {};
+  const counter1 = { a: 5, n: 2 };
+  const counter2 = { c: 1, a: 1 };
+  ["a", "n", "c"];
   const alphabet = '"abcdefghijklmnopqrstuvwxyz"';
 
   s1.split("").forEach((char) => {
@@ -2682,7 +2683,7 @@ function mix(s1, s2) {
     }
   });
 
-  const entries1 = Object.entries(counter1);
+  const properties = [...Object.keys(counter1), ...Object.keys(counter2)];
   const entries2 = Object.entries(counter2);
 
   const filterEntries1 = entries1.filter((entry) => {
