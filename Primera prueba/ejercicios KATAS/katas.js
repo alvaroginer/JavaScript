@@ -2687,7 +2687,10 @@ function mix(s1, s2) {
   //console.log(counter2)
 
   const properties = { ...counter1, ...counter2 };
-  console.log(properties);
+  const filterProperties = Object.keys(properties).filter((key) => {
+    return properties[key] > 1;
+  });
+  console.log(filterProperties);
 }
 
 console.log(mix("Are they here", "yes, they are here"));
