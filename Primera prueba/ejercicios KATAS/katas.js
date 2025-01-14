@@ -2628,6 +2628,7 @@ function isMerge(s, part1, part2) {
     if (s.includes(char)) {
       result.push(char);
       char = "*";
+      console.log(parts);
     }
   });
 
@@ -2640,3 +2641,59 @@ function isMerge(s, part1, part2) {
   return result.join("") === s;
 }
 console.log(isMerge("xcyc", "xc", "yc"));
+
+//
+function isMerge(s, part1, part2) {
+  const parts = part1 + part2;
+  if (parts.length !== s.length) {
+    return false;
+  }
+  return parts.split("").sort().join("") === s.split("").sort().join("");
+}
+console.log(isMerge("xcyc", "xc", "yc"));
+
+// Primero de todo hay que contar todas las letras de los 2 strings
+// convertir los strings en un array y crear un objeto que cuente el número de veces que aparece una letra
+
+function mix(s1, s2) {
+  const counter1 = {};
+  const counter2 = {};
+  const alphabet = '"abcdefghijklmnopqrstuvwxyz"';
+
+  s1.split("").forEach((char) => {
+    if (char === " ") {
+      return;
+    }
+    if (counter1[char]) {
+      counter1[char]++;
+    } else if (alphabet.includes(char)) {
+      counter1[char] = 1;
+    }
+  });
+
+  s2.split("").forEach((char) => {
+    if (char === " ") {
+      return;
+    }
+    if (counter2[char]) {
+      counter2[char]++;
+    } else if (alphabet.includes(char)) {
+      counter2[char] = 1;
+    }
+  });
+
+  const entries1 = Object.entries(counter1);
+  const entries2 = Object.entries(counter2);
+
+  const filterEntries1 = entries1.filter((entry) => {
+    return entry[1] > 1;
+  });
+  //console.log(filterEntries1)
+
+  const filterEntries2 = entries2.filter((entry) => {
+    return entry[1] > 1;
+  });
+  //console.log(filterEntries2)
+}
+
+console.log(mix("Are they here", "yes, they are here"));
