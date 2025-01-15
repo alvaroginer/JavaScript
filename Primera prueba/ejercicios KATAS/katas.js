@@ -2658,7 +2658,6 @@ console.log(isMerge("xcyc", "xc", "yc"));
 function mix(s1, s2) {
   const counter1 = {};
   const counter2 = {};
-  ["a", "n", "c"];
   const alphabet = '"abcdefghijklmnopqrstuvwxyz"';
 
   s1.split("").forEach((char) => {
@@ -2686,11 +2685,43 @@ function mix(s1, s2) {
   //console.log(counter1)
   //console.log(counter2)
 
+  // Esta parte de código da error y tengo que corregirla
   const properties = { ...counter1, ...counter2 };
-  const filterProperties = Object.keys(properties).filter((key) => {
-    return properties[key] > 1;
+  const filteredProperties = Object.keys(properties).reduce((result, key) => {
+    if (properties[key] > 1) {
+      result[key] = properties[key];
+    }
+    return result;
+  }, {});
+  //console.log(filteredProperties);
+
+  // Se ha ordenado el objeto
+  const sortedProperties = Object.entries(filteredProperties)
+    .sort(([, a], [, b]) => b - a)
+    .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+  console.log(sortedProperties);
+
+  // Intentamos darle
+  const finalArr = [];
+  Object.keys(sortedProperties).forEach((letter) => {
+    if (counter1[letter] === counter2[letter]) {
+      finalArr.push(`=:${letter.repeat(sortedProperties[letter])}`);
+    } else if (counter1[letter] > counter2[letter]) {
+      finalArr.push(`1:${letter.repeat(sortedProperties[letter])}`);
+    } else if (counter1[letter] < counter2[letter]) {
+      finalArr.push(`2:${letter.repeat(sortedProperties[letter])}`);
+    }
+
+    if (counter1[letter] && !counter2[letter]) {
+      finalArr.push(`1:${letter.repeat(sortedProperties[letter])}`);
+    }
+
+    if (counter2[letter] && !counter1[letter]) {
+      finalArr.push(`2:${letter.repeat(sortedProperties[letter])}`);
+    }
   });
-  console.log(filterProperties);
+
+  return finalArr.sort().join("/");
 }
 
-console.log(mix("Are they here", "yes, they are here"));
+console.log(mix("looping is fun but dangerous", "less dangerous than coding"));
