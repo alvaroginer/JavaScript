@@ -2686,7 +2686,11 @@ function mix(s1, s2) {
   //console.log(counter2)
 
   // Esta parte de código da error y tengo que corregirla
-  const properties = { ...counter1, ...counter2 };
+  // Tengo que crear un código que añada todos las propiedades de objetos en el mismo
+  // creo una variable que guarde el counter 1 para no alterar el objeto, puesto que después lo comparo
+  // debería hacer un forEach del objeto counter 2 y comparar si el objeto ya está y es mayor que
+
+  const properties = { ...counter1 };
   const filteredProperties = Object.keys(properties).reduce((result, key) => {
     if (properties[key] > 1) {
       result[key] = properties[key];
