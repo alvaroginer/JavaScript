@@ -2682,8 +2682,8 @@ function mix(s1, s2) {
     }
   });
 
-  //console.log(counter1)
-  //console.log(counter2)
+  console.log("Esto es counter1:", counter1);
+  console.log("Esto es counter2:", counter2);
 
   // Esta parte de código da error y tengo que corregirla
   // Tengo que crear un código que añada todos las propiedades de objetos en el mismo
@@ -2691,21 +2691,15 @@ function mix(s1, s2) {
   // debería hacer un forEach del objeto counter 2 y comparar si el objeto ya está y es mayor que
 
   const properties = { ...counter1 };
-  const filteredProperties = Object.keys(properties).reduce((result, key) => {
-    if (properties[key] > 1) {
-      result[key] = properties[key];
-    }
-    return result;
-  }, {});
-  //console.log(filteredProperties);
+  console.log("Esto es properties:", properties);
 
   // Se ha ordenado el objeto
-  const sortedProperties = Object.entries(filteredProperties)
+  const sortedProperties = Object.entries(properties)
     .sort(([, a], [, b]) => b - a)
     .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
   console.log(sortedProperties);
 
-  // Intentamos darle
+  // Intentamos darle el formato
   const finalArr = [];
   Object.keys(sortedProperties).forEach((letter) => {
     if (counter1[letter] === counter2[letter]) {
@@ -2728,4 +2722,80 @@ function mix(s1, s2) {
   return finalArr.sort().join("/");
 }
 
+console.log(mix("looping is fun but dangerous", "less dangerous than coding"));
+
+function mix(s1, s2) {
+  const counter1 = {};
+  const counter2 = {};
+  const alphabet = '"abcdefghijklmnopqrstuvwxyz"';
+
+  s1.split("").forEach((char) => {
+    if (char === " ") {
+      return;
+    }
+    if (counter1[char]) {
+      counter1[char]++;
+    } else if (alphabet.includes(char)) {
+      counter1[char] = 1;
+    }
+  });
+
+  s2.split("").forEach((char) => {
+    if (char === " ") {
+      return;
+    }
+    if (counter2[char]) {
+      counter2[char]++;
+    } else if (alphabet.includes(char)) {
+      counter2[char] = 1;
+    }
+  });
+
+  //console.log('Esto es counter1:', counter1)
+  //console.log('Esto es counter2:', counter2)
+
+  // Esta parte de código da error y tengo que corregirla
+  // Tengo que crear un código que añada todos las propiedades de objetos en el mismo
+  // creo una variable que guarde el counter 1 para no alterar el objeto, puesto que después lo comparo
+  // debería hacer un forEach del objeto counter 2 y comparar si el objeto ya está y es mayor que
+
+  const properties = { ...counter1 };
+
+  Object.keys(counter2).forEach((letter) => {
+    if (!properties[letter] || properties[letter] < counter2[letter]) {
+      properties[letter] = counter2[letter]; // Asigna el valor mayor o agrega la clave si no existe
+    }
+  });
+  //console.log('Esto es properties:', properties)
+
+  const sortedProperties = Object.entries(properties)
+    .sort(([, a], [, b]) => b - a)
+    .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+  //console.log('Esto es SortedProperties', sortedProperties);
+
+  const filterProperties = {};
+  Object.keys(sortedProperties).forEach((letter) => {
+    if (sortedProperties[letter] > 1) {
+      filterProperties[letter] = sortedProperties[letter];
+    }
+  });
+  //console.log(filterProperties)
+
+  const finalArr = [];
+  Object.entries(filterProperties).forEach((letter) => {
+    if (counter1[letter[0]] === counter2[letter[0]]) {
+      finalArr.push(`=:${letter[0].repeat([letter[1]])}`);
+    }
+
+    if (counter1[letter[0]] > counter2[letter[0]]) {
+      finalArr.push(`1:${letter[0].repeat([letter[1]])}`);
+    }
+
+    if (counter1[letter[0]] < counter2[letter[0]]) {
+      finalArr.push(`2:${letter[0].repeat([letter[1]])}`);
+    }
+  });
+
+  return finalArr.join("/");
+}
 console.log(mix("looping is fun but dangerous", "less dangerous than coding"));
