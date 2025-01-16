@@ -2827,3 +2827,30 @@ function findUniq(arr) {
 }
 
 console.log(findUniq([" ", "a", "  "]));
+
+//
+function findUniq(arr) {
+  const countLetters = {};
+
+  arr.forEach((text) => {
+    text
+      .toLowerCase()
+      .replaceAll(" ", "")
+      .split("")
+      .forEach((letter) => {
+        countLetters[letter] = 0;
+      });
+
+    Object.keys(countLetters).forEach((char) => {
+      if (!text.includes(char)) {
+        countLetters[char]++;
+      }
+    });
+  });
+
+  console.log(countLetters);
+}
+
+console.log(
+  findUniq(["Tom Marvolo Riddle", "I am Lord Voldemort", "Harry Potter"])
+);
