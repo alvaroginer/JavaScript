@@ -2793,3 +2793,37 @@ function mix(s1, s2) {
   return finalArr.sort((a, b) => a - b).join("/");
 }
 console.log(mix("looping is fun but dangerous", "less dangerous than coding"));
+
+// cojo todos los word y los ordeno por abecedario
+
+function findUniq(arr) {
+  const allWords = [];
+  let longWord = "";
+
+  arr.forEach((word) => {
+    word = word.toLowerCase().split("").sort().join("");
+    allWords.push(word);
+
+    if (word.length > longWord.length) {
+      longWord = word;
+    }
+  });
+
+  //console.log("Palabra más larga (procesada):", longWord);
+
+  let differentWord = [];
+  allWords.forEach((word, index) => {
+    if (!longWord.includes(word)) {
+      differentWord.push(arr[index]);
+    }
+  });
+
+  //console.log("Palabras diferentes:", differentWord);
+
+  if (differentWord.length > 1) {
+    return longWord;
+  }
+  return differentWord.join("");
+}
+
+console.log(findUniq([" ", "a", "  "]));
