@@ -2841,9 +2841,11 @@ function findUniq(arr) {
         countLetters[letter] = 0;
       });
 
+    console.log("esto es countletters", countLetters);
+
     Object.keys(countLetters).forEach((char) => {
       if (!text.includes(char)) {
-        countLetters[char]++;
+        countLetters[char] += 1;
       }
     });
   });
