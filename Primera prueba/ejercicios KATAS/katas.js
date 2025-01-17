@@ -2836,7 +2836,6 @@ function findUniq(arr) {
   arr.forEach((text) => {
     text
       .toLowerCase()
-      .replaceAll(" ", "")
       .split("")
       .forEach((letter) => {
         if (!countLetters[letter]) {
@@ -2849,7 +2848,7 @@ function findUniq(arr) {
   const uniqChars = [];
   arr.forEach((text) => {
     Object.keys(countLetters).forEach((char) => {
-      text = text.toLowerCase().replaceAll(" ", "");
+      text = text.toLowerCase();
       if (!text.includes(char)) {
         countLetters[char] += 1;
       }
@@ -2861,7 +2860,7 @@ function findUniq(arr) {
   });
 
   const result = arr.filter((text) => {
-    text = text.toLowerCase().replaceAll(" ", "");
+    text = text.toLowerCase();
     if (text.includes(uniqChars[0])) {
       return text;
     }
@@ -2884,7 +2883,7 @@ var solution = function (firstArray, secondArray) {
     result.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
       0
-    ) / 3
+    ) / firstArray.length
   );
 };
 
