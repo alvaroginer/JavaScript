@@ -260,18 +260,28 @@ const getRandomTaskArray = (number) => {
  */
 
 // recorres el array con los objetos y miras en qué día está
-// creo
+// primero es crear el objeto con los meses
 
 const categorizeTasks = (taskList) => {
-  const year = {};
-  const month = {};
+  const tasksEachMonth = {};
+
   taskList.forEach((task) => {
     const month = task.date.getMonth();
-    year[task.date.getMonth()] = month[task.date.getDay()] = task;
-    month[task.date.getDay()] = task;
+    const day = task.date.getDate();
+
+    if (!tasksEachMonth[month]) {
+      tasksEachMonth[month] = {};
+    }
+
+    if (!tasksEachMonth[month][day]) {
+      tasksEachMonth[month][day] = [];
+    }
+
+    tasksEachMonth[month][day].push(task);
   });
-  console.log(year);
+
+  return tasksEachMonth;
 };
 
-const taskList = getRandomTaskArray(3);
+const taskList = getRandomTaskArray(10);
 console.log(categorizeTasks(taskList));

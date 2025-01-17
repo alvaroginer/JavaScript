@@ -2832,27 +2832,42 @@ console.log(findUniq([" ", "a", "  "]));
 function findUniq(arr) {
   const countLetters = {};
 
+  //Creamos el objeto con todas las letras del array
   arr.forEach((text) => {
     text
       .toLowerCase()
       .replaceAll(" ", "")
       .split("")
       .forEach((letter) => {
-        countLetters[letter] = 0;
+        if (!countLetters[letter]) {
+          countLetters[letter] = 0;
+        }
       });
+  });
 
-    console.log("esto es countletters", countLetters);
-
+  // Comprobamos que palabras no están incluidas dos o más veces
+  const uniqChars = [];
+  arr.forEach((text) => {
     Object.keys(countLetters).forEach((char) => {
+      text = text.toLowerCase().replaceAll(" ", "");
       if (!text.includes(char)) {
         countLetters[char] += 1;
+      }
+
+      if (countLetters[char] >= 2 && !uniqChars.includes(char)) {
+        uniqChars.push(char);
       }
     });
   });
 
-  console.log(countLetters);
+  const result = arr.filter((text) => {
+    text = text.toLowerCase().replaceAll(" ", "");
+    if (text.includes(uniqChars[0])) {
+      return text;
+    }
+  });
+
+  return result.join("");
 }
 
-console.log(
-  findUniq(["Tom Marvolo Riddle", "I am Lord Voldemort", "Harry Potter"])
-);
+console.log(findUniq([" ", "a", "  "]));
