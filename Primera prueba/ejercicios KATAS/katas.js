@@ -2871,3 +2871,21 @@ function findUniq(arr) {
 }
 
 console.log(findUniq([" ", "a", "  "]));
+
+// Creamos un forEach y con index llamamos
+var solution = function (firstArray, secondArray) {
+  const result = [];
+  firstArray.forEach((num, index) => {
+    const newNum = Math.abs((num - secondArray[index]) ** 2);
+    result.push(newNum);
+  });
+
+  return (
+    result.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    ) / 3
+  );
+};
+
+console.log(solution([10, 20, 10, 2], [10, 25, 5, -2]));
