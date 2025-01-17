@@ -285,3 +285,57 @@ const categorizeTasks = (taskList) => {
 
 const taskList = getRandomTaskArray(10);
 console.log(categorizeTasks(taskList));
+
+// Crea una función que categorice las tareas por mes, pero además, separa las tareas completadas de las no completadas en cada día. El resultado será un objeto con la estructura:
+
+/*{
+  0: { // Enero
+    1: { completed: [ARRAY DE TAREAS], notCompleted: [ARRAY DE TAREAS] },
+    3: { completed: [ARRAY DE TAREAS], notCompleted: [ARRAY DE TAREAS] },
+  },
+  1: { // Febrero
+    15: { completed: [ARRAY DE TAREAS], notCompleted: [ARRAY DE TAREAS] }
+  },
+  // Y así para cada mes...
+}
+*/
+
+const orderTask = (taskLists) => {
+  const filterTasks = {};
+
+  taskLists.forEach((task) => {
+    const month = task.date.getMonth();
+    const day = task.date.getDay();
+    const completed = task.completed;
+
+    if (!filterTasks[month]) {
+      filterTasks[month] = {};
+    }
+
+    if (!filterTasks[month][day]) {
+      filterTasks[month][day] = {};
+    }
+
+    if (!filterTasks[month][day][completed]) {
+      filterTasks[month][day][completed] = [];
+    }
+
+    filterTasks[month][day][completed].push(task);
+  });
+  return filterTasks;
+};
+
+const taskLists = [
+  { taskName: "Tarea 1", date: new Date("2025-01-03"), completed: true },
+  { taskName: "Tarea 2", date: new Date("2025-01-03"), completed: false },
+  { taskName: "Tarea 3", date: new Date("2025-02-15"), completed: true },
+  { taskName: "Tarea 4", date: new Date("2025-03-21"), completed: false },
+  { taskName: "Tarea 5", date: new Date("2025-01-15"), completed: true },
+  { taskName: "Tarea 6", date: new Date("2025-02-15"), completed: false },
+  { taskName: "Tarea 7", date: new Date("2025-03-10"), completed: true },
+  { taskName: "Tarea 8", date: new Date("2025-03-21"), completed: true },
+  { taskName: "Tarea 9", date: new Date("2025-01-01"), completed: false },
+  { taskName: "Tarea 10", date: new Date("2025-01-03"), completed: true },
+];
+
+console.log(orderTask(taskLists));
