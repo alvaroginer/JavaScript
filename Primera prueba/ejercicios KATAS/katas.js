@@ -2888,3 +2888,110 @@ var solution = function (firstArray, secondArray) {
 };
 
 console.log(solution([10, 20, 10, 2], [10, 25, 5, -2]));
+
+// dividir el string y hacer un forEach, comprobar que el string no sea más largo de 10, sino devolver falso
+// comprobar si
+function validISBN10(isbn) {
+  const num = "012345678";
+  const multipliedNum = [];
+  const regex = /^[0-9]{9}[X0-9]$/;
+
+  if (!isbn.match(regex)) {
+    return false;
+  }
+
+  isbn.split("").forEach((number, index) => {
+    if (num.includes(number)) {
+      multipliedNum.push(Number(number) * (index + 1));
+    } else if (number === "X") {
+      multipliedNum.push(10 * (index + 1));
+    }
+  });
+
+  return (
+    multipliedNum.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    ) %
+      11 ===
+    0
+  );
+}
+
+console.log(validISBN10("2996218248"));
+
+//
+Math.round = function (number) {
+  const point = ".";
+  const numToStr = number.toString();
+  const pointIndex = numToStr.indexOf(".");
+  if (pointIndex === -1) return number;
+  const notDecimals = numToStr.slice(0, pointIndex);
+  return Number(numToStr[numToStr.indexOf(point) + 1]) >= 5
+    ? Number(notDecimals) + 1
+    : Number(notDecimals);
+};
+
+Math.ceil = function (number) {
+  const point = ".";
+  const numToStr = number.toString();
+  const pointIndex = numToStr.indexOf(".");
+  if (pointIndex === -1) return number;
+  const notDecimals = numToStr.slice(0, pointIndex);
+  return Number(notDecimals) + 1;
+};
+
+Math.floor = function (number) {
+  const point = ".";
+  const numToStr = number.toString();
+  const pointIndex = numToStr.indexOf(".");
+  if (pointIndex === -1) return number;
+  const notDecimals = numToStr.slice(0, pointIndex);
+  return Number(notDecimals);
+};
+
+console.log(Math.round(0.4));
+console.log(Math.ceil(0.4));
+console.log(Math.floor(0.4));
+
+//
+// cogemos el string lo separamos a partir de '/' y hacemos.map(Number)
+function mixedFraction(s) {
+  const sToNum = s.split("/").map(Number);
+
+  let integer = Math.floor(sToNum[0] / sToNum[1]);
+  if (integer < 0) {
+    integer = Math.ceil(sToNum[0] / sToNum[1]);
+  }
+  console.log(integer);
+  const rest = sToNum[0] % sToNum[1];
+  let result = 0;
+
+  if (sToNum[1] === 0) {
+    throw new Error();
+  }
+
+  if (rest === 0) {
+    return integer.toString();
+  }
+
+  if (sToNum[0] === 0) {
+    return "0";
+  }
+
+  if (sToNum[1] / rest === 0) {
+    result = `${integer} ${Math.abs(rest / rest)}/${Math.abs(
+      sToNum[1] / rest
+    )}`;
+  } else if (rest % 2 === 0 && sToNum[1] % 2 === 0) {
+    result = `${integer} ${Math.abs(rest / 2)}/${Math.abs(sToNum[1] / 2)}`;
+  } else if (rest % 3 === 0 && sToNum[1] % 3 === 0) {
+    result = `${integer} ${Math.abs(rest / 3)}/${Math.abs(sToNum[1] / 3)}`;
+  } else {
+    result = `${integer} ${Math.abs(rest)}/${Math.abs(sToNum[1])}`;
+  }
+
+  return result.length > 1 && result[0] === "0" ? result.substring(2) : result;
+}
+
+console.log(mixedFraction("-38/72"));
