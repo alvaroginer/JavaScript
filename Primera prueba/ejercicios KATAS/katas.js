@@ -3070,6 +3070,7 @@ var whoEatsWho = function (zoo) {
 
   let zooState = zoo.split(",");
   let state = true;
+  finalZooState = [];
 
   while (state) {
     state = false;
@@ -3082,7 +3083,7 @@ var whoEatsWho = function (zoo) {
       ) {
         newZooState[index] = "";
         state = true;
-        newZooState.push(
+        finalZooState.push(
           `${
             grassEaters.includes(zooState[index - 1])
               ? zooState[index - 1]
@@ -3097,7 +3098,7 @@ var whoEatsWho = function (zoo) {
       ) {
         newZooState[index] = "";
         state = true;
-        newZooState.push(
+        finalZooState.push(
           `${
             leavesEaters.includes(zooState[index - 1])
               ? zooState[index - 1]
@@ -3112,7 +3113,7 @@ var whoEatsWho = function (zoo) {
       ) {
         newZooState[index] = "";
         state = true;
-        newZooState.push(`bear eats ${animal}`);
+        finalZooState.push(`bear eats ${animal}`);
       }
 
       if (
@@ -3121,7 +3122,7 @@ var whoEatsWho = function (zoo) {
       ) {
         newZooState[index] = "";
         state = true;
-        newZooState.push(`fox eats ${animal}`);
+        finalZooState.push(`fox eats ${animal}`);
       }
 
       if (
@@ -3130,7 +3131,7 @@ var whoEatsWho = function (zoo) {
       ) {
         newZooState[index] = "";
         state = true;
-        newZooState.push(`lion eats ${animal}`);
+        finalZooState.push(`lion eats ${animal}`);
       }
 
       if (
@@ -3139,7 +3140,7 @@ var whoEatsWho = function (zoo) {
       ) {
         newZooState[index] = "";
         state = true;
-        newZooState.push(`chicken eats bug`);
+        finalZooState.push(`chicken eats bug`);
       }
 
       if (
@@ -3148,13 +3149,11 @@ var whoEatsWho = function (zoo) {
       ) {
         newZooState[index] = "";
         state = true;
-        newZooState.push(`big-fish eats little-fish`);
+        finalZooState.push(`big-fish eats little-fish`);
       }
     });
     zooState = [...newZooState];
   }
-
-  return zooState.filter((animal) => animal !== "").join(",");
 };
 
 console.log(whoEatsWho("fox,bug,chicken,grass,sheep"));
