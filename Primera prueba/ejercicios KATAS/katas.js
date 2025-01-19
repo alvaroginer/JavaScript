@@ -2995,3 +2995,166 @@ function mixedFraction(s) {
 }
 
 console.log(mixedFraction("-38/72"));
+
+//lo primero es crear un substring para
+
+// primero cojo dr y lo convierto en un array y hago un find para encontrar el resultado que coincida con el número y copio ese valor en una constante
+// los nombres van siempre entre <> así que creo un susbtring para eso
+// divido la constante en un array con split(' ') y hago un find dela parte que no incluya ni el número ni el substring del nombre
+
+function phone(strng, num) {
+  // Extraemos el contacto y comprobamos que existe únicamente un contacto relacionado con el número
+  const contact = [];
+  strng.split("\n").forEach((infoDr) => {
+    if (infoDr.includes(num)) {
+      contact.push(infoDr);
+    }
+  });
+
+  if (contact.length > 1) {
+    return `Error => Too many people: ${num}`;
+  }
+
+  if (contact.length < 1) {
+    return `Error => Not found: ${num}`;
+  }
+
+  // Extraemos el nombre y lo guardamos
+  const contactToStr = contact.join("");
+  const name = contactToStr.substring(
+    contactToStr.indexOf("<") + 1,
+    contactToStr.indexOf(">")
+  );
+
+  //Extraemos la dirección y la guardamos
+  let direction = contactToStr
+    .replaceAll("_", " ")
+    .split(" ")
+    .filter((data) => {
+      if (!data.includes("<") && !data.includes(">") && !data.includes(num)) {
+        return data;
+      }
+    });
+
+  return `Phone => ${num}, Name => ${name}, Address => ${direction
+    .join(" ")
+    .replace(/[^\w. \-]/g, "")}`;
+}
+
+const dr =
+  "/+1-541-754-3010 156 Alphand_St. <J Steeve>\n 133, Green, Rd. <E Kustur> NY-56423 ;+1-541-914-3010\n" +
+  "+1-541-984-3012 <P Reed> /PO Box 530; Pollocksville, NC-28573\n :+1-321-512-2222 <Paul Dive> Sequoia Alley PQ-67209\n" +
+  "+1-741-984-3090 <Peter Reedgrave> _Chicago\n :+1-921-333-2222 <Anna Stevens> Haramburu_Street AA-67209\n" +
+  "+1-111-544-8973 <Peter Pan> LA\n +1-921-512-2222 <Wilfrid Stevens> Wild Street AA-67209\n" +
+  "<Peter Gone> LA ?+1-121-544-8974 \n <R Steell> Quora Street AB-47209 +1-481-512-2222\n" +
+  "<Arthur Clarke> San Antonio $+1-121-504-8974 TT-45120\n <Ray Chandler> Teliman Pk. !+1-681-512-2222! AB-47209,\n" +
+  "<Sophia Loren> +1-421-674-8974 Bern TP-46017\n <Peter O'Brien> High Street +1-908-512-2222; CC-47209\n" +
+  "<Anastasia> +48-421-674-8974 Via Quirinal Roma\n <P Salinger> Main Street, +1-098-512-2222, Denver\n" +
+  "<C Powel> *+19-421-674-8974 Chateau des Fosses Strasbourg F-68000\n <Bernard Deltheil> +1-498-512-2222; Mount Av.  Eldorado\n" +
+  "+1-099-500-8000 <Peter Crush> Labrador Bd.\n +1-931-512-4855 <William Saurin> Bison Street CQ-23071\n" +
+  "<P Salinge> Main Street, +1-098-512-2222, Denve\n";
+
+console.log(phone(dr, "5-541-984-3012"));
+
+// convertimos el string en array y creamos una constante en la que guardamos el proceso de eliminación
+// hacemos un while(zoo.length > 1) con un forEach del array dentro y en este forEach creamos una constante que va agregando los datos al resultado final con un push
+
+var whoEatsWho = function (zoo) {
+  const grassEaters = ["antelope", "cow", "sheep"];
+  const leavesEaters = ["bug", "giraffe", "panda", "bear"];
+  const bearEats = ["big-fish", "bug", "chicken", "cow", "leaves", "sheep"];
+  const foxEats = ["chicken", "sheep"];
+  const lionEats = ["antelope", "cow"];
+  const chickenEats = ["bug"];
+  const bigFishEats = ["little-fish"];
+
+  let zooState = zoo.split(",");
+  let state = true;
+
+  while (state) {
+    state = false;
+    let newZooState = [...zooState];
+
+    zooState.forEach((animal, index) => {
+      if (
+        (animal === "grass" && grassEaters.includes(zooState[index - 1])) ||
+        grassEaters.includes(zooState[index + 1])
+      ) {
+        newZooState[index] = "";
+        state = true;
+        newZooState.push(
+          `${
+            grassEaters.includes(zooState[index - 1])
+              ? zooState[index - 1]
+              : zooState[index + 1]
+          } eats grass`
+        );
+      }
+
+      if (
+        (animal === "leaves" && leavesEaters.includes(zooState[index - 1])) ||
+        leavesEaters.includes(zooState[index + 1])
+      ) {
+        newZooState[index] = "";
+        state = true;
+        newZooState.push(
+          `${
+            leavesEaters.includes(zooState[index - 1])
+              ? zooState[index - 1]
+              : zooState[index + 1]
+          } eats leaves`
+        );
+      }
+
+      if (
+        (bearEats.includes(animal) && zooState[index - 1] === "bear") ||
+        zooState[index + 1] === "bear"
+      ) {
+        newZooState[index] = "";
+        state = true;
+        newZooState.push(`bear eats ${animal}`);
+      }
+
+      if (
+        (foxEats.includes(animal) && zooState[index - 1] === "fox") ||
+        zooState[index + 1] === "fox"
+      ) {
+        newZooState[index] = "";
+        state = true;
+        newZooState.push(`fox eats ${animal}`);
+      }
+
+      if (
+        (lionEats.includes(animal) && zooState[index - 1] === "lion") ||
+        zooState[index + 1] === "lion"
+      ) {
+        newZooState[index] = "";
+        state = true;
+        newZooState.push(`lion eats ${animal}`);
+      }
+
+      if (
+        (chickenEats.includes(animal) && zooState[index - 1] === "chicken") ||
+        zooState[index + 1] === "chicken"
+      ) {
+        newZooState[index] = "";
+        state = true;
+        newZooState.push(`chicken eats bug`);
+      }
+
+      if (
+        (bigFishEats.includes(animal) && zooState[index - 1] === "big-fish") ||
+        zooState[index + 1] === "big-fish"
+      ) {
+        newZooState[index] = "";
+        state = true;
+        newZooState.push(`big-fish eats little-fish`);
+      }
+    });
+    zooState = [...newZooState];
+  }
+
+  return zooState.filter((animal) => animal !== "").join(",");
+};
+
+console.log(whoEatsWho("fox,bug,chicken,grass,sheep"));
