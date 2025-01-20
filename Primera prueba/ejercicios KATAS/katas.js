@@ -3059,6 +3059,8 @@ console.log(phone(dr, "5-541-984-3012"));
 // convertimos el string en array y creamos una constante en la que guardamos el proceso de eliminación
 // hacemos un while(zoo.length > 1) con un forEach del array dentro y en este forEach creamos una constante que va agregando los datos al resultado final con un push
 
+// Pendiente de revisar - es un bucle infinito
+
 var whoEatsWho = function (zoo) {
   const grassEaters = ["antelope", "cow", "sheep"];
   const leavesEaters = ["bug", "giraffe", "panda", "bear"];
@@ -3157,3 +3159,10 @@ var whoEatsWho = function (zoo) {
 };
 
 console.log(whoEatsWho("fox,bug,chicken,grass,sheep"));
+
+// hay que comprobar que ticket sean todo números
+// creas dos constantes una para pasar una mitad y la otra pasas la otra mitad
+// mides la length del ticket, si es par divides y pones que si es menor al número de la mitad sea pushea a una constante y luego a la otra
+// si es impar sacamos el index con esto: Math.floor(Arr.length / 2) y vamos pusheando los resultados a las distintas constantes
+
+function luckCheck(ticket) {}
