@@ -3165,4 +3165,12 @@ console.log(whoEatsWho("fox,bug,chicken,grass,sheep"));
 // mides la length del ticket, si es par divides y pones que si es menor al número de la mitad sea pushea a una constante y luego a la otra
 // si es impar sacamos el index con esto: Math.floor(Arr.length / 2) y vamos pusheando los resultados a las distintas constantes
 
-function luckCheck(ticket) {}
+function luckCheck(ticket) {
+  const firstHalf = [];
+  const secondHalf = [];
+  const regex = /^\d+$/;
+
+  if (regex.test(ticket) === false) {
+    throw new Error();
+  }
+}
