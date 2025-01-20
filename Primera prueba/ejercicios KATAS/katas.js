@@ -3173,4 +3173,95 @@ function luckCheck(ticket) {
   if (regex.test(ticket) === false) {
     throw new Error();
   }
+
+  ticket.split("").forEach((num, index) => {
+    num = Number(num);
+    if (ticket.length % 2 === 0) {
+      const indexEven = ticket.length / 2;
+      index < indexEven ? firstHalf.push(num) : secondHalf.push(num);
+    } else {
+      const indexOdd = Math.floor(ticket.length / 2);
+      if (index < indexOdd) {
+        firstHalf.push(num);
+      } else if (index > indexOdd) {
+        secondHalf.push;
+      }
+    }
+  });
+
+  const totalFirstHalf = firstHalf.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
+  const totalSecondHalf = secondHalf.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
+
+  return totalFirstHalf === totalSecondHalf;
 }
+
+console.log(luckCheck("683179"));
+
+//
+
+function cakes(recipe, available) {
+  const totalProducts = [];
+  let canMakeCakes = true;
+
+  Object.keys(recipe).forEach((ingredient) => {
+    if (!available[ingredient]) {
+      canMakeCakes = false;
+      return;
+    }
+    let quantity = Math.floor(available[ingredient] / recipe[ingredient]);
+    if (quantity < 1) {
+      canMakeCakes = false;
+      return;
+    }
+    totalProducts.push(quantity);
+    //console.log('Esto es quantity', quantity)
+  });
+
+  //console.log('Esto es totalProducts',totalProducts)
+  if (!canMakeCakes) {
+    return 0;
+  }
+
+  return totalProducts.length > 0 ? Math.min(...totalProducts) : 0;
+}
+
+console.log(
+  cakes(
+    { flour: 500, sugar: 200, eggs: 1 },
+    { flour: 1200, sugar: 1200, eggs: 5, milk: 200 }
+  )
+);
+
+// Creas un objeto con las cantidades de cada número
+// luego creas una constante con el número más alto y haces un filter de todos los números que aprezcan el máximo de veces
+// finalmente haces un Math.max de ese máximo
+
+function highestRank(arr) {
+  const totalLetters = {};
+  let maxValue = 0;
+  arr.forEach((number) => {
+    totalLetters[number] = (totalLetters[number] || 0) + 1;
+    if (totalLetters[number] > maxValue) {
+      maxValue = totalLetters[number];
+    }
+  });
+  //console.log(totalLetters)
+  //console.log(maxValue)
+
+  const highestNums = [];
+  Object.keys(totalLetters).forEach((num) => {
+    if (totalLetters[num] === maxValue) {
+      highestNums.push(num);
+    }
+  });
+
+  return Math.max(...highestNums);
+}
+
+console.log(highestRank([12, 10, 8, 12, 7, 6, 4, 10, 12]));
