@@ -2790,7 +2790,11 @@ function mix(s1, s2) {
     }
   });
 
-  return finalArr.sort((a, b) => a - b).join("/");
+  return finalArr
+    .sort(function (a, b) {
+      return b.length - a.length;
+    })
+    .join("/");
 }
 console.log(mix("looping is fun but dangerous", "less dangerous than coding"));
 
@@ -3242,26 +3246,80 @@ console.log(
 // luego creas una constante con el número más alto y haces un filter de todos los números que aprezcan el máximo de veces
 // finalmente haces un Math.max de ese máximo
 
-function highestRank(arr) {
+function descendingOrder(n) {
   const totalLetters = {};
   let maxValue = 0;
-  arr.forEach((number) => {
-    totalLetters[number] = (totalLetters[number] || 0) + 1;
-    if (totalLetters[number] > maxValue) {
-      maxValue = totalLetters[number];
-    }
-  });
-  //console.log(totalLetters)
-  //console.log(maxValue)
+  const numToStr = n.toString();
+  console.log(numToStr);
 
-  const highestNums = [];
-  Object.keys(totalLetters).forEach((num) => {
-    if (totalLetters[num] === maxValue) {
-      highestNums.push(num);
-    }
+  const orderedNums = numToStr.split("").sort(function (a, b) {
+    return b - a;
   });
-
-  return Math.max(...highestNums);
+  const result = orderedNums.join("");
+  return Number(result);
 }
 
-console.log(highestRank([12, 10, 8, 12, 7, 6, 4, 10, 12]));
+console.log(descendingOrder(123456789));
+
+//
+
+var CaesarCipher = function (shift) {
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+  this.encode = function (text) {
+    return text
+      .toLowerCase()
+      .split("")
+      .map((char) => {
+        if (alphabet.includes(char)) {
+          let index = alphabet.indexOf(char);
+          return alphabet[(index + shift) % 26];
+        }
+        return char;
+      })
+      .join("")
+      .toUpperCase();
+  };
+
+  this.decode = function (text) {
+    return text
+      .toLowerCase()
+      .split("")
+      .map((char) => {
+        if (alphabet.includes(char)) {
+          let index = alphabet.indexOf(char);
+          return alphabet[(index - shift + 26) % 26];
+        }
+        return char;
+      })
+      .join("")
+      .toUpperCase();
+  };
+};
+
+console.log(CaesarCipher(5));
+
+// creamos un array con el peso de los números
+// ordenamos ese array de menor a mayor
+// creamos un tercer array con las diferencias
+
+function closest(strng) {
+  const numsWeights = [];
+  strng.split(" ").forEach((num) => {
+    let weight = num
+      .split("")
+      .map(Number)
+      .reduce(function (a, b) {
+        return a + b;
+      }, 0);
+    numsWeights.push(weight);
+  });
+
+  const sortedWeights = numsWeights.sort(function (a, b) {
+    return b - a;
+  });
+
+  const differences = [];
+}
+
+console.log(closest("103 123 4444 99 2000"));
