@@ -4,12 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style.css" />
-    <title>Document</title>
+    <script src="./api.js"></script>
+    <title>Vota al perrico</title>
   </head>
   <body>
     <h1>Vota al perrico</h1>
     <div class="button-container">
-      <button>Añade 1 perrito</button> <button>Añade 5 perritos</button>
+      <button id="add-1-dog">Añade 1 perrito</button>
+      <button id="add-5-dog">Añade 5 perritos</button>
     </div>
     <div class="dog-container">
       <div class="container">
@@ -17,7 +19,7 @@
           <img src="./img/istockphoto-465377790-612x612.jpg" alt="" />
         </div>
         <div class="emoji-container">
-          <p>❤️</p>
+          <p class="like-counter">❤️:0</p>
           <p>🤬</p>
         </div>
         <div class="emoji-container">
@@ -30,7 +32,7 @@
           <img src="./img/images.jpeg" alt="" />
         </div>
         <div class="emoji-container">
-          <p>❤️</p>
+          <p class="like-counter">❤️0</p>
           <p>🤬</p>
         </div>
         <div class="emoji-container">
@@ -39,5 +41,10 @@
         </div>
       </div>
     </div>
+    <div class="container-counters">
+      <p id="totalDogsCounter">Total Dogs: 0</p>
+      <p id="totalLikedDogs">Liked Dogs: 0</p>
+    </div>
   </body>
+  <script src="./index.js"></script>
 </html>
