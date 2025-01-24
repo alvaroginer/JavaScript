@@ -14,8 +14,8 @@ function renderDogArray() {
           <img src="${dogImage}" alt="" />
         </div>
         <div class="emoji-container">
-          <p class="like-counter">❤️:0</p>
-          <p>🤬</p>
+          <p>❤️ <span class="like-counter">0</span< </p>
+          <p>🤬:0</p>
         </div>
         <div class="emoji-container">
           <button class="like-button">Me gusta</button>
@@ -24,6 +24,17 @@ function renderDogArray() {
       </div>`;
 
     listDogs.innerHTML += addHtml;
+  });
+
+  const likeCountNodes = document.querySelectorAll(".like-counter");
+
+  document.querySelectorAll(".like-button").forEach((element, index) => {
+    element.addEventListener("click", function () {
+      console.log("este código funciona");
+
+      likeCountNodes[index].textContent =
+        Number(likeCountNodes[index].textContent) + 1;
+    });
   });
 }
 
@@ -59,23 +70,4 @@ document.querySelector("#add-1-dog").addEventListener("click", function () {
 document.querySelector("#add-5-dog").addEventListener("click", function () {
   addNDogs(5);
   renderDogCounter(5);
-});
-
-// Función de contador de 'Me gusta' dentro del container
-function addLikeCounter() {
-  document.querySelectorAll(".like-counter").forEach((text) => {
-    let counterContent = text.textContent;
-
-    let parts = counterContent.split(":");
-    let count = Number(parts[1]);
-    count++;
-    parts[1] = count;
-    counterContent.textContent = parts.join(": ");
-  });
-}
-
-document.querySelectorAll(".like-button").forEach((element) => {
-  element.addEventListener("click", function () {
-    addLikeCounter();
-  });
 });

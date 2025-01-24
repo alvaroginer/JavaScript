@@ -64,3 +64,9 @@ img {
   color: green;
   border: 1px solid green;
 }
+
+.container-counters {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
