@@ -28,11 +28,11 @@ function renderDogArray() {
 }
 
 // Arreglar contador
-let totalDogsNum = 0;
-function renderDogCounter() {
+let totalDogsNum = 1;
+function renderDogCounter(num) {
   const totalDogsCounter = document.querySelector("#totalDogsCounter");
   let totalCounterContent = totalDogsCounter.textContent;
-  totalDogsNum += 1;
+  totalDogsNum += num;
 
   let finalCount = totalCounterContent.split(":");
   finalCount[1] = totalDogsNum;
@@ -40,6 +40,7 @@ function renderDogCounter() {
   totalDogsCounter.textContent = finalCount.join(": ");
 }
 
+// Función que añade un número N de perros
 const addNDogs = async (num) => {
   for (let i = 0; i < num; i++) {
     const dogImage = await getRandomDogImage();
@@ -52,27 +53,29 @@ renderDogArray();
 
 document.querySelector("#add-1-dog").addEventListener("click", function () {
   addNDogs(1);
-  renderDogCounter();
+  renderDogCounter(1);
 });
 
 document.querySelector("#add-5-dog").addEventListener("click", function () {
   addNDogs(5);
+  renderDogCounter(5);
 });
 
 // Función de contador de 'Me gusta' dentro del container
 function addLikeCounter() {
-  const counterElement = document.querySelector(".like-counter");
-  let counterContent = counterElement.textContent;
+  document.querySelectorAll(".like-counter").forEach((text) => {
+    let counterContent = text.textContent;
 
-  let parts = counterContent.split(":");
-  if (parts.length === 2) {
-    let count = Number(parts[1].trim());
+    let parts = counterContent.split(":");
+    let count = Number(parts[1]);
     count++;
     parts[1] = count;
-    counterElement.textContent = parts.join(": ");
-  }
+    counterContent.textContent = parts.join(": ");
+  });
 }
 
-document.querySelector(".like-button").addEventListener("click", function () {
-  addLikeCounter();
+document.querySelectorAll(".like-button").forEach((element) => {
+  element.addEventListener("click", function () {
+    addLikeCounter();
+  });
 });

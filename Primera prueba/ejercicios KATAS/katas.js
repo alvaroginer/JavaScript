@@ -3323,3 +3323,21 @@ function closest(strng) {
 }
 
 console.log(closest("103 123 4444 99 2000"));
+
+function upArray(arr) {
+  if (!arr) {
+    return null;
+  }
+
+  let state = arr.every((num) => {
+    return num >= 0;
+  });
+
+  if (state === true) {
+    const arrToNum = Number(arr.join("")) + 1;
+    return arrToNum.toString().split("").map(Number);
+  }
+  return null;
+}
+
+console.log(upArray([1, 2, 3, 4]));
