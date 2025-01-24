@@ -27,8 +27,9 @@ function renderDogArray() {
   });
 }
 
+// Arreglar contador
+let totalDogsNum = 0;
 function renderDogCounter() {
-  let totalDogsNum = 0;
   const totalDogsCounter = document.querySelector("#totalDogsCounter");
   let totalCounterContent = totalDogsCounter.textContent;
   totalDogsNum += 1;
@@ -39,46 +40,23 @@ function renderDogCounter() {
   totalDogsCounter.textContent = finalCount.join(": ");
 }
 
-// Añadir un perro
-const addDogs = async () => {
-  const dogImage = await getRandomDogImage();
-  perricosArray.push(dogImage);
-  console.log(perricosArray);
-  renderDogArray();
+const addNDogs = async (num) => {
+  for (let i = 0; i < num; i++) {
+    const dogImage = await getRandomDogImage();
+    perricosArray.push(dogImage);
+    renderDogArray();
+  }
 };
 
 renderDogArray();
 
 document.querySelector("#add-1-dog").addEventListener("click", function () {
-  addDogs();
+  addNDogs(1);
   renderDogCounter();
 });
 
-// Añadir 5 perros
-const add5Dogs = async () => {
-  const dogImage = await getRandomDogImage();
-  perricosArray.push(dogImage);
-  renderDogArray();
-};
-
 document.querySelector("#add-5-dog").addEventListener("click", function () {
-  add5Dogs();
-});
-
-document.querySelector("#add-5-dog").addEventListener("click", function () {
-  add5Dogs();
-});
-
-document.querySelector("#add-5-dog").addEventListener("click", function () {
-  add5Dogs();
-});
-
-document.querySelector("#add-5-dog").addEventListener("click", function () {
-  add5Dogs();
-});
-
-document.querySelector("#add-5-dog").addEventListener("click", function () {
-  add5Dogs();
+  addNDogs(5);
 });
 
 // Función de contador de 'Me gusta' dentro del container
