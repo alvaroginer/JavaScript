@@ -44,3 +44,8 @@ body {
   transform: rotate(90deg);
   transition: all 0.05s;
 }
+
+.time-to-birthday {
+  color: white;
+  font-size: 40px;
+}

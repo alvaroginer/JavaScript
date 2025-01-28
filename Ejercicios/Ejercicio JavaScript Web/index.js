@@ -136,13 +136,26 @@ const addNDogsStart = async (num) => {
   }
 };
 
-// Elimina los perros sin likes
+// Filtra los perros sin likes
+let clickCounter = 0;
 const onlyLikedDogs = () => {
+  clickCounter += 1;
   document.querySelectorAll(".container").forEach((dogcontainer) => {
     const likeCounter = dogcontainer.querySelector(".like-counter");
     if (likeCounter.textContent === "0") {
-      dogcontainer.remove();
+      dogcontainer.classList.add("display-none");
     }
+
+    if (clickCounter % 2 === 0) {
+      dogcontainer.classList.remove("display-none");
+    }
+  });
+};
+
+// Quita el filtro de los perros sin likes
+const returnAllDogs = () => {
+  document.querySelectorAll(".container").forEach((dogcontainer) => {
+    dogcontainer.classList.remove("display-none");
   });
 };
 
@@ -164,7 +177,7 @@ const likedDoggs = () => {
   const likedPublications = [];
   document.querySelectorAll(".like-counter").forEach((element, index) => {
     const likedDogsCounter = element.textContent;
-    if (Number(likedDogsCounter) > 0) {
+    if (likedDogsCounter > 0) {
       console.log("estás accediendo bien a los datos", index);
       likedPublications.push(index);
     }
@@ -179,6 +192,12 @@ let likeCounter = 0;
 const totalLikes = () => {
   likeCounter += 1;
   document.querySelector("#likes-number").textContent = `${likeCounter}`;
+};
+
+//Contador de los perros filtrados
+const numberOfFilteredDogs = () => {
+  const filteredDogsNum = document.querySelectorAll(".display-none").length;
+  document.querySelector("#filter-dogs-num").textContent = filteredDogsNum;
 };
 
 document.querySelector("#add-1-dog").addEventListener("click", function () {
@@ -198,11 +217,19 @@ document.querySelector("#add-1-start").addEventListener("click", function () {
 
 document.querySelector("#add-5-start").addEventListener("click", function () {
   addNDogsStart(5);
-  renderDogCounter(1);
+  renderDogCounter(5);
 });
 
 document
   .querySelector("#only-like-dogs")
   .addEventListener("click", function () {
     onlyLikedDogs();
+    numberOfFilteredDogs();
+  });
+
+document
+  .querySelector("#return-all-dogs")
+  .addEventListener("click", function () {
+    returnAllDogs();
+    numberOfFilteredDogs();
   });
