@@ -136,28 +136,38 @@ const addNDogsStart = async (num) => {
   }
 };
 
-// Filtra los perros sin likes
-let clickCounter = 0;
+// Filtra los perros con likes
 const onlyLikedDogs = () => {
-  clickCounter += 1;
-  document.querySelectorAll(".container").forEach((dogcontainer) => {
-    const likeCounter = dogcontainer.querySelector(".like-counter");
+  document.querySelectorAll(".container").forEach((dogContainer) => {
+    const likeCounter = dogContainer.querySelector(".like-counter");
+    const likeButton = document.querySelector("#only-like-dogs");
     if (likeCounter.textContent === "0") {
-      dogcontainer.classList.add("display-none");
+      dogContainer.classList.toggle("display-none");
     }
 
-    if (clickCounter % 2 === 0) {
-      dogcontainer.classList.remove("display-none");
+    likeButton.classList.toggle("button-selected");
+  });
+};
+
+//Filtro de perros sin likes
+const onlyHatedDogs = () => {
+  document.querySelectorAll(".container").forEach((dogcontainer) => {
+    const dislikeCounter = dogcontainer.querySelector(".dislike-counter");
+    const disLikeButton = dogcontainer.querySelector("#only-dislike-dogs");
+    if (dislikeCounter.textContent === "0") {
+      dogcontainer.classList.toggle("display-none");
     }
+
+    //disLikeButton.classList.toggle("button-selected");
   });
 };
 
 // Quita el filtro de los perros sin likes
-const returnAllDogs = () => {
-  document.querySelectorAll(".container").forEach((dogcontainer) => {
-    dogcontainer.classList.remove("display-none");
-  });
-};
+// const returnAllDogs = () => {
+//   document.querySelectorAll(".container").forEach((dogcontainer) => {
+//     dogcontainer.classList.remove("display-none");
+//   });
+// };
 
 // Contador total de perros
 let totalDogsNum = 0;
@@ -228,8 +238,15 @@ document
   });
 
 document
-  .querySelector("#return-all-dogs")
+  .querySelector("#only-dislike-dogs")
   .addEventListener("click", function () {
-    returnAllDogs();
+    onlyHatedDogs();
     numberOfFilteredDogs();
   });
+
+// document
+//   .querySelector("#return-all-dogs")
+//   .addEventListener("click", function () {
+//     returnAllDogs();
+//     numberOfFilteredDogs();
+//   });
