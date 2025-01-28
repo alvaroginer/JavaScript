@@ -158,7 +158,7 @@ const onlyHatedDogs = () => {
       dogcontainer.classList.toggle("display-none");
     }
 
-    //disLikeButton.classList.toggle("button-selected");
+    disLikeButton.classList.toggle("button-selected");
   });
 };
 
