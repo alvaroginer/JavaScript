@@ -44,7 +44,7 @@ img {
   cursor: pointer;
 }
 
-.not-like-button {
+.dislike-button {
   padding: 10px;
   background-color: red;
   color: white;
@@ -53,7 +53,7 @@ img {
   cursor: pointer;
 }
 
-.not-like-button:hover {
+.dislike-button:hover {
   background-color: white;
   color: red;
   border: 1px solid red;
@@ -69,4 +69,11 @@ img {
   display: flex;
   justify-content: center;
   gap: 20px;
+}
+
+.all-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 40px;
 }

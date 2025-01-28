@@ -9,14 +9,27 @@
   </head>
   <body>
     <h1>Vota al perrico</h1>
-    <div class="button-container">
-      <button id="add-1-dog">Añade 1 perrito</button>
-      <button id="add-5-dog">Añade 5 perritos</button>
+    <div class="all-buttons">
+      <div class="button-container">
+        <button id="add-1-dog">Añade 1 perrito</button>
+        <button id="add-5-dog">Añade 5 perritos</button>
+        <br />
+      </div>
+      <div class="button-container-start">
+        <button id="add-1-start">Añadir 1 perrico al principio</button>
+        <button id="add-5-start">Añadir 5 perricos al principio</button>
+      </div>
+      <div class="filter-button">
+        <button id="only-like-dogs">Elimina los perros sin likes</button>
+      </div>
     </div>
     <div class="dog-container"></div>
     <div class="container-counters">
-      <p id="totalDogsCounter">Total Dogs: 1</p>
-      <p id="totalLikedDogs">Liked Dogs: 0</p>
+      <p id="totalDogsCounter">Total Dogs: 0</p>
+      <p id="totalLikedDogs">
+        Liked Dogs: <span class="likedDogsNumber">0</span>
+      </p>
+      <p id="total-likes">Total Likes: <span id="likes-number">0</span></p>
     </div>
   </body>
   <script src="./index.js"></script>
