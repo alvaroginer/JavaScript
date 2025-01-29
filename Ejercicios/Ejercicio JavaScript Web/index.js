@@ -41,10 +41,14 @@ console.log(perricosArray);
 // }
 
 // Función que añade un número N de perros
-const addNDogs = async (num) => {
+const addNDogs = async (num, addStart) => {
   for (let i = 0; i < num; i++) {
     const dogImage = await getRandomDogImage();
-    perricosArray.push(dogImage);
+    if (addStart) {
+      perricosArray.unshift(dogImage);
+    } else {
+      perricosArray.push(dogImage);
+    }
 
     const addHtml = `<div class="container">
         <div class="img-container">
@@ -61,7 +65,12 @@ const addNDogs = async (num) => {
       </div>`;
 
     const listDogs = document.querySelector(".dog-container");
-    listDogs.innerHTML += addHtml;
+
+    if (addStart) {
+      listDogs.innerHTML = addHtml + listDogs.innerHTML;
+    } else {
+      listDogs.innerHTML += addHtml;
+    }
 
     const likeCountNodes = document.querySelectorAll(".like-counter");
 
@@ -87,87 +96,6 @@ const addNDogs = async (num) => {
     });
   }
 };
-
-//Función que añade N número de perros al principio
-const addNDogsStart = async (num) => {
-  for (let i = 0; i < num; i++) {
-    const dogImage = await getRandomDogImage();
-    perricosArray.push(dogImage);
-
-    const addHtml = `<div class="container">
-        <div class="img-container">
-          <img src="${dogImage}" alt="" />
-        </div>
-        <div class="emoji-container">
-          <p>❤️ <span class="like-counter">0</span></p>
-          <p>🤬 <span class="dislike-counter">0</span></p>
-        </div>
-        <div class="emoji-container">
-          <button class="like-button">Me gusta</button>
-          <button class="dislike-button">No me gusta</button>
-        </div>
-      </div>`;
-
-    const listDogs = document.querySelector(".dog-container");
-    listDogs.innerHTML = addHtml + listDogs.innerHTML;
-
-    const likeCountNodes = document.querySelectorAll(".like-counter");
-
-    document.querySelectorAll(".like-button").forEach((element, index) => {
-      element.addEventListener("click", function () {
-        console.log("el botón de like funciona");
-
-        likeCountNodes[index].textContent =
-          Number(likeCountNodes[index].textContent) + 1;
-        likedDoggs();
-        totalLikes();
-      });
-    });
-
-    const dislikeCountNodes = document.querySelectorAll(".dislike-counter");
-    document.querySelectorAll(".dislike-button").forEach((element, index) => {
-      element.addEventListener("click", function () {
-        console.log("el botón de dislike funciona");
-
-        dislikeCountNodes[index].textContent =
-          Number(dislikeCountNodes[index].textContent) + 1;
-      });
-    });
-  }
-};
-
-// Filtra los perros con likes
-const onlyLikedDogs = () => {
-  document.querySelectorAll(".container").forEach((dogContainer) => {
-    const likeCounter = dogContainer.querySelector(".like-counter");
-    const likeButton = document.querySelector("#only-like-dogs");
-    if (likeCounter.textContent === "0") {
-      dogContainer.classList.toggle("display-none");
-    }
-
-    likeButton.classList.toggle("button-selected");
-  });
-};
-
-//Filtro de perros sin likes
-const onlyHatedDogs = () => {
-  document.querySelectorAll(".container").forEach((dogcontainer) => {
-    const dislikeCounter = dogcontainer.querySelector(".dislike-counter");
-    const disLikeButton = dogcontainer.querySelector("#only-dislike-dogs");
-    if (dislikeCounter.textContent === "0") {
-      dogcontainer.classList.toggle("display-none");
-    }
-
-    disLikeButton.classList.toggle("button-selected");
-  });
-};
-
-// Quita el filtro de los perros sin likes
-// const returnAllDogs = () => {
-//   document.querySelectorAll(".container").forEach((dogcontainer) => {
-//     dogcontainer.classList.remove("display-none");
-//   });
-// };
 
 // Contador total de perros
 let totalDogsNum = 0;
@@ -198,10 +126,10 @@ const likedDoggs = () => {
 };
 
 // Contador de todos los likes
-let likeCounter = 0;
+let allLikeCounter = 0;
 const totalLikes = () => {
-  likeCounter += 1;
-  document.querySelector("#likes-number").textContent = `${likeCounter}`;
+  allLikeCounter += 1;
+  document.querySelector("#likes-number").textContent = `${allLikeCounter}`;
 };
 
 //Contador de los perros filtrados
@@ -211,42 +139,77 @@ const numberOfFilteredDogs = () => {
 };
 
 document.querySelector("#add-1-dog").addEventListener("click", function () {
-  addNDogs(1);
-  renderDogCounter(1);
+  if (hasFilter) {
+    alert("Para añadir más perros tienes que quitar los filtros");
+  } else {
+    addNDogs(1);
+    renderDogCounter(1);
+  }
 });
 
 document.querySelector("#add-5-dog").addEventListener("click", function () {
-  addNDogs(5);
-  renderDogCounter(5);
+  if (hasFilter) {
+    alert("Para añadir más perros tienes que quitar los filtros");
+  } else {
+    addNDogs(5);
+    renderDogCounter(5);
+  }
 });
 
 document.querySelector("#add-1-start").addEventListener("click", function () {
-  addNDogsStart(1);
-  renderDogCounter(1);
+  if (hasFilter) {
+    alert("Para añadir más perros tienes que quitar los filtros");
+  } else {
+    addNDogs(1, true);
+    renderDogCounter(1);
+  }
 });
 
 document.querySelector("#add-5-start").addEventListener("click", function () {
-  addNDogsStart(5);
-  renderDogCounter(5);
+  if (hasFilter) {
+    alert("Para añadir más perros tienes que quitar los filtros");
+  } else {
+    addNDogs(5, true);
+    renderDogCounter(5);
+  }
 });
 
-document
-  .querySelector("#only-like-dogs")
-  .addEventListener("click", function () {
-    onlyLikedDogs();
-    numberOfFilteredDogs();
-  });
+//Terminar función de filtro
+//Función de filtro
+let hasFilter = false;
+let hasDisLikeFilter = false;
+let hasLikeFilter = false;
+const filterDogs = () => {
+  document.querySelectorAll(".container").forEach((dogContainer) => {
+    const likeCount = document.querySelector(".like-counter");
+    const disLikeCount = document.querySelector(".dislike-counter");
 
-document
-  .querySelector("#only-dislike-dogs")
-  .addEventListener("click", function () {
-    onlyHatedDogs();
-    numberOfFilteredDogs();
-  });
+    if (likeCount.textContent === "0") {
+      const hasLikeFilter = true;
+      //dogContainer.classList.toggle("display-none");
+      hasFilter = true;
+    }
 
-// document
-//   .querySelector("#return-all-dogs")
-//   .addEventListener("click", function () {
-//     returnAllDogs();
-//     numberOfFilteredDogs();
-//   });
+    if (disLikeCount.textContent === "0") {
+      hasDisLikeFilter = true;
+      //dogContainer.classList.toggle("display-none");
+      hasFilter = true;
+    }
+
+    if (!hasDisLikeFilter && !hasLikeFilter) return;
+  });
+};
+
+const likeButton = document.querySelector("#only-like-dogs");
+likeButton.addEventListener("click", function () {
+  likeButton.classList.toggle("button-selected");
+  filterDogs();
+  numberOfFilteredDogs();
+});
+
+const disLikeButton = document.querySelector("#only-dislike-dogs");
+disLikeButton.addEventListener("click", function () {
+  disLikeButton.classList.toggle("button-selected");
+  filterDogs();
+  numberOfFilteredDogs();
+});
