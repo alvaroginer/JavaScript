@@ -50,7 +50,7 @@ const addNDogs = async (num, addStart) => {
       perricosArray.push(dogImage);
     }
 
-    const addHtml = `<div class="container">
+    const addHtml = `<div class="container display-none">
         <div class="img-container">
           <img src="${dogImage}" alt="" />
         </div>
@@ -176,7 +176,6 @@ document.querySelector("#add-5-start").addEventListener("click", function () {
 
 //Terminar función de filtro
 //Función de filtro
-let hasFilter = false;
 let hasDisLikeFilter = false;
 let hasLikeFilter = false;
 const filterDogs = () => {
@@ -184,24 +183,19 @@ const filterDogs = () => {
     const likeCount = document.querySelector(".like-counter");
     const disLikeCount = document.querySelector(".dislike-counter");
 
-    if (likeCount.textContent === "0") {
-      const hasLikeFilter = true;
-      //dogContainer.classList.toggle("display-none");
-      hasFilter = true;
+    if (likeCount.textContent !== "0" && hasLikeFilter) {
+      dogContainer.classList.toggle("display-none");
     }
 
-    if (disLikeCount.textContent === "0") {
-      hasDisLikeFilter = true;
-      //dogContainer.classList.toggle("display-none");
-      hasFilter = true;
+    if (disLikeCount.textContent !== "0" && hasDisLikeFilter) {
+      dogContainer.classList.toggle("display-none");
     }
-
-    if (!hasDisLikeFilter && !hasLikeFilter) return;
   });
 };
 
 const likeButton = document.querySelector("#only-like-dogs");
 likeButton.addEventListener("click", function () {
+  hasLikeFilter = true;
   likeButton.classList.toggle("button-selected");
   filterDogs();
   numberOfFilteredDogs();
@@ -209,6 +203,7 @@ likeButton.addEventListener("click", function () {
 
 const disLikeButton = document.querySelector("#only-dislike-dogs");
 disLikeButton.addEventListener("click", function () {
+  hasDisLikeFilter = true;
   disLikeButton.classList.toggle("button-selected");
   filterDogs();
   numberOfFilteredDogs();
