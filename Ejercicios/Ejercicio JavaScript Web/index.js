@@ -50,7 +50,7 @@ const addNDogs = async (num, addStart) => {
       perricosArray.push(dogImage);
     }
 
-    const addHtml = `<div class="container display-none">
+    const addHtml = `<div class="container">
         <div class="img-container">
           <img src="${dogImage}" alt="" />
         </div>
@@ -174,22 +174,34 @@ document.querySelector("#add-5-start").addEventListener("click", function () {
   }
 });
 
-//Terminar función de filtro
-//Función de filtro
+//Funcionan lo filtros individualmente
+let hasFilter = false;
 let hasDisLikeFilter = false;
 let hasLikeFilter = false;
 const filterDogs = () => {
-  document.querySelectorAll(".container").forEach((dogContainer) => {
-    const likeCount = document.querySelector(".like-counter");
-    const disLikeCount = document.querySelector(".dislike-counter");
+  document.querySelectorAll(".container").forEach((dogContainer, index) => {
+    const likeCount = dogContainer.querySelector(".like-counter");
+    const disLikeCount = dogContainer.querySelector(".dislike-counter");
 
-    if (likeCount.textContent !== "0" && hasLikeFilter) {
-      dogContainer.classList.toggle("display-none");
+    if (hasFilter) {
+      console.log("Entra en condición 1", index);
+      dogContainer.style.display = "";
+      return;
     }
 
-    if (disLikeCount.textContent !== "0" && hasDisLikeFilter) {
-      dogContainer.classList.toggle("display-none");
+    if (likeCount.textContent > "0" && hasLikeFilter === true) {
+      console.log("entra encondición 2", index);
+      dogContainer.style.display = "";
+      return;
     }
+
+    if (disLikeCount.textContent > "0" && hasDisLikeFilter === true) {
+      console.log("entra en condición 3", index);
+      dogContainer.style.display = "";
+      return;
+    }
+
+    dogContainer.classList.toggle("display-none");
   });
 };
 
@@ -199,6 +211,7 @@ likeButton.addEventListener("click", function () {
   likeButton.classList.toggle("button-selected");
   filterDogs();
   numberOfFilteredDogs();
+  hasLikeFilter = false;
 });
 
 const disLikeButton = document.querySelector("#only-dislike-dogs");
@@ -207,4 +220,5 @@ disLikeButton.addEventListener("click", function () {
   disLikeButton.classList.toggle("button-selected");
   filterDogs();
   numberOfFilteredDogs();
+  hasDisLikeFilter = false;
 });
