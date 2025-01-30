@@ -183,8 +183,7 @@ const filterDogs = () => {
     const likeCount = dogContainer.querySelector(".like-counter");
     const disLikeCount = dogContainer.querySelector(".dislike-counter");
 
-    if (hasFilter) {
-      console.log("Entra en condición 1", index);
+    if (!hasLikeFilter && !hasDisLikeFilter) {
       dogContainer.style.display = "";
       return;
     }
