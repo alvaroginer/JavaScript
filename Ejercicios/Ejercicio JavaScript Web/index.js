@@ -200,24 +200,22 @@ const filterDogs = () => {
       return;
     }
 
-    dogContainer.classList.toggle("display-none");
+    dogContainer.style.display = "none";
   });
 };
 
 const likeButton = document.querySelector("#only-like-dogs");
 likeButton.addEventListener("click", function () {
-  hasLikeFilter = true;
+  hasLikeFilter = !hasLikeFilter;
   likeButton.classList.toggle("button-selected");
   filterDogs();
   numberOfFilteredDogs();
-  hasLikeFilter = false;
 });
 
 const disLikeButton = document.querySelector("#only-dislike-dogs");
 disLikeButton.addEventListener("click", function () {
-  hasDisLikeFilter = true;
+  hasDisLikeFilter = !hasDisLikeFilter;
   disLikeButton.classList.toggle("button-selected");
   filterDogs();
   numberOfFilteredDogs();
-  hasDisLikeFilter = false;
 });
