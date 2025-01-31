@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./api.js"></script>
+    <title>Vota al perrico</title>
+  </head>
+  <body>
+    <h1>Vota al perrico</h1>
+    <div class="all-buttons">
+      <div class="button-container">
+        <button id="add-1-dog">Añade 1 perrito</button>
+        <button id="add-5-dog">Añade 5 perritos</button>
+        <br />
+      </div>
+      <div class="button-container-start">
+        <button id="add-1-start">Añadir 1 perrico al principio</button>
+        <button id="add-5-start">Añadir 5 perricos al principio</button>
+      </div>
+      <div class="filter-button">
+        <button id="only-like-dogs">Solo perros con likes</button>
+        <button id="only-dislike-dogs">Solo perros con dislikes</button>
+      </div>
+    </div>
+    <div class="dog-container"></div>
+    <div class="container-counters">
+      <p id="total-dogs-counter">Total Dogs: 0</p>
+      <p id="total-like-dogs">
+        Liked Dogs: <span class="liked-dogs-number">0</span>
+      </p>
+      <p id="total-likes">Total Likes: <span id="likes-number">0</span></p>
+      <p id="filtered-dogs">
+        Filtered Dogs: <span id="filter-dogs-num">0</span>
+      </p>
+    </div>
+  </body>
+  <script src="./index.js"></script>
+</html>
