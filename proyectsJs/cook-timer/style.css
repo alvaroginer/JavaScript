@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Pixelify Sans", serif;
+  background-color: #f6bd60;
+}
+
+/* Font-Size */
+
+.font-size__36 {
+  font-size: 36px;
+}
+
+.font-size__24 {
+  font-size: 24px;
+}
+
+/* Colors */
+
+.color__yellow {
+  color: #f6bd60;
+}
+
+.color__pink {
+  color: #f5cac3;
+}
+
+.color__white {
+  color: #f7ede2;
+}
+
+.color__green {
+  color: #84a59d;
+}
+
+/* Display */
+
+.display__flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Viewports */
+
+.viewport__100vh {
+  height: 100vh;
+}
+
+/* Sections */
+
+.menu-container {
+  background-color: #f7ede2;
+  padding: 60px;
+  text-align: center;
+  border-radius: 50px;
+  border: 10px solid #84a59d;
+}
+
+.menu-container--button {
+  background-color: #f7ede2;
+  padding: 20px;
+  border-radius: 50px;
+  border: 5px solid #f5cac3;
+  transition: all ease 0.3s;
+}
+
+.menu-container--button:hover {
+  background-color: #f5cac3;
+  transform: scale(1.1);
+}
