@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Egg-Clock-Timmer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="display__flex viewport__100vh">
+      <section class="menu-container">
+        <h1 class="menu-container--title font-size__36 color__yellow">
+          Which egg type?
+        </h1>
+        <button
+          class="egg-container--button egg-container--button-1 margin--right__20"
+        >
+          <img src="./imgs/img-hard-egg.png" alt="" class="icon1" />
+        </button>
+        <button class="egg-container--button egg-container--button-2">
+          <img src="./imgs/img-fried-egg.png" alt="" class="icon2" />
+        </button>
+        <div class="counter-container display__flex margin__20">
+          <p
+            class="counter-container--text color__yellow font-size__48 margin__0"
+          >
+            00:00
+          </p>
+          <button class="counter-container--button font-size__36 color__white">
+            Start
+            <img
+              src="./imgs/Vector.png"
+              alt="Play Icons"
+              class="counter-container--button-img"
+            />
+          </button>
+        </div>
+      </section>
+    </div>
+  </body>
+  <script src="./script.js"></script>
+</html>
+
+<audio src="./audios/clock-start.mp3"></audio>
+<audio src="./audios/clock-final.mp3"></audio>

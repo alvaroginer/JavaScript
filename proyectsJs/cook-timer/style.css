@@ -8,7 +8,70 @@ body {
   background-color: #f6bd60;
 }
 
+/* Sections */
+.menu-container {
+  background-color: #f7ede2;
+  padding: 60px;
+  text-align: center;
+  border-radius: 50px;
+  border: 10px solid #84a59d;
+}
+
+.menu-container--button {
+  background-color: #f5cac3;
+  padding: 20px;
+  border-radius: 50px;
+  border: 5px solid #f5cac3;
+  transition: all ease 0.3s;
+}
+
+.menu-container--button:hover {
+  background-color: #f6bd60;
+  border: 5px solid #f6bd60;
+  transform: scale(1.1);
+}
+
+.egg-container--button {
+  background-color: #f5cac3;
+  padding: 20px;
+  border-radius: 50px;
+  border: 5px solid #f5cac3;
+  transition: all ease 0.2s;
+  cursor: pointer;
+}
+
+.egg-container--button:hover {
+  background-color: #f6bd60;
+  border: 5px solid #f6bd60;
+}
+
+.egg-container--button:active {
+  border: 5px solid #f6bd60;
+  box-shadow: 0 0 10px 4px #f6bd609a, 0 0 20px 8px #f6bd6044;
+  transform: scale(1.1);
+}
+
+.counter-container--button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background-color: #f6bd60;
+  border: none;
+  padding: 10px;
+  font-family: "Pixelify Sans", serif;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.counter-container--button-img {
+  width: 30px;
+}
+
 /* Font-Size */
+.font-size__48 {
+  font-size: 48px;
+}
 
 .font-size__36 {
   font-size: 36px;
@@ -19,7 +82,6 @@ body {
 }
 
 /* Colors */
-
 .color__yellow {
   color: #f6bd60;
 }
@@ -36,8 +98,12 @@ body {
   color: #84a59d;
 }
 
-/* Display */
+/* Background-colors */
+.bg-color__pink {
+  background-color: #f5cac3;
+}
 
+/* Display */
 .display__flex {
   display: flex;
   justify-content: center;
@@ -46,30 +112,51 @@ body {
 }
 
 /* Viewports */
-
 .viewport__100vh {
   height: 100vh;
 }
 
-/* Sections */
-
-.menu-container {
-  background-color: #f7ede2;
-  padding: 60px;
-  text-align: center;
-  border-radius: 50px;
-  border: 10px solid #84a59d;
+/* Margin */
+.margin__0 {
+  margin: 0;
 }
 
-.menu-container--button {
-  background-color: #f7ede2;
-  padding: 20px;
-  border-radius: 50px;
-  border: 5px solid #f5cac3;
-  transition: all ease 0.3s;
+.margin__20 {
+  margin-top: 20px;
 }
 
-.menu-container--button:hover {
-  background-color: #f5cac3;
-  transform: scale(1.1);
+.margin--right__20 {
+  margin-right: 20px;
+}
+@keyframes movimientoSuave1 {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes movimientoSuave2 {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.icon1 {
+  animation: movimientoSuave1 2s ease-in-out infinite;
+}
+
+.icon2 {
+  animation: movimientoSuave2 2s ease-in-out infinite;
+  animation-delay: 1s; /* Esto debería funcionar */
 }
