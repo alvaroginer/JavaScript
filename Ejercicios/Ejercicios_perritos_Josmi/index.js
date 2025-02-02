@@ -26,6 +26,7 @@ const createDog = (dogImg) => {
     allLikes();
     dogCard.querySelector(".like-counter").textContent =
       Number(dogCard.querySelector(".like-counter").textContent) + 1;
+    allLikedDogs();
   });
 
   dogCard
@@ -55,9 +56,53 @@ const addDog = async (num, start) => {
   totalDogs();
 };
 
+// Función para añadir filtros - FUNCIONA!!!
+const filterDogs = () => {
+  let hasLikeFilter = buttonContainer
+    .querySelector("#only-like-dogs")
+    .classList.contains("filter-selected");
+  let hasDisLikeFilter = buttonContainer
+    .querySelector("#only-dislike-dogs")
+    .classList.contains("filter-selected");
+
+  document.querySelectorAll(".container").forEach((dogContainer, index) => {
+    const likeCount = dogContainer.querySelector(".like-counter").textContent;
+    const disLikeCount =
+      dogContainer.querySelector(".dislike-counter").textContent;
+
+    if (
+      hasLikeFilter &&
+      hasDisLikeFilter &&
+      (likeCount === "0" || disLikeCount === "0")
+    ) {
+      dogContainer.style.display = "none";
+      return;
+    }
+
+    if (!hasLikeFilter && !hasDisLikeFilter) {
+      dogContainer.style.display = "";
+      console.log("entra en condición 1", index);
+      return;
+    }
+
+    if (hasLikeFilter && likeCount > 0) {
+      dogContainer.style.display = "";
+      console.log("entra en condición 2", index);
+      return;
+    }
+
+    if (hasDisLikeFilter && disLikeCount > 0) {
+      dogContainer.style.display = "";
+      console.log("entra en condición 3", index);
+      return;
+    }
+
+    dogContainer.style.display = "none";
+  });
+};
+
 // Añadimos EventListeners a los botones de arriba
 const buttonContainer = document.querySelector(".all-buttons");
-
 buttonContainer
   .querySelector("#add-1-dog")
   .addEventListener("click", function () {
@@ -82,6 +127,24 @@ buttonContainer
     addDog(5, true);
   });
 
+buttonContainer
+  .querySelector("#only-like-dogs")
+  .addEventListener("click", function () {
+    buttonContainer
+      .querySelector("#only-like-dogs")
+      .classList.toggle("filter-selected");
+    filterDogs();
+  });
+
+buttonContainer
+  .querySelector("#only-dislike-dogs")
+  .addEventListener("click", function () {
+    buttonContainer
+      .querySelector("#only-dislike-dogs")
+      .classList.toggle("filter-selected");
+    filterDogs();
+  });
+
 //Funciones para que los contadores de abajo funcionen
 const allCounters = document.querySelector(".container-counters");
 const totalDogs = () => {
@@ -92,12 +155,17 @@ const totalDogs = () => {
 
 //TERMINAR EL CONTADOR DE PERROS CON LIKES
 const allLikedDogs = () => {
+  const likedContainers = [];
   document.querySelectorAll(".like-counter").forEach((dogContainer, index) => {
-    const likedContainers = [];
-    if (dogContainer > 0) {
+    const totalLikes = dogContainer.textContent;
+    if (totalLikes > 0) {
       likedContainers.push(index);
+      console.log("estás accediendo a los datos");
     }
   });
+  document.querySelector(
+    ".liked-dogs-number"
+  ).textContent = `${likedContainers.length}`;
 };
 
 const allLikes = () => {
