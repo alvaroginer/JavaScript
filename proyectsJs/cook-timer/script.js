@@ -30,6 +30,27 @@ const counter = () => {
   }
 };
 
+const createCounter = () => {
+  const timerNode = document.createElement("div");
+  timerNode.className = "timer-container--notification";
+  timerNode.innerHTML = `
+            <p class="font-size__24 color__yellow">Select your time</p>
+            <div class="display__flex">
+              <button class="timer-counter-container--button">Minutes</button>
+              <button class="timer-counter-container--button">Seconds</button>
+            </div>
+            <p class="font-size__60 margin__15 color__yellow">00:00</p>
+            <div class="display__flex">
+              <button class="timer-counter-container--button">+</button>
+              <button class="counter-container--button color__white">
+                Start
+              </button>
+              <button class="timer-counter-container--button">-</button>
+            </div>`;
+  document.querySelector(".timer--container").appendChild(timerNode);
+  document.querySelector(".timer--container").style.display = "flex";
+};
+
 document
   .querySelector(".egg-container--button-1")
   .addEventListener("click", function () {
@@ -46,4 +67,10 @@ document
   .querySelector(".counter-container--button")
   .addEventListener("click", function () {
     counter();
+  });
+
+document
+  .querySelector(".menu-container--button__big")
+  .addEventListener("click", function () {
+    createCounter();
   });

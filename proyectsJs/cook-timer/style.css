@@ -25,10 +25,41 @@ body {
   transition: all ease 0.3s;
 }
 
+.menu-container--button__big {
+  margin-top: 20px;
+  font-family: "Pixelify Sans", serif;
+  font-size: 20px;
+  color: #f7ede2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .menu-container--button:hover {
   background-color: #f6bd60;
   border: 5px solid #f6bd60;
   transform: scale(1.1);
+}
+
+.timer--container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.timer-container--notification {
+  width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f7ede2;
+  border: #f6bd60 5px dotted;
 }
 
 .egg-container--button {
@@ -64,11 +95,34 @@ body {
   cursor: pointer;
 }
 
+.timer-counter-container--button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background-color: #f7ede2;
+  border: 2px solid #f6bd60;
+  color: #f6bd60;
+  padding: 10px;
+  font-family: "Pixelify Sans", serif;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.timer-counter-container--button__selected {
+  background-color: #f6bd60;
+  color: #f7ede2;
+}
+
 .counter-container--button-img {
   width: 30px;
 }
 
 /* Font-Size */
+.font-size__60 {
+  font-size: 60px;
+}
+
 .font-size__48 {
   font-size: 48px;
 }
@@ -103,6 +157,10 @@ body {
   background-color: #f5cac3;
 }
 
+.bg-color__white {
+  background-color: #f7ede2;
+}
+
 /* Display */
 .display__flex {
   display: flex;
@@ -120,6 +178,9 @@ body {
 .margin__0 {
   margin: 0;
 }
+.margin__15 {
+  margin: 15px;
+}
 
 .margin__20 {
   margin-top: 20px;
@@ -128,6 +189,8 @@ body {
 .margin--right__20 {
   margin-right: 20px;
 }
+
+/* Animations */
 @keyframes movimientoSuave1 {
   0% {
     transform: translateY(0);
