@@ -36,8 +36,8 @@ const createCounter = () => {
   timerNode.innerHTML = `
             <p class="font-size__24 color__yellow">Select your time</p>
             <div class="display__flex">
-              <button class="timer-counter-container--button">Minutes</button>
-              <button class="timer-counter-container--button">Seconds</button>
+              <button class="timer-counter-container--button timer-counter-container--button-min">Minutes</button>
+              <button class="timer-counter-container--button timer-counter-container--button-sec">Seconds</button>
             </div>
             <p class="font-size__60 margin__15 color__yellow">00:00</p>
             <div class="display__flex">
@@ -75,4 +75,12 @@ document
   .querySelector(".counter-container--button")
   .addEventListener("click", function () {
     counter();
+  });
+
+document
+  .querySelector(".timer-counter-container--button-min")
+  .addEventListener("click", function () {
+    document
+      .querySelector(".timer-counter-container--button-min")
+      .classList.toggle("timer-counter-container--button__selected");
   });
