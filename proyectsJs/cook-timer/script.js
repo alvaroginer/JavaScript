@@ -68,6 +68,15 @@ const modifyTime = (add) => {
     minuteNode.classList.contains(
       "timer-counter-container--button__selected"
     ) &&
+    secondNode.classList.contains("timer-counter-container--button__selected")
+  ) {
+    alert("Desactiva uno de los dos parámetros para modificar el tiempo");
+  }
+
+  if (
+    minuteNode.classList.contains(
+      "timer-counter-container--button__selected"
+    ) &&
     add
   ) {
     let minuteContent = 0;
