@@ -47,9 +47,17 @@ const createCounter = () => {
               </button>
               <button class="timer-counter-container--button">-</button>
             </div>`;
-  document.querySelector(".timer--container").appendChild(timerNode);
-  document.querySelector(".timer--container").style.display = "flex";
+  const timeContainer = document.querySelector(".timer--container");
+  timeContainer.appendChild(timerNode);
 };
+
+document
+  .querySelector(".menu-container--button__big")
+  .addEventListener("click", function () {
+    document.querySelector(".timer--container").style.display = "flex";
+    console.log("esto funciona");
+    createCounter();
+  });
 
 document
   .querySelector(".egg-container--button-1")
@@ -67,10 +75,4 @@ document
   .querySelector(".counter-container--button")
   .addEventListener("click", function () {
     counter();
-  });
-
-document
-  .querySelector(".menu-container--button__big")
-  .addEventListener("click", function () {
-    createCounter();
   });
