@@ -51,13 +51,44 @@ const createCounter = () => {
   timeContainer.appendChild(timerNode);
 };
 
-const modifyTime = () => {
-  // const minuteNode =
-  // const secondNode =
+const modifyTime = (add) => {
+  const minuteNode = document.querySelector(
+    ".timer-counter-container--button-min"
+  );
+  const secondNode = document.querySelector(
+    ".timer-counter-container--button-sec"
+  );
   const time = document.querySelector(
     ".timer-counter-container--text"
   ).textContent;
+
   let [minutes, seconds] = time.split(":");
+
+  if (
+    minuteNode.classList.contains(
+      "timer-counter-container--button__selected"
+    ) &&
+    add
+  ) {
+    let minuteContent = 0;
+    minuteContent++;
+    minuteNode.textContent = `${
+      minuteContent < 10 ? `0${minuteContent}` : minuteContent
+    }`;
+  }
+
+  if (
+    secondNode.classList.contains(
+      "timer-counter-container--button__selected"
+    ) &&
+    add
+  ) {
+    let secondContent = 0;
+    secondContent++;
+    secondNode.textContent = `${
+      secondContent < 10 ? `0${secondContent}` : secondContent
+    }`;
+  }
 };
 
 document
