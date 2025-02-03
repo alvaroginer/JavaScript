@@ -87,6 +87,19 @@ const modifyTime = (add) => {
   }
 
   if (
+    minuteNode.classList.contains(
+      "timer-counter-container--button__selected"
+    ) &&
+    !add
+  ) {
+    let minuteContent = 0;
+    minuteContent--;
+    minuteNode.textContent = `${
+      minuteContent < 10 ? `0${minuteContent}` : minuteContent
+    }`;
+  }
+
+  if (
     secondNode.classList.contains(
       "timer-counter-container--button__selected"
     ) &&
@@ -94,6 +107,19 @@ const modifyTime = (add) => {
   ) {
     let secondContent = 0;
     secondContent++;
+    secondNode.textContent = `${
+      secondContent < 10 ? `0${secondContent}` : secondContent
+    }`;
+  }
+
+  if (
+    secondNode.classList.contains(
+      "timer-counter-container--button__selected"
+    ) &&
+    !add
+  ) {
+    let secondContent = 0;
+    secondContent--;
     secondNode.textContent = `${
       secondContent < 10 ? `0${secondContent}` : secondContent
     }`;
