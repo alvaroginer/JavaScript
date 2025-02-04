@@ -1,5 +1,10 @@
-const counter = () => {
-  const countContainer = document.querySelector(".counter-container--text");
+const counter = (personalized) => {
+  let countContainer = "";
+  personalized
+    ? (countContainer = document.querySelector(
+        ".timer-counter-container--text"
+      ))
+    : (countContainer = document.querySelector(".counter-container--text"));
   let countContainerTime = countContainer.textContent;
   document.querySelector('audio[src="./audios/clock-start.mp3"]').play();
 
@@ -36,19 +41,55 @@ const createCounter = () => {
   timerNode.innerHTML = `
             <p class="font-size__24 color__yellow">Select your time</p>
             <div class="display__flex">
-              <button class="timer-counter-container--button timer-counter-container--button-min">Minutes</button>
-              <button class="timer-counter-container--button timer-counter-container--button-sec">Seconds</button>
+              <button class="timer-counter-container--button timer-counter-container--button-min font-size__24">Minutes</button>
+              <button class="timer-counter-container--button timer-counter-container--button-sec font-size__24">Seconds</button>
             </div>
             <p class="font-size__60 margin__15 color__yellow timer-counter-container--text">00:00</p>
             <div class="display__flex">
-              <button class="timer-counter-container--button">+</button>
-              <button class="counter-container--button color__white">
+              <button class="timer-counter-container--button counter-container--button-add font-size__24">+</button>
+              <button class="counter-container--button counter-container--button-start color__white font-size__24">
                 Start
               </button>
-              <button class="timer-counter-container--button">-</button>
+              <button class="timer-counter-container--button counter-container--button-rest font-size__24">-</button>
             </div>`;
   const timeContainer = document.querySelector(".timer--container");
   timeContainer.appendChild(timerNode);
+
+  document
+    .querySelector(".timer-counter-container--button-min")
+    .addEventListener("click", function () {
+      document
+        .querySelector(".timer-counter-container--button-min")
+        .classList.toggle("timer-counter-container--button__selected");
+      console.log("estás cambiando la clase del botón minutos");
+    });
+
+  document
+    .querySelector(".timer-counter-container--button-sec")
+    .addEventListener("click", function () {
+      document
+        .querySelector(".timer-counter-container--button-sec")
+        .classList.toggle("timer-counter-container--button__selected");
+      console.log("estás cambiando la clase del botón segundos");
+    });
+
+  document
+    .querySelector(".counter-container--button-add")
+    .addEventListener("click", function () {
+      modifyTime(true);
+    });
+
+  document
+    .querySelector(".counter-container--button-rest")
+    .addEventListener("click", function () {
+      modifyTime(false);
+    });
+
+  document
+    .querySelector(".counter-container--button-start")
+    .addEventListener("click", function () {
+      counter(personalized);
+    });
 };
 
 const modifyTime = (add) => {
@@ -58,11 +99,9 @@ const modifyTime = (add) => {
   const secondNode = document.querySelector(
     ".timer-counter-container--button-sec"
   );
-  const time = document.querySelector(
-    ".timer-counter-container--text"
-  ).textContent;
+  let time = document.querySelector(".timer-counter-container--text");
 
-  let [minutes, seconds] = time.split(":");
+  let [minutes, seconds] = time.textContent.split(":").map(Number);
 
   if (
     minuteNode.classList.contains(
@@ -71,59 +110,34 @@ const modifyTime = (add) => {
     secondNode.classList.contains("timer-counter-container--button__selected")
   ) {
     alert("Desactiva uno de los dos parámetros para modificar el tiempo");
+    return;
   }
 
   if (
-    minuteNode.classList.contains(
-      "timer-counter-container--button__selected"
-    ) &&
-    add
+    minuteNode.classList.contains("timer-counter-container--button__selected")
   ) {
-    let minuteContent = 0;
-    minuteContent++;
-    minuteNode.textContent = `${
-      minuteContent < 10 ? `0${minuteContent}` : minuteContent
-    }`;
+    add === true ? minutes++ : minutes--;
+    if (minutes < 0) {
+      minutes = 59;
+    } else if (minutes > 59) {
+      minutes = 0;
+    }
   }
 
   if (
-    minuteNode.classList.contains(
-      "timer-counter-container--button__selected"
-    ) &&
-    !add
+    secondNode.classList.contains("timer-counter-container--button__selected")
   ) {
-    let minuteContent = 0;
-    minuteContent--;
-    minuteNode.textContent = `${
-      minuteContent < 10 ? `0${minuteContent}` : minuteContent
-    }`;
+    add === true ? seconds++ : seconds--;
+    if (seconds < 0) {
+      seconds = 59;
+    } else if (seconds > 59) {
+      seconds = 0;
+    }
   }
 
-  if (
-    secondNode.classList.contains(
-      "timer-counter-container--button__selected"
-    ) &&
-    add
-  ) {
-    let secondContent = 0;
-    secondContent++;
-    secondNode.textContent = `${
-      secondContent < 10 ? `0${secondContent}` : secondContent
-    }`;
-  }
-
-  if (
-    secondNode.classList.contains(
-      "timer-counter-container--button__selected"
-    ) &&
-    !add
-  ) {
-    let secondContent = 0;
-    secondContent--;
-    secondNode.textContent = `${
-      secondContent < 10 ? `0${secondContent}` : secondContent
-    }`;
-  }
+  time.textContent = `${minutes < 10 ? `0${minutes}` : minutes}:${
+    seconds < 10 ? `0${seconds}` : seconds
+  }`;
 };
 
 document
@@ -150,12 +164,4 @@ document
   .querySelector(".counter-container--button")
   .addEventListener("click", function () {
     counter();
-  });
-
-document
-  .querySelector(".timer-counter-container--button-min")
-  .addEventListener("click", function () {
-    document
-      .querySelector(".timer-counter-container--button-min")
-      .classList.toggle("timer-counter-container--button__selected");
   });
