@@ -1,6 +1,7 @@
+// Cambiar el valor de los minutos y segundos a una única y misma variable en segundos y a partir de ahí construir
 const counter = (personalized) => {
   let countContainer = "";
-  personalized
+  personalized === true
     ? (countContainer = document.querySelector(
         ".timer-counter-container--text"
       ))
@@ -145,7 +146,7 @@ document
   .addEventListener("click", function () {
     document.querySelector(".timer--container").style.display = "flex";
     console.log("esto funciona");
-    createCounter();
+    createCounter(false);
   });
 
 document
@@ -163,5 +164,5 @@ document
 document
   .querySelector(".counter-container--button")
   .addEventListener("click", function () {
-    counter();
+    counter(true);
   });

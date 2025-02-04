@@ -8,6 +8,7 @@ function generateRandomTask() {
   return {
     text: `Texto aleatorio número ${getRandomInt(1, 1000)}`,
     isCompleted: getRandomInt(0, 1) === 1,
+    isFav: getRandomInt(0, 1) === 1,
   };
 }
 
@@ -22,52 +23,55 @@ function getRandomArray() {
 // Estas funciones serán las que iremos cambiando con los ejemplos
 function regenerateArray() {
   const tasks = getRandomArray();
-  let newTasksHTML = "";
+  document.querySelector("#tasks").innerHTML = "";
 
   tasks.forEach((task) => {
-    newTasksHTML += `
-       <div class="task">
-          <span class="${task.isCompleted ? "completed" : ""}">${
-      task.text
-    }</span> -
-          <span class="status">${
-            task.isCompleted ? "completed" : "pending"
-          }</span>
-        </div>`;
+    createTaskNode(task, true);
   });
-  document.querySelector("#tasks").innerHTML = newTasksHTML;
 }
 
-function addFirst() {
-  const task = generateRandomTask();
-  let newTasksHTML = `
-       <div class="task">
-          <span class="${task.isCompleted ? "completed" : ""}">${
-    task.text
-  }</span> -
-          <span class="status">${
-            task.isCompleted ? "completed" : "pending"
-          }</span>
-      </div>`;
+function createTaskNode(task, addToEnd) {
+  const taskNode = document.createElement("div");
+  taskNode.className = "task";
+
+  taskNode.innerHTML = `
+    <span class="${task.isCompleted ? "completed" : ""}">${task.text}</span> -
+    <span class="status">${task.isCompleted ? "completed" : "pending"}</span>
+    <button class="${task.isFav ? "fav" : ""}" style="display:none">${
+    task.isFav ? "💝" : "💔"
+  }</button>
+    `;
 
   const tasksNode = document.querySelector("#tasks");
-  tasksNode.innerHTML = newTasksHTML + tasksNode.innerHTML;
+
+  if (addToEnd) {
+    tasksNode.appendChild(taskNode);
+  } else {
+    tasksNode.prepend(taskNode);
+  }
+
+  taskNode.addEventListener("click", function (event) {
+    console.log(event);
+    const taskTextNode = taskNode.querySelector("span");
+    const isCurrentlyCompleted = taskTextNode.classList.contains("completed");
+    taskTextNode.classList.toggle("completed");
+    taskNode.querySelector(".status").innerText = isCurrentlyCompleted
+      ? "pending"
+      : "completed";
+  });
+
+  const favButtonNode = taskNode.querySelector("button");
+  favButtonNode.addEventListener("click", function (event) {
+    event.stopPropagation();
+    const isCurrentlyFav = favButtonNode.classList.contains("fav");
+    favButtonNode.classList.toggle("fav");
+    favButtonNode.innerText = isCurrentlyFav ? "💔" : "💝";
+  });
 }
 
-function addLast() {
+function addTask(addToEnd) {
   const task = generateRandomTask();
-  let newTasksHTML = `
-       <div class="task">
-          <span class="${task.isCompleted ? "completed" : ""}">${
-    task.text
-  }</span> -
-          <span class="status">${
-            task.isCompleted ? "completed" : "pending"
-          }</span>
-      </div>`;
-
-  const tasksNode = document.querySelector("#tasks");
-  tasksNode.innerHTML = tasksNode.innerHTML + newTasksHTML;
+  createTaskNode(task, addToEnd);
 }
 
 // event listeners para que los botones llamen a las funciones anteriores
@@ -76,9 +80,9 @@ document.querySelector("#regenate").addEventListener("click", () => {
 });
 
 document.querySelector("#add-first").addEventListener("click", () => {
-  addFirst();
+  addTask(false);
 });
 
 document.querySelector("#add-last").addEventListener("click", () => {
-  addLast();
+  addTask(true);
 });

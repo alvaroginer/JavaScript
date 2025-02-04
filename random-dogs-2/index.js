@@ -3,219 +3,176 @@ const perricosArray = [
 ];
 console.log(perricosArray);
 
-// Añadir contenedores de perros
-// function renderDogArray() {
-//   const listDogs = document.querySelector(".dog-container");
-//   listDogs.innerHTML = "";
+const timeoutId = setTimeout(() => {
+  document.querySelector("#add-warning").style.display = "";
+}, 3000);
+// console.log(getRandomDogImage());
 
-//   perricosArray.forEach((dogImage) => {
-//     const addHtml = `<div class="container">
-//         <div class="img-container">
-//           <img src="${dogImage}" alt="" />
-//         </div>
-//         <div class="emoji-container">
-//           <p>❤️ <span class="like-counter">0</span< </p>
-//           <p>🤬:0</p>
-//         </div>
-//         <div class="emoji-container">
-//           <button class="like-button">Me gusta</button>
-//           <button class="not-like-button">No me gusta</button>
-//         </div>
-//       </div>`;
+// addPerrico();
 
-//     listDogs.innerHTML += addHtml;
-
-//     console.log("me estoy ejecutando");
-//   });
-
-//   const likeCountNodes = document.querySelectorAll(".like-counter");
-
-//   document.querySelectorAll(".like-button").forEach((element, index) => {
-//     element.addEventListener("click", function () {
-//       console.log("este código funciona");
-
-//       likeCountNodes[index].textContent =
-//         Number(likeCountNodes[index].textContent) + 1;
-//     });
-//   });
-// }
-
-// Función que añade un número N de perros
-const addNDogs = async (num, addStart) => {
-  for (let i = 0; i < num; i++) {
-    const dogImage = await getRandomDogImage();
-    if (addStart) {
-      perricosArray.unshift(dogImage);
-    } else {
-      perricosArray.push(dogImage);
-    }
-
-    const addHtml = `<div class="container">
-        <div class="img-container">
-          <img src="${dogImage}" alt="" />
-        </div>
-        <div class="emoji-container">
-          <p>❤️ <span class="like-counter">0</span></p>
-          <p>🤬 <span class="dislike-counter">0</span></p>
-        </div>
-        <div class="emoji-container">
-          <button class="like-button">Me gusta</button>
-          <button class="dislike-button">No me gusta</button>
-        </div>
-      </div>`;
-
-    const listDogs = document.querySelector(".dog-container");
-
-    if (addStart) {
-      listDogs.innerHTML = addHtml + listDogs.innerHTML;
-    } else {
-      listDogs.innerHTML += addHtml;
-    }
-
-    const likeCountNodes = document.querySelectorAll(".like-counter");
-
-    document.querySelectorAll(".like-button").forEach((element, index) => {
-      element.addEventListener("click", function () {
-        console.log("el botón de like funciona");
-
-        likeCountNodes[index].textContent =
-          Number(likeCountNodes[index].textContent) + 1;
-        likedDoggs();
-        totalLikes();
-      });
-    });
-
-    const dislikeCountNodes = document.querySelectorAll(".dislike-counter");
-    document.querySelectorAll(".dislike-button").forEach((element, index) => {
-      element.addEventListener("click", function () {
-        console.log("el botón de dislike funciona");
-
-        dislikeCountNodes[index].textContent =
-          Number(dislikeCountNodes[index].textContent) + 1;
-      });
-    });
-  }
-};
-
-// Contador total de perros
-let totalDogsNum = 0;
-function renderDogCounter(num) {
-  const totalDogsCounter = document.querySelector("#totalDogsCounter");
-  let totalCounterContent = totalDogsCounter.textContent;
-  totalDogsNum += num;
-
-  let finalCount = totalCounterContent.split(":");
-  finalCount[1] = totalDogsNum;
-
-  totalDogsCounter.textContent = finalCount.join(": ");
+function clearWarningMessage() {
+  clearTimeout(timeoutId);
+  document.querySelector("#add-warning").style.display = "none";
 }
 
-// Contador de los perros que tienen like
-const likedDoggs = () => {
-  const likedPublications = [];
-  document.querySelectorAll(".like-counter").forEach((element, index) => {
-    const likedDogsCounter = element.textContent;
-    if (likedDogsCounter > 0) {
-      console.log("estás accediendo bien a los datos", index);
-      likedPublications.push(index);
-    }
+function addSocialListeners() {
+  document.querySelectorAll(".like").forEach((buttonNode) => {
+    buttonNode.addEventListener("click", function () {
+      const hermanico = buttonNode.previousElementSibling;
+      const likeCountNode = hermanico.querySelector(".like-count");
+      likeCountNode.innerText = Number(likeCountNode.innerText) + 1;
+    });
   });
-  document.querySelector(
-    ".likedDogsNumber"
-  ).textContent = `${likedPublications.length}`;
-};
 
-// Contador de todos los likes
-let allLikeCounter = 0;
-const totalLikes = () => {
-  allLikeCounter += 1;
-  document.querySelector("#likes-number").textContent = `${allLikeCounter}`;
-};
+  document.querySelectorAll(".dislike").forEach((buttonNode) => {
+    buttonNode.addEventListener("click", function () {
+      console.log(buttonNode.closest(".card"));
+      const likeCountNode = buttonNode
+        .closest(".card")
+        .querySelector(".dislike-count");
+      likeCountNode.innerText = Number(likeCountNode.innerText) + 1;
+    });
+  });
+}
 
-//Contador de los perros filtrados
-const numberOfFilteredDogs = () => {
-  const filteredDogsNum = document.querySelectorAll(".display-none").length;
-  document.querySelector("#filter-dogs-num").textContent = filteredDogsNum;
-};
+function renderPerricoArray() {
+  const dogList = document.querySelector("#dog-list");
+  dogList.innerHTML = "";
 
-document.querySelector("#add-1-dog").addEventListener("click", function () {
-  if (hasFilter) {
-    alert("Para añadir más perros tienes que quitar los filtros");
+  perricosArray.forEach((dogImage, index) => {
+    const htmlAdd = `<div class="card">
+  <img src="${dogImage}" alt="Perro" />
+  <br />
+  <p><span class="like-count"></span>❤️ <span class="dislike-count"></span>🤮</p>
+  <button class="like">Preciosísimo</button> <button class="dislike">Feísisimo</button>
+</div>`;
+
+    dogList.innerHTML += htmlAdd;
+  });
+
+  addSocialListeners();
+}
+
+const addPerrico = async (addToStart) => {
+  const perricoImg = await getRandomDogImage();
+
+  if (addToStart) {
+    perricosArray.unshift(perricoImg);
   } else {
-    addNDogs(1);
-    renderDogCounter(1);
+    perricosArray.push(perricoImg);
   }
-});
 
-document.querySelector("#add-5-dog").addEventListener("click", function () {
-  if (hasFilter) {
-    alert("Para añadir más perros tienes que quitar los filtros");
+  const dogList = document.querySelector("#dog-list");
+
+  const isAnyFilterSelected = document.querySelector(".filter-selected");
+
+  const perricoCardElement = document.createElement("div");
+  perricoCardElement.className = "card";
+  perricoCardElement.style.display = isAnyFilterSelected ? "none" : "";
+
+  perricoCardElement.innerHTML = `
+  <img src="${perricoImg}" alt="Perro" />
+  <br />
+  <p><span class="like-count"></span>❤️ <span class="dislike-count"></span>🤮</p>
+  <button class="like">Preciosísimo</button> <button class="dislike">Feísisimo</button>`;
+
+  if (addToStart) {
+    dogList.prepend(perricoCardElement);
   } else {
-    addNDogs(5);
-    renderDogCounter(5);
+    dogList.appendChild(perricoCardElement);
   }
-});
 
-document.querySelector("#add-1-start").addEventListener("click", function () {
-  if (hasFilter) {
-    alert("Para añadir más perros tienes que quitar los filtros");
-  } else {
-    addNDogs(1, true);
-    renderDogCounter(1);
-  }
-});
+  const likeButton = perricoCardElement.querySelector(".like");
 
-document.querySelector("#add-5-start").addEventListener("click", function () {
-  if (hasFilter) {
-    alert("Para añadir más perros tienes que quitar los filtros");
-  } else {
-    addNDogs(5, true);
-    renderDogCounter(5);
-  }
-});
+  likeButton.addEventListener("click", function () {
+    const likeCountNode = perricoCardElement.querySelector(".like-count");
+    likeCountNode.innerText = Number(likeCountNode.innerText) + 1;
+  });
 
-//Funcionan lo filtros individualmente
-let hasFilter = false;
-let hasDisLikeFilter = false;
-let hasLikeFilter = false;
-const filterDogs = () => {
-  document.querySelectorAll(".container").forEach((dogContainer, index) => {
-    const likeCount = dogContainer.querySelector(".like-counter");
-    const disLikeCount = dogContainer.querySelector(".dislike-counter");
-
-    if (!hasLikeFilter && !hasDisLikeFilter) {
-      dogContainer.style.display = "";
-      return;
-    }
-
-    if (likeCount.textContent > "0" && hasLikeFilter === true) {
-      console.log("entra encondición 2", index);
-      dogContainer.style.display = "";
-      return;
-    }
-
-    if (disLikeCount.textContent > "0" && hasDisLikeFilter === true) {
-      console.log("entra en condición 3", index);
-      dogContainer.style.display = "";
-      return;
-    }
-
-    dogContainer.style.display = "none";
+  const dislikeButton = perricoCardElement.querySelector(".dislike");
+  dislikeButton.addEventListener("click", function () {
+    const likeCountNode = perricoCardElement.querySelector(".dislike-count");
+    likeCountNode.innerText = Number(likeCountNode.innerText) + 1;
   });
 };
 
-const likeButton = document.querySelector("#only-like-dogs");
-likeButton.addEventListener("click", function () {
-  hasLikeFilter = !hasLikeFilter;
-  likeButton.classList.toggle("button-selected");
-  filterDogs();
-  numberOfFilteredDogs();
+document.querySelector("#add-1-perrico").addEventListener("click", function () {
+  clearWarningMessage();
+
+  addPerrico();
 });
 
-const disLikeButton = document.querySelector("#only-dislike-dogs");
-disLikeButton.addEventListener("click", function () {
-  hasDisLikeFilter = !hasDisLikeFilter;
-  disLikeButton.classList.toggle("button-selected");
-  filterDogs();
-  numberOfFilteredDogs();
+document
+  .querySelector("#add-1-perrico-start")
+  .addEventListener("click", function () {
+    clearWarningMessage();
+
+    addPerrico(true);
+  });
+
+document
+  .querySelector("#add-5-perricos")
+  .addEventListener("click", function () {
+    clearWarningMessage();
+
+    addPerrico();
+    addPerrico();
+    addPerrico();
+    addPerrico();
+    addPerrico();
+  });
+
+const likeFilterButton = document.querySelector("#like-filter");
+
+likeFilterButton.addEventListener("click", function () {
+  likeFilterButton.classList.toggle("filter-selected");
+  filterPerricos();
 });
+
+const dislikeFilter = document.querySelector("#dislike-filter");
+
+dislikeFilter.addEventListener("click", function () {
+  dislikeFilter.classList.toggle("filter-selected");
+  filterPerricos();
+});
+
+function filterPerricos() {
+  const isLikeFilterSelected =
+    likeFilterButton.classList.contains("filter-selected");
+  const isDislikeSelected = dislikeFilter.classList.contains("filter-selected");
+  console.log("filtering", {
+    isLikeFilterSelected,
+    isDislikeSelected,
+  });
+
+  document.querySelectorAll(".card").forEach((perricoNode) => {
+    // si no hay ningún filtro aplicado, lo muestra
+    if (!isLikeFilterSelected && !isDislikeSelected) {
+      perricoNode.style.display = "";
+      return;
+    }
+    // si preciosismo aplicado y hay preciosisimo lo muestra
+    const likeCount = perricoNode.querySelector(".like-count").innerText;
+    if (likeCount !== "" && isLikeFilterSelected) {
+      perricoNode.style.display = "";
+      return;
+    }
+
+    // si feísimo aplicado y hay feísimo lo muestra
+    const dislikeCount = perricoNode.querySelector(".dislike-count").innerText;
+    if (dislikeCount !== "" && isDislikeSelected) {
+      perricoNode.style.display = "";
+      return;
+    }
+
+    perricoNode.style.display = "none";
+  });
+}
+
+document
+  .querySelector("#dislike-filter")
+  .addEventListener("click", function () {
+    console.log("dislike filter clicked");
+  });
+
+renderPerricoArray();
