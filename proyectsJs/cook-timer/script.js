@@ -1,45 +1,38 @@
+let minutesTimer = 0;
+let secondsTimer = 0;
+let countContainer =
+  document.querySelector(".timer-counter-container--text") || null;
+
 // Cambiar el valor de los minutos y segundos a una única y misma variable en segundos y a partir de ahí construir
-const counter = (personalized) => {
-  let countContainer = "";
-  personalized === true
-    ? (countContainer = document.querySelector(
-        ".timer-counter-container--text"
-      ))
-    : (countContainer = document.querySelector(".counter-container--text"));
-  let countContainerTime = countContainer.textContent;
-  document.querySelector('audio[src="./audios/clock-start.mp3"]').play();
+const counter = (minutes, seconds) => {
+  //document.querySelector('audio[src="./audios/clock-start.mp3"]').play();
 
-  if (countContainerTime !== "00:00") {
-    const separatedTime = countContainerTime.split(":");
+  let intervalId = setInterval(() => {
+    if (seconds === 0 && minutes === 0) {
+      clearInterval(intervalId);
+      console.log("tiempo terminado");
+      document.querySelector('audio[src="./audios/clock-final.mp3"]').play();
+      return;
+    }
 
-    let minutes = Number(separatedTime[0]);
-    let seconds = Number(separatedTime[1]);
-    let intervalId = setInterval(() => {
-      if (seconds === 0 && minutes === 0) {
-        clearInterval(intervalId);
-        console.log("tiempo terminado");
-        document.querySelector('audio[src="./audios/clock-final.mp3"]').play();
-        return;
-      }
+    if (seconds === 0) {
+      seconds = 59;
+      minutes--;
+    } else {
+      seconds--;
+    }
 
-      if (seconds === 0) {
-        seconds = 59;
-        minutes--;
-      } else {
-        seconds--;
-      }
-
-      countContainer.textContent = `${minutes < 10 ? `0${minutes}` : minutes}:${
-        seconds < 10 ? `0${seconds}` : seconds
-      }`;
-    }, 1000);
-  }
+    countContainer.textContent = `${minutes < 10 ? `0${minutes}` : minutes}:${
+      seconds < 10 ? `0${seconds}` : seconds
+    }`;
+  }, 1000);
 };
 
 const createCounter = () => {
   const timerNode = document.createElement("div");
   timerNode.className = "timer-container--notification";
   timerNode.innerHTML = `
+            <button class='button__close'>X</button>
             <p class="font-size__24 color__yellow">Select your time</p>
             <div class="display__flex">
               <button class="timer-counter-container--button timer-counter-container--button-min font-size__24">Minutes</button>
@@ -55,6 +48,16 @@ const createCounter = () => {
             </div>`;
   const timeContainer = document.querySelector(".timer--container");
   timeContainer.appendChild(timerNode);
+
+  document
+    .querySelector(".button__close")
+    .addEventListener("click", function () {
+      document.querySelector(".timer--container").style.display = "none";
+      document.querySelector(".timer--container").innerHTML = "";
+      clearInterval(intervalId);
+      minutesTimer = 0;
+      secondsTimer = 0;
+    });
 
   document
     .querySelector(".timer-counter-container--button-min")
@@ -89,7 +92,8 @@ const createCounter = () => {
   document
     .querySelector(".counter-container--button-start")
     .addEventListener("click", function () {
-      counter(personalized);
+      countContainer = document.querySelector(".timer-counter-container--text");
+      counter(minutesTimer, secondsTimer);
     });
 };
 
@@ -100,9 +104,6 @@ const modifyTime = (add) => {
   const secondNode = document.querySelector(
     ".timer-counter-container--button-sec"
   );
-  let time = document.querySelector(".timer-counter-container--text");
-
-  let [minutes, seconds] = time.textContent.split(":").map(Number);
 
   if (
     minuteNode.classList.contains(
@@ -117,28 +118,30 @@ const modifyTime = (add) => {
   if (
     minuteNode.classList.contains("timer-counter-container--button__selected")
   ) {
-    add === true ? minutes++ : minutes--;
-    if (minutes < 0) {
-      minutes = 59;
-    } else if (minutes > 59) {
-      minutes = 0;
+    add === true ? minutesTimer++ : minutesTimer--;
+    if (minutesTimer < 0) {
+      minutesTimer = 59;
+    } else if (minutesTimer > 59) {
+      minutesTimer = 0;
     }
+    console.log(minutesTimer);
   }
 
   if (
     secondNode.classList.contains("timer-counter-container--button__selected")
   ) {
-    add === true ? seconds++ : seconds--;
-    if (seconds < 0) {
-      seconds = 59;
-    } else if (seconds > 59) {
-      seconds = 0;
+    add === true ? secondsTimer++ : secondsTimer--;
+    if (secondsTimer < 0) {
+      secondsTimer = 59;
+    } else if (secondsTimer > 59) {
+      secondsTimer = 0;
     }
+    console.log(secondsTimer);
   }
 
-  time.textContent = `${minutes < 10 ? `0${minutes}` : minutes}:${
-    seconds < 10 ? `0${seconds}` : seconds
-  }`;
+  document.querySelector(".timer-counter-container--text").textContent = `${
+    minutesTimer < 10 ? `0${minutesTimer}` : minutesTimer
+  }:${secondsTimer < 10 ? `0${secondsTimer}` : secondsTimer}`;
 };
 
 document
@@ -153,16 +156,27 @@ document
   .querySelector(".egg-container--button-1")
   .addEventListener("click", function () {
     document.querySelector(".counter-container--text").textContent = "07:00";
+    console.log("estoy clickando en huevo duro");
   });
 
 document
   .querySelector(".egg-container--button-2")
   .addEventListener("click", function () {
     document.querySelector(".counter-container--text").textContent = "05:00";
+    console.log("estoy clickando en huevo frito");
   });
 
 document
   .querySelector(".counter-container--button")
   .addEventListener("click", function () {
-    counter(true);
+    countContainer = document.querySelector(".counter-container--text");
+    if (
+      document.querySelector(".counter-container--text").textContent === "07:00"
+    ) {
+      counter(7, 0);
+    } else if (
+      document.querySelector(".counter-container--text").textContent === "05:00"
+    ) {
+      counter(5, 0);
+    }
   });

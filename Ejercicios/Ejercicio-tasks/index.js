@@ -61,6 +61,11 @@ function createTaskNode(task, addToEnd) {
   });
 
   const favButtonNode = taskNode.querySelector("button");
+
+  taskNode.addEventListener("mouseover", function () {
+    favButtonNode.style.display = "";
+  });
+
   favButtonNode.addEventListener("click", function (event) {
     event.stopPropagation();
     const isCurrentlyFav = favButtonNode.classList.contains("fav");
