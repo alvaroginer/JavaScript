@@ -144,39 +144,49 @@ const modifyTime = (add) => {
   }:${secondsTimer < 10 ? `0${secondsTimer}` : secondsTimer}`;
 };
 
-document
-  .querySelector(".menu-container--button__big")
-  .addEventListener("click", function () {
-    document.querySelector(".timer--container").style.display = "flex";
-    console.log("esto funciona");
-    createCounter(false);
-  });
+if (document.querySelector(".menu-container--button__big")) {
+  document
+    .querySelector(".menu-container--button__big")
+    .addEventListener("click", function () {
+      document.querySelector(".timer--container").style.display = "flex";
+      console.log("esto funciona");
+      createCounter(false);
+    });
+}
 
-document
-  .querySelector(".egg-container--button-1")
-  .addEventListener("click", function () {
-    document.querySelector(".counter-container--text").textContent = "07:00";
-    console.log("estoy clickando en huevo duro");
-  });
+if (document.querySelector(".egg-container--button-1")) {
+  document
+    .querySelector(".egg-container--button-1")
+    .addEventListener("click", function () {
+      document.querySelector(".counter-container--text").textContent = "07:00";
+      console.log("estoy clickando en huevo duro");
+    });
+}
 
-document
-  .querySelector(".egg-container--button-2")
-  .addEventListener("click", function () {
-    document.querySelector(".counter-container--text").textContent = "05:00";
-    console.log("estoy clickando en huevo frito");
-  });
+if (document.querySelector(".egg-container--button-2")) {
+  document
+    .querySelector(".egg-container--button-1")
+    .addEventListener("click", function () {
+      document.querySelector(".counter-container--text").textContent = "05:00";
+      console.log("estoy clickando en huevo duro");
+    });
+}
 
-document
-  .querySelector(".counter-container--button")
-  .addEventListener("click", function () {
-    countContainer = document.querySelector(".counter-container--text");
-    if (
-      document.querySelector(".counter-container--text").textContent === "07:00"
-    ) {
-      counter(7, 0);
-    } else if (
-      document.querySelector(".counter-container--text").textContent === "05:00"
-    ) {
-      counter(5, 0);
-    }
-  });
+if (document.querySelector(".counter-container--button")) {
+  document
+    .querySelector(".counter-container--button")
+    .addEventListener("click", function () {
+      countContainer = document.querySelector(".counter-container--text");
+      if (
+        document.querySelector(".counter-container--text").textContent ===
+        "07:00"
+      ) {
+        counter(7, 0);
+      } else if (
+        document.querySelector(".counter-container--text").textContent ===
+        "05:00"
+      ) {
+        counter(5, 0);
+      }
+    });
+}
