@@ -133,7 +133,7 @@ body {
 
 .button__close:hover {
   color: #84a59d;
-  font-weight: 800;
+  font-weight: 600;
   transform: scale(1.1);
 }
 

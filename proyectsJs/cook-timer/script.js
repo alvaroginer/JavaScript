@@ -4,10 +4,11 @@ let countContainer =
   document.querySelector(".timer-counter-container--text") || null;
 
 // Cambiar el valor de los minutos y segundos a una única y misma variable en segundos y a partir de ahí construir
+let intervalId;
 const counter = (minutes, seconds) => {
   //document.querySelector('audio[src="./audios/clock-start.mp3"]').play();
 
-  let intervalId = setInterval(() => {
+  intervalId = setInterval(() => {
     if (seconds === 0 && minutes === 0) {
       clearInterval(intervalId);
       console.log("tiempo terminado");
@@ -21,6 +22,9 @@ const counter = (minutes, seconds) => {
     } else {
       seconds--;
     }
+
+    minutesTimer = minutes;
+    secondsTimer = seconds;
 
     countContainer.textContent = `${minutes < 10 ? `0${minutes}` : minutes}:${
       seconds < 10 ? `0${seconds}` : seconds
@@ -144,7 +148,27 @@ const createCounter = () => {
       );
       timerContainerNotification.appendChild(controlBtnNode);
 
-      //Falta que funcionen los nuevos botones
+      //Botón de pausa
+      timerContainerNotification
+        .querySelector(".counter-container--button-pause")
+        .addEventListener("click", function () {
+          clearInterval(intervalId);
+        });
+
+      //Botón de restart
+      //Falta poner que restart cuando no se haya pausado se reinicie con el tiempo del principio
+      // Falta que los botones aumenten de size al estar encima, añadir clase con hover
+      timerContainerNotification
+        .querySelector(".counter-container--button-restart")
+        .addEventListener("click", function () {
+          countContainer = document.querySelector(
+            ".timer-counter-container--text"
+          );
+          clearInterval(intervalId);
+          console.log(minutesTimer);
+          console.log(secondsTimer);
+          counter(minutesTimer, secondsTimer);
+        });
     });
 };
 
