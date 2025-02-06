@@ -188,6 +188,10 @@ body {
   gap: 20px;
 }
 
+.display__none {
+  display: none;
+}
+
 /* Viewports */
 .viewport__100vh {
   height: 100vh;

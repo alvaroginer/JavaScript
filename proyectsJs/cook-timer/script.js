@@ -11,7 +11,7 @@ const counter = (minutes, seconds) => {
     if (seconds === 0 && minutes === 0) {
       clearInterval(intervalId);
       console.log("tiempo terminado");
-      document.querySelector('audio[src="./audios/clock-final.mp3"]').play();
+      //document.querySelector('audio[src="./audios/clock-final.mp3"]').play();
       return;
     }
 
@@ -28,18 +28,19 @@ const counter = (minutes, seconds) => {
   }, 1000);
 };
 
+// Creamos la notificación de contador
 const createCounter = () => {
   const timerNode = document.createElement("div");
   timerNode.className = "timer-container--notification";
   timerNode.innerHTML = `
             <button class='button__close'>X</button>
-            <p class="font-size__24 color__yellow">Select your time</p>
-            <div class="display__flex">
+            <p class="font-size__24 color__yellow timer-counter-container--title">Select your time</p>
+            <div class="display__flex timer-counter-container--time-button-container">
               <button class="timer-counter-container--button timer-counter-container--button-min font-size__24">Minutes</button>
               <button class="timer-counter-container--button timer-counter-container--button-sec font-size__24">Seconds</button>
             </div>
             <p class="font-size__60 margin__15 color__yellow timer-counter-container--text">00:00</p>
-            <div class="display__flex">
+            <div class="display__flex timer-counter-container--button-container">
               <button class="timer-counter-container--button counter-container--button-add font-size__24">+</button>
               <button class="counter-container--button counter-container--button-start color__white font-size__24">
                 Start
@@ -49,6 +50,7 @@ const createCounter = () => {
   const timeContainer = document.querySelector(".timer--container");
   timeContainer.appendChild(timerNode);
 
+  // Funcionamiento botón de X
   document
     .querySelector(".button__close")
     .addEventListener("click", function () {
@@ -59,6 +61,7 @@ const createCounter = () => {
       secondsTimer = 0;
     });
 
+  // Funcionamiento botón minutes
   document
     .querySelector(".timer-counter-container--button-min")
     .addEventListener("click", function () {
@@ -68,6 +71,7 @@ const createCounter = () => {
       console.log("estás cambiando la clase del botón minutos");
     });
 
+  //Funcionamiento botón seconds
   document
     .querySelector(".timer-counter-container--button-sec")
     .addEventListener("click", function () {
@@ -77,23 +81,70 @@ const createCounter = () => {
       console.log("estás cambiando la clase del botón segundos");
     });
 
+  //Funcionamiento botón +
   document
     .querySelector(".counter-container--button-add")
     .addEventListener("click", function () {
       modifyTime(true);
     });
 
+  // Funcionamiento botón -
   document
     .querySelector(".counter-container--button-rest")
     .addEventListener("click", function () {
       modifyTime(false);
     });
 
+  // Funcionamiento botón start
   document
     .querySelector(".counter-container--button-start")
     .addEventListener("click", function () {
       countContainer = document.querySelector(".timer-counter-container--text");
       counter(minutesTimer, secondsTimer);
+      console.log("ha terminado la función del contador");
+
+      //Con el contador en marcha ocultamos los botónes de modificar tiempo
+      if (
+        timeContainer.querySelector(
+          ".timer-counter-container--button-container"
+        )
+      ) {
+        timeContainer
+          .querySelector(".timer-counter-container--button-container")
+          .classList.add("display__none");
+      }
+
+      //Con el contador en marcha ocultamos los botones de minutes y seconds
+      if (
+        timeContainer.querySelector(
+          ".timer-counter-container--time-button-container"
+        )
+      ) {
+        timeContainer
+          .querySelector(".timer-counter-container--time-button-container")
+          .classList.add("display__none");
+      }
+      //Con el contador en marcha ocultamos el título
+      if (timeContainer.querySelector(".timer-counter-container--title")) {
+        timeContainer
+          .querySelector(".timer-counter-container--title")
+          .classList.add("display__none");
+      }
+
+      //Modificamos el nuevo contador con los correspondientes botones
+      const controlBtnNode = document.createElement("div");
+      controlBtnNode.className =
+        "timer-counter-container--control-buttons-container display__flex";
+      controlBtnNode.innerHTML = `<button class="timer-counter-container--button counter-container--button-pause font-size__24">Pause</button>
+              <button class="counter-container--button counter-container--button-restart color__white font-size__24">
+                Restart
+              </button>`;
+      const timerContainerNotification = document.querySelector(
+        ".timer-container--notification"
+      );
+      timerContainerNotification.appendChild(controlBtnNode);
+
+      //Falta que funcionen los nuevos botones
     });
 };
 
