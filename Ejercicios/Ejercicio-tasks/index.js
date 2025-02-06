@@ -37,7 +37,7 @@ function createTaskNode(task, addToEnd) {
   taskNode.innerHTML = `
     <span class="${task.isCompleted ? "completed" : ""}">${task.text}</span> -
     <span class="status">${task.isCompleted ? "completed" : "pending"}</span>
-    <button class="${task.isFav ? "fav" : ""}" style="display:none">${
+    <button class="fav-button ${task.isFav ? "fav" : ""}">${
     task.isFav ? "💝" : "💔"
   }</button>
     `;
@@ -50,8 +50,8 @@ function createTaskNode(task, addToEnd) {
     tasksNode.prepend(taskNode);
   }
 
-  taskNode.addEventListener("click", function (event) {
-    console.log(event);
+  taskNode.addEventListener("click", function () {
+    console.log("contenedor tarea");
     const taskTextNode = taskNode.querySelector("span");
     const isCurrentlyCompleted = taskTextNode.classList.contains("completed");
     taskTextNode.classList.toggle("completed");
@@ -61,12 +61,8 @@ function createTaskNode(task, addToEnd) {
   });
 
   const favButtonNode = taskNode.querySelector("button");
-
-  taskNode.addEventListener("mouseover", function () {
-    favButtonNode.style.display = "";
-  });
-
   favButtonNode.addEventListener("click", function (event) {
+    console.log("botón fav");
     event.stopPropagation();
     const isCurrentlyFav = favButtonNode.classList.contains("fav");
     favButtonNode.classList.toggle("fav");
@@ -77,6 +73,7 @@ function createTaskNode(task, addToEnd) {
 function addTask(addToEnd) {
   const task = generateRandomTask();
   createTaskNode(task, addToEnd);
+  console.log("estás añadiendo al principio");
 }
 
 // event listeners para que los botones llamen a las funciones anteriores
@@ -91,3 +88,37 @@ document.querySelector("#add-first").addEventListener("click", () => {
 document.querySelector("#add-last").addEventListener("click", () => {
   addTask(true);
 });
+
+const inputForm = document.querySelector("#form-input");
+inputForm.addEventListener("input", (evt) => {
+  const value = inputForm.value.trim();
+  if (value) {
+    inputForm.dataset.state = "valid";
+    console.log(inputForm.dataset.state);
+    document.querySelector("#form-button").disabled = false;
+  } else {
+    inputForm.dataset.state = "invalid";
+    console.log(inputForm.dataset.state);
+  }
+  console.log(value);
+});
+
+document
+  .querySelector("#create-task")
+  .addEventListener("submit", function (event) {
+    console.log(event);
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const taskText = formData.get("taskText");
+    console.log(taskText);
+
+    const taskObject = {
+      text: taskText,
+      isCompleted: false,
+      isFav: false,
+    };
+    createTaskNode(taskObject);
+    event.target.reset();
+    document.querySelector("#form-button").disabled = true;
+  });
