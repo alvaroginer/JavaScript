@@ -103,21 +103,33 @@ inputForm.addEventListener("input", (evt) => {
   console.log(value);
 });
 
+const tasksRecopilation = [];
+const saveTask = (name, task) => {
+  const taskToStr = JSON.stringify(task);
+  localStorage.setItem(`${name}`, taskToStr);
+  tasksRecopilation.push(name);
+  console.log(JSON.parse(localStorage.getItem(name)));
+};
+
+let taskObject = {};
+let taskName = "";
 document
   .querySelector("#create-task")
   .addEventListener("submit", function (event) {
-    console.log(event);
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const taskText = formData.get("taskText");
-    console.log(taskText);
 
-    const taskObject = {
+    taskObject = {
       text: taskText,
       isCompleted: false,
       isFav: false,
     };
+    taskName = new Date().getTime().toString();
+
+    saveTask(taskName, taskObject);
+
     createTaskNode(taskObject);
     event.target.reset();
     document.querySelector("#form-button").disabled = true;
