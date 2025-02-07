@@ -103,13 +103,22 @@ inputForm.addEventListener("input", (evt) => {
   console.log(value);
 });
 
-const tasksRecopilation = [];
+const tasksRecopilation = JSON.parse(localStorage.getItem("tasksNames")) || [];
 const saveTask = (name, task) => {
+  // Guardamos la task
   const taskToStr = JSON.stringify(task);
   localStorage.setItem(`${name}`, taskToStr);
+
+  //console.log(JSON.parse(localStorage.getItem(name)));
+
+  //Guardamos el nombre en el tasksRecopilation
   tasksRecopilation.push(name);
-  console.log(JSON.parse(localStorage.getItem(name)));
+  const tasksNameArr = JSON.stringify(tasksRecopilation);
+  localStorage.setItem("tasksNames", tasksNameArr);
+  console.log(JSON.parse(localStorage.getItem("tasksNames")));
 };
+
+const updateTask = () => {};
 
 let taskObject = {};
 let taskName = "";
@@ -134,3 +143,14 @@ document
     event.target.reset();
     document.querySelector("#form-button").disabled = true;
   });
+
+//Falta terminar la llamada de regeneración de la función
+const regenerateTasks = () => {
+  const taskNameArr = JSON.parse(localStorage.getItem("tasksNames"));
+  console.log(taskNameArr);
+  taskNameArr.forEach((taskName) => {
+    const taskData = JSON.parse(localStorage.getItem(taskName));
+    createTaskNode(taskData);
+  });
+};
+regenerateTasks();
