@@ -60,6 +60,7 @@ function createTaskNode(task, name, addToEnd) {
       : "completed";
     task.isCompleted = isCurrentlyCompleted ? false : true;
     console.log("se ha actualizado isCompleted");
+    //Actualizamos la información del task
     updateTask(name, task);
   });
 
@@ -72,6 +73,7 @@ function createTaskNode(task, name, addToEnd) {
     favButtonNode.innerText = isCurrentlyFav ? "💔" : "💝";
     task.isFav = isCurrentlyFav ? false : true;
     console.log("se ha actualizado isFav");
+    //Actualizamos la información del task
     updateTask(name, task);
   });
 }
@@ -109,6 +111,7 @@ inputForm.addEventListener("input", (evt) => {
   console.log(value);
 });
 
+//Función para guardar una task y su nombre en localStorage
 const tasksRecopilation = JSON.parse(localStorage.getItem("tasksNames")) || [];
 const saveTask = (name, task) => {
   // Guardamos la task
@@ -124,6 +127,7 @@ const saveTask = (name, task) => {
   console.log(JSON.parse(localStorage.getItem("tasksNames")));
 };
 
+//Función para actualizar la info de una task
 const updateTask = (name, task) => {
   const taskToStr = JSON.stringify(task);
   localStorage.setItem(name, taskToStr);
@@ -154,7 +158,7 @@ document
     document.querySelector("#form-button").disabled = true;
   });
 
-//Falta terminar la llamada de regeneración de la función
+//Función para crear las tasks guardadas en localStorage al abrir la web o refrescar
 const regenerateTasks = () => {
   const taskNameArr = JSON.parse(localStorage.getItem("tasksNames"));
   console.log(taskNameArr);
