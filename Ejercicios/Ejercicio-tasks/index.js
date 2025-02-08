@@ -115,9 +115,12 @@ inputForm.addEventListener("input", (evt) => {
 const tasksRecopilation = JSON.parse(localStorage.getItem("tasks")) || [];
 const saveOrUpdateTaskLocalStorage = (task) => {
   // Guardamos la task
-  if (!tasksRecopilation[task]) {
-    tasksRecopilation.push(task);
+  //El error está aquí
+  if (!tasksRecopilation[task.id]) {
+    tasksRecopilation.unshift(task);
+    console.log("estas haciendo el unshift");
   } else {
+    console.log("estoy en la segunda condición");
     const tasks = JSON.parse(localStorage.getItem("tasks"));
     tasks.find((task, index) => {
       if (task.id) {
