@@ -58,20 +58,20 @@ function createTaskNode(task, addToEnd) {
     taskNode.querySelector(".status").innerText = isCurrentlyCompleted
       ? "pending"
       : "completed";
-    //task.isCompleted = isCurrentlyCompleted ? false : true;
+    task.isCompleted = isCurrentlyCompleted ? false : true;
     console.log("se ha actualizado isCompleted");
     //Actualizamos la información del task
     saveOrUpdateTaskLocalStorage(task);
   });
 
   const favButtonNode = taskNode.querySelector("button");
+  const isCurrentlyFav = favButtonNode.classList.contains("fav");
   favButtonNode.addEventListener("click", function (event) {
     console.log("botón fav");
     event.stopPropagation();
-    const isCurrentlyFav = favButtonNode.classList.contains("fav");
     favButtonNode.classList.toggle("fav");
     favButtonNode.innerText = isCurrentlyFav ? "💔" : "💝";
-    //task.isFav = isCurrentlyFav ? false : true;
+    task.isFav = isCurrentlyFav ? false : true;
     console.log("se ha actualizado isFav");
     //Actualizamos la información del task
     saveOrUpdateTaskLocalStorage(task);
@@ -114,30 +114,18 @@ inputForm.addEventListener("input", (evt) => {
 //Función para guardar una task y su nombre en localStorage
 const tasksRecopilation = JSON.parse(localStorage.getItem("tasks")) || [];
 const saveOrUpdateTaskLocalStorage = (task) => {
+  const index = tasksRecopilation.findIndex((t) => t.id === task.id);
   // Guardamos la task
-  //El error está aquí
-  if (!tasksRecopilation[task.id]) {
-    tasksRecopilation.unshift(task);
+  if (index === -1) {
+    tasksRecopilation.push(task);
     console.log("estas haciendo el unshift");
   } else {
     console.log("estoy en la segunda condición");
-    const tasks = JSON.parse(localStorage.getItem("tasks"));
-    tasks.find((task, index) => {
-      if (task.id) {
-        tasks[index] = task;
-      }
-    });
+    tasksRecopilation[index] = task;
   }
   const tasksNameArr = JSON.stringify(tasksRecopilation);
   localStorage.setItem("tasks", tasksNameArr);
   console.log(JSON.parse(localStorage.getItem("tasks")));
-};
-
-//Función para actualizar la info de una task
-const updateTask = (name, task) => {
-  const taskToStr = JSON.stringify(task);
-  localStorage.setItem(name, taskToStr);
-  console.log(JSON.parse(localStorage.getItem(name)));
 };
 
 let taskObject = {};
