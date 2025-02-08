@@ -30,7 +30,7 @@ function regenerateArray() {
   });
 }
 
-function createTaskNode(task, addToEnd) {
+function createTaskNode(task, name, addToEnd) {
   const taskNode = document.createElement("div");
   taskNode.className = "task";
 
@@ -58,6 +58,9 @@ function createTaskNode(task, addToEnd) {
     taskNode.querySelector(".status").innerText = isCurrentlyCompleted
       ? "pending"
       : "completed";
+    task.isCompleted = isCurrentlyCompleted ? false : true;
+    console.log("se ha actualizado isCompleted");
+    updateTask(name, task);
   });
 
   const favButtonNode = taskNode.querySelector("button");
@@ -67,6 +70,9 @@ function createTaskNode(task, addToEnd) {
     const isCurrentlyFav = favButtonNode.classList.contains("fav");
     favButtonNode.classList.toggle("fav");
     favButtonNode.innerText = isCurrentlyFav ? "💔" : "💝";
+    task.isFav = isCurrentlyFav ? false : true;
+    console.log("se ha actualizado isFav");
+    updateTask(name, task);
   });
 }
 
@@ -112,13 +118,17 @@ const saveTask = (name, task) => {
   //console.log(JSON.parse(localStorage.getItem(name)));
 
   //Guardamos el nombre en el tasksRecopilation
-  tasksRecopilation.push(name);
+  tasksRecopilation.unshift(name);
   const tasksNameArr = JSON.stringify(tasksRecopilation);
   localStorage.setItem("tasksNames", tasksNameArr);
   console.log(JSON.parse(localStorage.getItem("tasksNames")));
 };
 
-const updateTask = () => {};
+const updateTask = (name, task) => {
+  const taskToStr = JSON.stringify(task);
+  localStorage.setItem(name, taskToStr);
+  console.log(JSON.parse(localStorage.getItem(name)));
+};
 
 let taskObject = {};
 let taskName = "";
@@ -139,7 +149,7 @@ document
 
     saveTask(taskName, taskObject);
 
-    createTaskNode(taskObject);
+    createTaskNode(taskName, taskObject);
     event.target.reset();
     document.querySelector("#form-button").disabled = true;
   });
