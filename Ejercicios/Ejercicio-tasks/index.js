@@ -51,7 +51,7 @@ function createTaskNode(task, addToEnd) {
   }
 
   taskNode.addEventListener("click", function () {
-    console.log("contenedor tarea");
+    //console.log("contenedor tarea");
     const taskTextNode = taskNode.querySelector("span");
     const isCurrentlyCompleted = taskTextNode.classList.contains("completed");
     taskTextNode.classList.toggle("completed");
@@ -59,7 +59,7 @@ function createTaskNode(task, addToEnd) {
       ? "pending"
       : "completed";
     task.isCompleted = isCurrentlyCompleted ? false : true;
-    console.log("se ha actualizado isCompleted");
+    //console.log("se ha actualizado isCompleted");
     //Actualizamos la información del task
     saveOrUpdateTaskLocalStorage(task);
   });
@@ -67,12 +67,12 @@ function createTaskNode(task, addToEnd) {
   const favButtonNode = taskNode.querySelector("button");
   const isCurrentlyFav = favButtonNode.classList.contains("fav");
   favButtonNode.addEventListener("click", function (event) {
-    console.log("botón fav");
+    //console.log("botón fav");
     event.stopPropagation();
     favButtonNode.classList.toggle("fav");
     favButtonNode.innerText = isCurrentlyFav ? "💔" : "💝";
     task.isFav = isCurrentlyFav ? false : true;
-    console.log("se ha actualizado isFav");
+    //console.log("se ha actualizado isFav");
     //Actualizamos la información del task
     saveOrUpdateTaskLocalStorage(task);
   });

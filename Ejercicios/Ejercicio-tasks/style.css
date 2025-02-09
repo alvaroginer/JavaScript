@@ -1,0 +1,92 @@
+* {
+  box-sizing: border-box;
+}
+.buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.task {
+  border-radius: 8px;
+  padding: 8px 6px;
+  border: 1px solid #ccc;
+}
+
+.fav-button {
+  display: none;
+}
+
+.task:hover .fav-button {
+  display: inline-block;
+}
+
+.task + .task {
+  margin-top: 12px;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+.status {
+  font-size: 0.8em;
+  color: #c2bcbc;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid;
+  width: 300px;
+  height: 300px;
+  transform: translate(-150px, -150px);
+  text-align: center;
+}
+
+.sign-up-form input {
+  margin-bottom: 10px;
+}
+
+.sign-in-form input {
+  margin-bottom: 10px;
+}
+
+.text__small {
+  font-size: 12px;
+}
+
+.border__red {
+  border: 1px solid red;
+}
+
+.register-link {
+  margin-top: 10px;
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+  cursor: default;
+}
+
+.register-link span {
+  color: rgb(163, 93, 229);
+  transition: all ease 0.2s;
+}
+
+.register-link span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.sign-in-instructions {
+  display: none;
+  color: red;
+}

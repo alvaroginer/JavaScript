@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <form class="sign-up-form">
+        <p>¿Eres nuevo? Regístrate</p>
+        <label for="sign-form--email">Email</label>
+        <br />
+        <input
+          type="text"
+          placeholder="aginer079j@gmail.com"
+          id="sign-up--email"
+          name="emailText"
+        />
+        <br />
+        <label for="sign-up--password">Password</label>
+        <br />
+        <input
+          type="text"
+          placeholder="******"
+          id="sign-up--password"
+          name="passwordText"
+        />
+        <br />
+        <label for="sign-up--password-repeat"> Repeat Password</label>
+        <br />
+        <input
+          type="text"
+          placeholder="******"
+          id="sign-up--password-repeat"
+          name="repeatText"
+        />
+        <br />
+        <a href="">
+          <button>Regístrate</button>
+        </a>
+      </form>
+      <p class="text__small" id="instruction-txt">
+        *La contraseña debe contener al menos una mayúscula, un número y un
+        símbolo
+      </p>
+      <a href="./sign.html" class="register-link"
+        >¿Ya tienes cuenta? <span>Inicia sesión</span></a
+      >
+    </div>
+  </body>
+  <script src="./sign-in-up.js"></script>
+</html>
