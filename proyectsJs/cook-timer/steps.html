@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Cook Timer</title>
+  </head>
+  <body>
+    <div class="display__flex viewport__100vh">
+      <section class="menu-container">
+        <h2
+          class="menu-container--h2 font-size__24 color__yellow text-align__left"
+        >
+          Steps
+        </h2>
+        <form class="form-container display__flex">
+          <input
+            type="text"
+            class="form-container--input"
+            placeholder="Cookies"
+          />
+        </form>
+        <div class="steps-container"></div>
+        <button
+          class="counter-container--button create-steps--button font-size__16 color__white margin-top__70"
+        >
+          Finish receipe
+        </button>
+        <div
+          class="receipe-button-container display__flex-space-between margin-top__70"
+        >
+          <a
+            href="./ingredients.html"
+            class="counter-container--button font-size__24 color__white"
+          >
+            <img
+              src="./imgs/back-white.png"
+              alt="Play Icons"
+              class="counter-container--button-img"
+            />
+            Back
+          </a>
+        </div>
+      </section>
+    </div>
+    <script src="./script.js" defer></script>
+  </body>
+</html>

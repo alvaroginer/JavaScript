@@ -33,6 +33,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-decoration: none;
+  width: 370px;
 }
 
 .menu-container--button:hover {
@@ -63,6 +65,18 @@ body {
   position: relative;
 }
 
+.form-container {
+  text-align: left;
+}
+
+.form-container--input {
+  width: 370px;
+  padding: 10px;
+  font-family: "Pixelify Sans", serif;
+  border-radius: 40px;
+  border: 2px dotted #f6bd60;
+}
+
 /* Buttons & Properties */
 .egg-container--button {
   background-color: #f5cac3;
@@ -90,11 +104,17 @@ body {
   align-items: center;
   gap: 5px;
   background-color: #f6bd60;
-  border: none;
+  border: 3px solid #f6bd60;
   padding: 10px;
   font-family: "Pixelify Sans", serif;
   border-radius: 10px;
   cursor: pointer;
+  text-decoration: none;
+  transition: all ease 0.15s;
+}
+
+.counter-container--button:hover {
+  transform: scale(1.1);
 }
 
 .timer-counter-container--button {
@@ -109,6 +129,12 @@ body {
   font-family: "Pixelify Sans", serif;
   border-radius: 10px;
   cursor: pointer;
+  transition: all ease 0.2s;
+}
+
+.timer-counter-container--button:hover {
+  background-color: #f6bd60;
+  color: #f7ede2;
 }
 
 .timer-counter-container--button__selected {
@@ -154,6 +180,10 @@ body {
   font-size: 24px;
 }
 
+.font-size__16 {
+  font-size: 16px;
+}
+
 /* Colors */
 .color__yellow {
   color: #f6bd60;
@@ -188,13 +218,29 @@ body {
   gap: 20px;
 }
 
+.display__flex-space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
 .display__none {
   display: none;
+}
+
+.display__block {
+  display: block;
 }
 
 /* Viewports */
 .viewport__100vh {
   height: 100vh;
+}
+
+/* Text-align */
+.text-align__left {
+  text-align: left;
 }
 
 /* Margin */
@@ -211,6 +257,16 @@ body {
 
 .margin--right__20 {
   margin-right: 20px;
+}
+
+.margin-top__70 {
+  margin-top: 70px;
+}
+
+/* Width */
+
+.width-150 {
+  width: 300px;
 }
 
 /* Animations */

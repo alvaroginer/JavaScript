@@ -1,6 +1,5 @@
 let usersData = JSON.parse(localStorage.getItem("usersData")) || [];
 
-//Falta que compruebe si el mail existe
 const signUp = (user) => {
   // Verificar información del form
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -13,7 +12,7 @@ const signUp = (user) => {
   const instructions = document.querySelector("#instruction-txt");
   const mailInput = document.querySelector("#sign-up--email");
 
-  //Miramos si algún dato falla y se lo mostramos en pantalla
+  //Miramos si algún dato falla y lo mostramos en pantalla
   mailInput.style.border = "";
   if (!validEmail) {
     mailInput.style.border = "1px solid red";
@@ -96,8 +95,8 @@ const signIn = (user) => {
 };
 
 /* Event Listeners */
-// Formulario de registro
 
+// Formulario de registro
 //Input
 const registerForm = document.querySelector(".sign-up-form");
 if (registerForm) {
