@@ -265,3 +265,86 @@ if (document.querySelector(".counter-container--button")) {
       }
     });
 }
+
+/* Código para la página de Title y Categories */
+
+const appetizerBtn = document.querySelector(".button--appetizers");
+const mainCourseBtn = document.querySelector(".button--main-course");
+const dessertBtn = document.querySelector(".button--dessert");
+
+if (appetizerBtn) {
+  appetizerBtn.addEventListener("click", function () {
+    appetizerBtn.classList.toggle("timer-counter-container--button__selected");
+    mainCourseBtn.classList.remove("timer-counter-container--button__selected");
+    dessertBtn.classList.remove("timer-counter-container--button__selected");
+  });
+}
+
+if (mainCourseBtn) {
+  mainCourseBtn.addEventListener("click", function () {
+    mainCourseBtn.classList.toggle("timer-counter-container--button__selected");
+    appetizerBtn.classList.remove("timer-counter-container--button__selected");
+    dessertBtn.classList.remove("timer-counter-container--button__selected");
+  });
+}
+
+if (dessertBtn) {
+  dessertBtn.addEventListener("click", function () {
+    dessertBtn.classList.toggle("timer-counter-container--button__selected");
+    mainCourseBtn.classList.remove("timer-counter-container--button__selected");
+    appetizerBtn.classList.remove("timer-counter-container--button__selected");
+  });
+}
+
+let receipeObject = {};
+if (document.querySelector(".form-container-title")) {
+  document
+    .querySelector(".form-container-title")
+    .addEventListener("input", function (event) {
+      event.preventDefault();
+
+      const titleData = event.target.value.trim(); // Mejor usar event.target
+      receipeObject.title = titleData;
+      console.log(JSON.stringify(receipeObject));
+    });
+}
+
+if (document.querySelector(".button-next-1")) {
+  document
+    .querySelector(".button-next-1")
+    .addEventListener("click", function () {
+      if (Object.keys(receipeObject).length >= 1) {
+        addCategories();
+        window.location.href = "./steps.html";
+        return;
+      } else {
+        alert("Incluye un titular y selecciona una categoría");
+      }
+    });
+}
+
+let categoryType = "";
+const addCategories = () => {
+  if (
+    appetizerBtn.classList.contains("timer-counter-container--button__selected")
+  ) {
+    categoryType = "appetizer";
+  }
+
+  if (
+    mainCourseBtn.classList.contains(
+      "timer-counter-container--button__selected"
+    )
+  ) {
+    categoryType = "main-course";
+  }
+
+  if (
+    dessertBtn.classList.contains("timer-counter-container--button__selected")
+  ) {
+    categoryType = "dessert";
+  }
+
+  receipeObject.category = categoryType;
+  console.log(receipeObject);
+};
