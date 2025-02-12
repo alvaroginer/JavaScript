@@ -19,14 +19,6 @@ function saveTasks() {
   localStorage.setItem("tasks", tasksAsString);
 }
 
-/**
-     const task = {
-      isFav: false,
-     };
-    
-  
-   */
-
 function editTask(taskId, propsToChange) {
   // coger el nuevo objeto tarea
   // buscar la posición que ocupa en el array
@@ -137,33 +129,48 @@ function addTask(addToEnd) {
   createTaskNode(task, addToEnd);
 }
 
-let hasCompletedFilter = false;
-let hasFavFilter = false;
+let hasCompletedFilter = localStorage.getItem("hasCompletedFilter") === "true";
+let hasFavFilter = localStorage.getItem("hasFavFilter") === "true";
 
 const addFilter = () => {
-  hasCompletedFilter = !hasCompletedFilter;
-  hasFavFilter = !hasFavFilter;
-
   if (hasCompletedFilter) {
+    document
+      .querySelector("#filter-completed")
+      .classList.add("button__selected");
+
     let completedTasks = tasks.filter((task) => {
       return task.isCompleted;
     });
+
+    console.log("filtro completed activo");
+
     document.querySelector("#tasks").innerHTML = "";
     completedTasks.forEach((task) => {
       createTaskNode(task);
     });
+    //localStorage.setItem("hasCompletedFilter", hasCompletedFilter);
     return;
+  } else {
+    document
+      .querySelector("#filter-completed")
+      .classList.remove("button__selected");
   }
 
   if (hasFavFilter) {
+    document.querySelector("#filter-fav").classList.add("button__selected");
     let favTasks = tasks.filter((task) => {
       return task.isFav;
     });
+
+    console.log("filtro fav activo");
     document.querySelector("#tasks").innerHTML = "";
     favTasks.forEach((task) => {
       createTaskNode(task);
     });
+    //localStorage.setItem("hasFavFilter", hasFavFilter);
     return;
+  } else {
+    document.querySelector("#filter-fav").classList.remove("button__selected");
   }
 
   document.querySelector("#tasks").innerHTML = "";
@@ -171,6 +178,7 @@ const addFilter = () => {
     createTaskNode(task);
   });
 };
+addFilter();
 
 // event listeners para que los botones llamen a las funciones anteriores
 document.querySelector("#regenate").addEventListener("click", () => {
@@ -178,15 +186,15 @@ document.querySelector("#regenate").addEventListener("click", () => {
 });
 
 document.querySelector("#filter-completed").addEventListener("click", () => {
-  document
-    .querySelector("#filter-completed")
-    .classList.toggle("button__selected");
+  hasCompletedFilter = !hasCompletedFilter;
   addFilter();
+  localStorage.setItem("hasCompletedFilter", hasCompletedFilter);
 });
 
 document.querySelector("#filter-fav").addEventListener("click", () => {
-  document.querySelector("#filter-fav").classList.toggle("button__selected");
+  hasFavFilter = !hasFavFilter;
   addFilter();
+  localStorage.setItem("hasFavFilter", hasFavFilter);
 });
 
 const formButton = document.querySelector("#create-task button");
@@ -205,7 +213,7 @@ document
       id: Date.now(),
     };
 
-    if (!hasCompletedFilter || !hasFavFilter) {
+    if (!hasCompletedFilter && !hasFavFilter) {
       createTaskNode(task, false);
     }
 
