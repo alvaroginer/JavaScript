@@ -267,7 +267,7 @@ if (document.querySelector(".counter-container--button")) {
 }
 
 /* Código para la página de Title y Categories */
-
+const receipes = [];
 const appetizerBtn = document.querySelector(".button--appetizers");
 const mainCourseBtn = document.querySelector(".button--main-course");
 const dessertBtn = document.querySelector(".button--dessert");
@@ -296,25 +296,53 @@ if (dessertBtn) {
   });
 }
 
-let receipeObject = {};
+//Hay que comprobar si la selección de la receta está bien hecha
 if (document.querySelector(".form-container-title")) {
   document
     .querySelector(".form-container-title")
     .addEventListener("input", function (event) {
       event.preventDefault();
-
-      const titleData = event.target.value.trim(); // Mejor usar event.target
-      receipeObject.title = titleData;
+      let receipeObject = { id: new Date().getTime() };
+      receipes.push(receipeObject);
+      const titleData = event.target.value.trim();
+      const receipeId = receipes.findIndex((r) => {
+        return receipeObject.id === r.id;
+      });
+      updateReceipe(receipeId, { title: titleData });
       console.log(JSON.stringify(receipeObject));
     });
 }
 
+//Actualizar los datos que se mandan a la función updateReceipe()
 if (document.querySelector(".button-next-1")) {
   document
     .querySelector(".button-next-1")
     .addEventListener("click", function () {
       if (Object.keys(receipeObject).length >= 1) {
-        addCategories();
+        if (
+          appetizerBtn.classList.contains(
+            "timer-counter-container--button__selected"
+          )
+        ) {
+          categoryType = "appetizer";
+        }
+
+        if (
+          mainCourseBtn.classList.contains(
+            "timer-counter-container--button__selected"
+          )
+        ) {
+          categoryType = "main-course";
+        }
+
+        if (
+          dessertBtn.classList.contains(
+            "timer-counter-container--button__selected"
+          )
+        ) {
+          categoryType = "dessert";
+        }
+        updateReceipe();
         window.location.href = "./steps.html";
         return;
       } else {
@@ -324,27 +352,7 @@ if (document.querySelector(".button-next-1")) {
 }
 
 let categoryType = "";
-const addCategories = () => {
-  if (
-    appetizerBtn.classList.contains("timer-counter-container--button__selected")
-  ) {
-    categoryType = "appetizer";
-  }
-
-  if (
-    mainCourseBtn.classList.contains(
-      "timer-counter-container--button__selected"
-    )
-  ) {
-    categoryType = "main-course";
-  }
-
-  if (
-    dessertBtn.classList.contains("timer-counter-container--button__selected")
-  ) {
-    categoryType = "dessert";
-  }
-
-  receipeObject.category = categoryType;
+const updateReceipe = (id, propToChange) => {
+  receipeObject = { ...receipeObject, ...propToChange };
   console.log(receipeObject);
 };
