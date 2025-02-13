@@ -299,7 +299,8 @@ if (dessertBtn) {
 let receipeObject = {}; // Global para que sea accesible en ambos eventos
 let categoryType = "";
 const receipes = [];
-//Hay que comprobar si la selección de la receta está bien hecha
+
+//Primer Form
 if (document.querySelector(".form-container-title")) {
   document
     .querySelector(".form-container-title")
@@ -313,6 +314,34 @@ if (document.querySelector(".form-container-title")) {
       const titleData = event.target.value.trim();
       updateReceipe(receipeObject.id, { title: titleData });
       console.log(JSON.stringify(receipeObject));
+    });
+}
+
+//Segundo Form
+//No lee correctamente el id que le paso, hay que revisar
+const ingredients = [];
+if (document.querySelector(".form-container-ingredients")) {
+  document
+    .querySelector(".form-container-ingredients")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const formData = new FormData(event.target);
+      const ingredientsText = formData.get("ingredientsText");
+
+      ingredients.push(ingredientsText);
+      const receipesFromLocalStorage = JSON.parse(
+        localStorage.getItem("receipes")
+      );
+      const receipeLength = receipesFromLocalStorage.length;
+      console.log(receipesFromLocalStorage[receipeLength - 1].id);
+      updateReceipe(receipesFromLocalStorage[receipeLength - 1].id, {
+        ingredients: ingredients,
+      });
+      //console.log(receipesResult);
+      console.log(ingredients);
+
+      event.target.reset();
     });
 }
 
@@ -355,13 +384,17 @@ if (document.querySelector(".button-next-1")) {
 }
 
 const updateReceipe = (id, propToChange) => {
+  console.log("empieza la función update");
   const index = receipes.findIndex((r) => r.id === id);
   if (index !== -1) {
+    console.log("se ha encontrado la receta en local storage");
     receipes[index] = { ...receipes[index], ...propToChange };
     console.log(receipes[index]);
     const receipesToStr = JSON.stringify(receipes);
     localStorage.setItem("receipes", receipesToStr);
+    console.log(receipes);
     return receipes[index];
   }
+  console.log("no lo encuentra");
   return null;
 };
