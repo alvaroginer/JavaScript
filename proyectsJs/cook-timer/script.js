@@ -298,7 +298,7 @@ if (dessertBtn) {
 
 let receipeObject = {}; // Global para que sea accesible en ambos eventos
 let categoryType = "";
-const receipes = [];
+let receipes = JSON.parse(localStorage.getItem("receipes")) || [];
 
 //Primer Form
 if (document.querySelector(".form-container-title")) {
@@ -317,8 +317,8 @@ if (document.querySelector(".form-container-title")) {
     });
 }
 
+// Una vez termine el último form hay que reiniciar todas las variables para futuras recetas
 //Segundo Form
-//No lee correctamente el id que le paso, hay que revisar
 const ingredients = [];
 if (document.querySelector(".form-container-ingredients")) {
   document
@@ -345,7 +345,16 @@ if (document.querySelector(".form-container-ingredients")) {
     });
 }
 
-//Actualizar los datos que se mandan a la función updateReceipe()
+if (document.querySelector(".button-next-2")) {
+  document
+    .querySelector(".button-next-2")
+    .addEventListener("click", function () {
+      if (ingredients.length > 0) {
+        window.location.href = "./steps.html";
+      }
+    });
+}
+
 if (document.querySelector(".button-next-1")) {
   document
     .querySelector(".button-next-1")
@@ -384,17 +393,24 @@ if (document.querySelector(".button-next-1")) {
 }
 
 const updateReceipe = (id, propToChange) => {
-  console.log("empieza la función update");
   const index = receipes.findIndex((r) => r.id === id);
   if (index !== -1) {
-    console.log("se ha encontrado la receta en local storage");
     receipes[index] = { ...receipes[index], ...propToChange };
-    console.log(receipes[index]);
     const receipesToStr = JSON.stringify(receipes);
     localStorage.setItem("receipes", receipesToStr);
-    console.log(receipes);
+    console.log("esta fucnión es la guardado", receipes);
+    //receipes = JSON.parse(localStorage.getItem("receipes"));
     return receipes[index];
   }
   console.log("no lo encuentra");
   return null;
+};
+
+const creatIngredient = (ingredient) => {
+  const ingredientContainer = document.createElement("div");
+  ingredientContainer.className = "ingredients-container";
+  ingredientContainer.innerHTML = `<p class="ingredients-container--text"></p>`;
+  document
+    .querySelector(".ingredients-container")
+    .appendChild(ingredientContainer);
 };
