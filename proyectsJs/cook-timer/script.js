@@ -267,7 +267,7 @@ if (document.querySelector(".counter-container--button")) {
 }
 
 /* Código para la página de Title y Categories */
-const receipes = [];
+
 const appetizerBtn = document.querySelector(".button--appetizers");
 const mainCourseBtn = document.querySelector(".button--main-course");
 const dessertBtn = document.querySelector(".button--dessert");
@@ -296,19 +296,22 @@ if (dessertBtn) {
   });
 }
 
+let receipeObject = {}; // Global para que sea accesible en ambos eventos
+let categoryType = "";
+const receipes = [];
 //Hay que comprobar si la selección de la receta está bien hecha
 if (document.querySelector(".form-container-title")) {
   document
     .querySelector(".form-container-title")
     .addEventListener("input", function (event) {
       event.preventDefault();
-      let receipeObject = { id: new Date().getTime() };
-      receipes.push(receipeObject);
+      if (!receipeObject.id) {
+        receipeObject = { id: new Date().getTime() };
+        receipes.push(receipeObject);
+      }
+
       const titleData = event.target.value.trim();
-      const receipeId = receipes.findIndex((r) => {
-        return receipeObject.id === r.id;
-      });
-      updateReceipe(receipeId, { title: titleData });
+      updateReceipe(receipeObject.id, { title: titleData });
       console.log(JSON.stringify(receipeObject));
     });
 }
@@ -342,8 +345,8 @@ if (document.querySelector(".button-next-1")) {
         ) {
           categoryType = "dessert";
         }
-        updateReceipe();
-        window.location.href = "./steps.html";
+        updateReceipe(receipeObject.id, { category: categoryType });
+        window.location.href = "./ingredients.html";
         return;
       } else {
         alert("Incluye un titular y selecciona una categoría");
@@ -351,8 +354,14 @@ if (document.querySelector(".button-next-1")) {
     });
 }
 
-let categoryType = "";
 const updateReceipe = (id, propToChange) => {
-  receipeObject = { ...receipeObject, ...propToChange };
-  console.log(receipeObject);
+  const index = receipes.findIndex((r) => r.id === id);
+  if (index !== -1) {
+    receipes[index] = { ...receipes[index], ...propToChange };
+    console.log(receipes[index]);
+    const receipesToStr = JSON.stringify(receipes);
+    localStorage.setItem("receipes", receipesToStr);
+    return receipes[index];
+  }
+  return null;
 };
