@@ -80,6 +80,7 @@ body {
 .ingredients-container {
   display: flex;
   flex-wrap: wrap;
+  gap: 20px;
 }
 
 .ingredients-container--text {
@@ -88,6 +89,7 @@ body {
   border: 1px dotted #f6bd60;
   color: #f7ede2;
   font-size: 12px;
+  border-radius: 10px;
 }
 
 /* Buttons & Properties */

@@ -328,6 +328,7 @@ if (document.querySelector(".form-container-ingredients")) {
 
       const formData = new FormData(event.target);
       const ingredientsText = formData.get("ingredientsText");
+      creatIngredient(ingredientsText);
 
       ingredients.push(ingredientsText);
       const receipesFromLocalStorage = JSON.parse(
@@ -398,7 +399,7 @@ const updateReceipe = (id, propToChange) => {
     receipes[index] = { ...receipes[index], ...propToChange };
     const receipesToStr = JSON.stringify(receipes);
     localStorage.setItem("receipes", receipesToStr);
-    console.log("esta fucnión es la guardado", receipes);
+    console.log("esta función es la guardado", receipes);
     //receipes = JSON.parse(localStorage.getItem("receipes"));
     return receipes[index];
   }
@@ -409,7 +410,7 @@ const updateReceipe = (id, propToChange) => {
 const creatIngredient = (ingredient) => {
   const ingredientContainer = document.createElement("div");
   ingredientContainer.className = "ingredients-container";
-  ingredientContainer.innerHTML = `<p class="ingredients-container--text"></p>`;
+  ingredientContainer.innerHTML = `<p class="ingredients-container--text">${ingredient}</p>`;
   document
     .querySelector(".ingredients-container")
     .appendChild(ingredientContainer);
