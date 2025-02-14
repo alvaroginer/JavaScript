@@ -206,7 +206,7 @@ const filterByBreed = () => {
     return dogObject.breedName === dogBreed;
   });
 
-  dogList.innerHTML = "";
+  //dogList.innerHTML = "";
 
   filterBreed.forEach((dogImage, index) => {
     const dogCard = document.createElement("div");
