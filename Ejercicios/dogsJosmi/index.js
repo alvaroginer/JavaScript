@@ -64,6 +64,7 @@ document
     dogBreed = event.target.value;
   });
 
+const dogList = document.querySelector("#dog-list");
 const addPerrico = async (breed, addToStart) => {
   console.log("esto es antes");
   document.querySelector("#add-1-perrico").setAttribute("disabled", "disabled");
@@ -74,8 +75,6 @@ const addPerrico = async (breed, addToStart) => {
   } else {
     perricosArray.push(perricoImg);
   }
-
-  const dogList = document.querySelector("#dog-list");
 
   const isAnyFilterSelected = document.querySelector(".filter-selected");
 
@@ -206,9 +205,31 @@ const filterByBreed = () => {
   const filterBreed = perricosArray.filter((dogObject) => {
     return dogObject.breedName === dogBreed;
   });
-  return filterBreed;
+
+  dogList.innerHTML = "";
+
+  filterBreed.forEach((dogImage, index) => {
+    const dogCard = document.createElement("div");
+    dogCard.className("card");
+    dogCard.innerHTML = `<img src="${dogImage.url}" alt="Perro" />
+  <br />
+  <p><span class="like-count"></span>❤️ <span class="dislike-count"></span>🤮</p>
+  <button class="like">Preciosísimo</button> <button class="dislike">Feísisimo</button>`;
+
+    dogList.appendChild(htmlAdd);
+  });
+
+  addSocialListeners();
 };
 
-document
-  .querySelector("#breed-filter")
-  .addEventListener("click", function () {});
+const filterButton = document.querySelector("#breed-filter");
+filterButton.addEventListener("click", function () {
+  filterButton.classList.toggle("filter-selected");
+  if (filterButton.classList.contains("filter-selected")) {
+    filterByBreed();
+  }
+  dogList.innerHTML = "";
+  perricosArray.forEach((dog) => {
+    addPerrico(dog.breedName);
+  });
+});
