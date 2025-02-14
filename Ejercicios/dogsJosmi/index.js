@@ -66,9 +66,9 @@ document
 
 const dogList = document.querySelector("#dog-list");
 const addPerrico = async (breed, addToStart) => {
-  console.log("esto es antes");
   document.querySelector("#add-1-perrico").setAttribute("disabled", "disabled");
   const perricoImg = await getDogImageBreed(breed);
+  console.log(perricoImg);
   document.querySelector("#add-1-perrico").removeAttribute("disabled");
   if (addToStart) {
     perricosArray.unshift(perricoImg);
@@ -210,13 +210,13 @@ const filterByBreed = () => {
 
   filterBreed.forEach((dogImage, index) => {
     const dogCard = document.createElement("div");
-    dogCard.className("card");
+    dogCard.className = "card";
     dogCard.innerHTML = `<img src="${dogImage.url}" alt="Perro" />
-  <br />
-  <p><span class="like-count"></span>❤️ <span class="dislike-count"></span>🤮</p>
-  <button class="like">Preciosísimo</button> <button class="dislike">Feísisimo</button>`;
+    <br />
+    <p><span class="like-count"></span>❤️ <span class="dislike-count"></span>🤮</p>
+    <button class="like">Preciosísimo</button> <button class="dislike">Feísisimo</button>`;
 
-    dogList.appendChild(htmlAdd);
+    dogList.appendChild(dogCard);
   });
 
   addSocialListeners();
@@ -227,8 +227,9 @@ filterButton.addEventListener("click", function () {
   filterButton.classList.toggle("filter-selected");
   if (filterButton.classList.contains("filter-selected")) {
     filterByBreed();
+    return;
   }
-  //Esta parte de la función no funciona
+  //Esta parte de la función no funciona y no es la correcta, tengo que revisar
   dogList.innerHTML = "";
   perricosArray.forEach((dog) => {
     addPerrico(dog.breedName);

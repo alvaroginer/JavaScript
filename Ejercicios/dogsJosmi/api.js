@@ -39,7 +39,6 @@ async function getDogImageBreed(breed) {
       : `https://dog.ceo/api/breed/${breed}/images/random`;
 
   try {
-    console.log("esto es antes 2");
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
@@ -49,7 +48,6 @@ async function getDogImageBreed(breed) {
 
     return { url: json.message, breedName: breed };
   } catch (error) {
-    console.log("esto es antes 3");
     console.error(error.message);
   }
 }
