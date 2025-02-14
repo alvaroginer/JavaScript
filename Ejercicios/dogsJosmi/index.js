@@ -228,6 +228,7 @@ filterButton.addEventListener("click", function () {
   if (filterButton.classList.contains("filter-selected")) {
     filterByBreed();
   }
+  //Esta parte de la función no funciona
   dogList.innerHTML = "";
   perricosArray.forEach((dog) => {
     addPerrico(dog.breedName);
