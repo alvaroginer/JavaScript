@@ -1,5 +1,8 @@
 const perricosArray = [
-  "https://images.dog.ceo/breeds/affenpinscher/n02110627_10439.jpg",
+  {
+    url: "https://images.dog.ceo/breeds/affenpinscher/n02110627_10439.jpg",
+    breedName: "affenpischer",
+  },
 ];
 console.log(perricosArray);
 
@@ -35,13 +38,14 @@ function addSocialListeners() {
   });
 }
 
+//Función para mostrar al primer perro
 function renderPerricoArray() {
   const dogList = document.querySelector("#dog-list");
   dogList.innerHTML = "";
 
   perricosArray.forEach((dogImage, index) => {
     const htmlAdd = `<div class="card">
-  <img src="${dogImage}" alt="Perro" />
+  <img src="${dogImage.url}" alt="Perro" />
   <br />
   <p><span class="like-count"></span>❤️ <span class="dislike-count"></span>🤮</p>
   <button class="like">Preciosísimo</button> <button class="dislike">Feísisimo</button>
@@ -80,7 +84,7 @@ const addPerrico = async (breed, addToStart) => {
   perricoCardElement.style.display = isAnyFilterSelected ? "none" : "";
 
   perricoCardElement.innerHTML = `
-  <img src="${perricoImg}" alt="Perro" />
+  <img src="${perricoImg.url}" alt="Perro" />
   <br />
   <p><span class="like-count"></span>❤️ <span class="dislike-count"></span>🤮</p>
   <button class="like">Preciosísimo</button> <button class="dislike">Feísisimo</button>`;
@@ -197,3 +201,14 @@ const generateSelect = async () => {
   });
 };
 generateSelect();
+
+const filterByBreed = () => {
+  const filterBreed = perricosArray.filter((dogObject) => {
+    return dogObject.breedName === dogBreed;
+  });
+  return filterBreed;
+};
+
+document
+  .querySelector("#breed-filter")
+  .addEventListener("click", function () {});
