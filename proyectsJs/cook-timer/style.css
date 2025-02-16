@@ -80,16 +80,18 @@ body {
 .ingredients-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 5px;
+  width: 370px;
 }
 
 .ingredients-container--text {
   padding: 10px;
   background-color: #f6bd608f;
   border: 1px dotted #f6bd60;
-  color: #f7ede2;
+  color: gray;
   font-size: 12px;
   border-radius: 10px;
+  margin: 5px;
 }
 
 /* Buttons & Properties */

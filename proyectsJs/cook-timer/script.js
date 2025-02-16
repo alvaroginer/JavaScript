@@ -301,6 +301,7 @@ let categoryType = "";
 let receipes = JSON.parse(localStorage.getItem("receipes")) || [];
 
 //Primer Form
+const titleData = "";
 if (document.querySelector(".form-container-title")) {
   document
     .querySelector(".form-container-title")
@@ -311,9 +312,17 @@ if (document.querySelector(".form-container-title")) {
         receipes.push(receipeObject);
       }
 
-      const titleData = event.target.value.trim();
+      titleData = event.target.value.trim();
       updateReceipe(receipeObject.id, { title: titleData });
       console.log(JSON.stringify(receipeObject));
+    });
+}
+
+if (document.querySelector(".form-container-title")) {
+  document
+    .querySelector(".form-container-title")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
     });
 }
 
@@ -335,7 +344,6 @@ if (document.querySelector(".form-container-ingredients")) {
         localStorage.getItem("receipes")
       );
       const receipeLength = receipesFromLocalStorage.length;
-      console.log(receipesFromLocalStorage[receipeLength - 1].id);
       updateReceipe(receipesFromLocalStorage[receipeLength - 1].id, {
         ingredients: ingredients,
       });
@@ -393,6 +401,14 @@ if (document.querySelector(".button-next-1")) {
     });
 }
 
+if (document.querySelectorAll(".button-back")) {
+  document.querySelectorAll(".button-back").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      eliminateReceipe();
+    });
+  });
+}
+
 const updateReceipe = (id, propToChange) => {
   const index = receipes.findIndex((r) => r.id === id);
   if (index !== -1) {
@@ -407,10 +423,23 @@ const updateReceipe = (id, propToChange) => {
   return null;
 };
 
+const eliminateReceipe = () => {
+  console.log(titleData);
+  if (titleData !== "") {
+    const receipesLocalStorage = JSON.parse(localStorage.getItem("receipes"));
+    if (receipesLocalStorage.length > 0) {
+      receipesLocalStorage.pop();
+      console.log(receipesLocalStorage);
+      localStorage.setItem("receipes", JSON.stringify(receipesLocalStorage));
+    }
+  }
+  //window.location.href = "./receipes.html";
+};
+
 const creatIngredient = (ingredient) => {
-  const ingredientContainer = document.createElement("div");
-  ingredientContainer.className = "ingredients-container";
-  ingredientContainer.innerHTML = `<p class="ingredients-container--text">${ingredient}</p>`;
+  const ingredientContainer = document.createElement("p");
+  ingredientContainer.className = "ingredients-container--text";
+  ingredientContainer.textContent = `${ingredient}`;
   document
     .querySelector(".ingredients-container")
     .appendChild(ingredientContainer);

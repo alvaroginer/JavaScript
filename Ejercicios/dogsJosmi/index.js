@@ -1,7 +1,7 @@
 const perricosArray = [
   {
     url: "https://images.dog.ceo/breeds/affenpinscher/n02110627_10439.jpg",
-    breedName: "affenpischer",
+    breedName: "affenpinscher",
   },
 ];
 console.log(perricosArray);
@@ -10,8 +10,6 @@ const timeoutId = setTimeout(() => {
   document.querySelector("#add-warning").style.display = "";
 }, 3000);
 // console.log(getRandomDogImage());
-
-// addPerrico();
 
 function clearWarningMessage() {
   clearTimeout(timeoutId);
@@ -38,6 +36,39 @@ function addSocialListeners() {
   });
 }
 
+let breedFilter = {};
+const generateBreedFilter = () => {
+  breedFilter = {};
+  perricosArray.forEach((dog) => {
+    if (!breedFilter[dog.breedName]) {
+      breedFilter[dog.breedName] = {
+        total: 1,
+        breed: dog.breedName,
+        breedNameFilter: dog.breedName,
+      };
+    } else {
+      breedFilter[dog.breedName].total++;
+      breedFilter[dog.breedName].breedNameFilter = `${dog.breedName} (${
+        breedFilter[dog.breedName].total
+      })`;
+    }
+  });
+
+  const selectElement = document.querySelector("#filter-dog-select");
+  selectElement.innerHTML = "";
+  const everythingSelect = document.createElement("option");
+  everythingSelect.className = "everything";
+  everythingSelect.textContent = "Everything";
+  selectElement.appendChild(everythingSelect);
+
+  Object.keys(breedFilter).forEach((breed) => {
+    const option = document.createElement("option");
+    option.className = breed;
+    option.textContent = breedFilter[breed].breedNameFilter;
+    selectElement.appendChild(option);
+  });
+};
+
 //Función para mostrar al primer perro
 function renderPerricoArray() {
   const dogList = document.querySelector("#dog-list");
@@ -55,9 +86,10 @@ function renderPerricoArray() {
   });
 
   addSocialListeners();
+  generateBreedFilter();
 }
 
-let dogBreed = "";
+let dogBreed = "random";
 document
   .querySelector("#dog-select")
   .addEventListener("change", function (event) {
@@ -106,6 +138,8 @@ const addPerrico = async (breed, addToStart) => {
     const likeCountNode = perricoCardElement.querySelector(".dislike-count");
     likeCountNode.innerText = Number(likeCountNode.innerText) + 1;
   });
+
+  generateBreedFilter();
 };
 
 const buttonDisabled = () => {};
@@ -201,17 +235,33 @@ const generateSelect = async () => {
 };
 generateSelect();
 
-const filterByBreed = () => {
-  const filterBreed = perricosArray.filter((dogObject) => {
-    return dogObject.breedName === dogBreed;
+let breedFilterDog = "";
+document
+  .querySelector("#filter-dog-select")
+  .addEventListener("change", function (event) {
+    breedFilterDog = event.target.value;
+    if (breedFilterDog === "Everything") {
+      dogList.innerHTML = "";
+      perricosArray.forEach((dog) => {
+        renderPerricoArray();
+      });
+      return;
+    }
+    filterByBreed();
   });
 
-  //dogList.innerHTML = "";
+const filterByBreed = () => {
+  const onlyBreedName = breedFilterDog.split(" ");
+  const filterBreed = perricosArray.filter((dogObject) => {
+    return dogObject.breedName === onlyBreedName[0];
+  });
 
-  filterBreed.forEach((dogImage, index) => {
+  dogList.innerHTML = "";
+
+  filterBreed.forEach((dog) => {
     const dogCard = document.createElement("div");
     dogCard.className = "card";
-    dogCard.innerHTML = `<img src="${dogImage.url}" alt="Perro" />
+    dogCard.innerHTML = `<img src="${dog.url}" alt="Perro" />
     <br />
     <p><span class="like-count"></span>❤️ <span class="dislike-count"></span>🤮</p>
     <button class="like">Preciosísimo</button> <button class="dislike">Feísisimo</button>`;
@@ -222,16 +272,16 @@ const filterByBreed = () => {
   addSocialListeners();
 };
 
-const filterButton = document.querySelector("#breed-filter");
-filterButton.addEventListener("click", function () {
-  filterButton.classList.toggle("filter-selected");
-  if (filterButton.classList.contains("filter-selected")) {
-    filterByBreed();
-    return;
-  }
-  //Esta parte de la función no funciona y no es la correcta, tengo que revisar
-  dogList.innerHTML = "";
-  perricosArray.forEach((dog) => {
-    addPerrico(dog.breedName);
-  });
-});
+// const filterButton = document.querySelector("#breed-filter");
+// filterButton.addEventListener("click", function () {
+//   filterButton.classList.toggle("filter-selected");
+//   if (filterButton.classList.contains("filter-selected")) {
+//     filterByBreed();
+//     return;
+//   }
+//   //Esta parte de la función no funciona y no es la correcta, tengo que revisar
+//   dogList.innerHTML = "";
+//   perricosArray.forEach((dog) => {
+//     renderPerricoArray();
+//   });
+// });

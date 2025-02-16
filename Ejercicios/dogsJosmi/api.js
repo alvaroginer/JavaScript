@@ -34,7 +34,7 @@ async function getDogBreed() {
 
 async function getDogImageBreed(breed) {
   let url =
-    breed === ""
+    breed === "random"
       ? "https://dog.ceo/api/breeds/image/random"
       : `https://dog.ceo/api/breed/${breed}/images/random`;
 

@@ -11,7 +11,7 @@
     <h1>Votalperrico</h1>
     <label for="dog-select">Elige un perrico</label>
     <select name="select" id="dog-select">
-      <option value="">random</option>
+      <option value="random">random</option>
     </select>
     <p id="add-warning" style="display: none">
       Pulsa algún botón para añadir perricos
@@ -23,7 +23,13 @@
       <span> Filter by: </span>
       <button id="like-filter">Preciosisimos ❤️</button>
       <button id="dislike-filter">Feísimos 🤮</button>
-      <button id="breed-filter">Filtrar por raza 🐕</button>
+      <!-- <button id="breed-filter">Filtrar por raza 🐕</button> -->
+    </div>
+    <div class="created-breed-filter">
+      <p>Filter by:</p>
+      <select name="select" id="filter-dog-select">
+        <option value="Everything">Everything</option>
+      </select>
     </div>
     <div id="dog-list"></div>
   </body>
