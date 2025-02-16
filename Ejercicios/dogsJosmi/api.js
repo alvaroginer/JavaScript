@@ -33,9 +33,13 @@ async function getDogBreed() {
 }
 
 async function getDogImageBreed(breed) {
+  let randomNum = Math.floor(Math.random() * 107 + 1);
+  const allDogBreedObject = await getDogBreed();
+  const breedsArray = Object.keys(allDogBreedObject);
+  let randomBreed = breedsArray[randomNum];
   let url =
     breed === "random"
-      ? "https://dog.ceo/api/breeds/image/random"
+      ? `https://dog.ceo/api/breed/${randomBreed}/images/random`
       : `https://dog.ceo/api/breed/${breed}/images/random`;
 
   try {
@@ -46,7 +50,9 @@ async function getDogImageBreed(breed) {
 
     const json = await response.json();
 
-    return { url: json.message, breedName: breed };
+    return breed === "random"
+      ? { url: json.message, breedName: randomBreed }
+      : { url: json.message, breedName: breed };
   } catch (error) {
     console.error(error.message);
   }

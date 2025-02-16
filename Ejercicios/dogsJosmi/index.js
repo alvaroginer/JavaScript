@@ -6,16 +6,17 @@ const perricosArray = [
 ];
 console.log(perricosArray);
 
+//Funciones del timeout e inactividad
 const timeoutId = setTimeout(() => {
   document.querySelector("#add-warning").style.display = "";
 }, 3000);
-// console.log(getRandomDogImage());
 
 function clearWarningMessage() {
   clearTimeout(timeoutId);
   document.querySelector("#add-warning").style.display = "none";
 }
 
+//Función para añadir eventListeners a los botones de like y dislikes a los contenedores que se van crendo
 function addSocialListeners() {
   document.querySelectorAll(".like").forEach((buttonNode) => {
     buttonNode.addEventListener("click", function () {
@@ -36,6 +37,7 @@ function addSocialListeners() {
   });
 }
 
+//Función que genera el select para filtrar por razas
 let breedFilter = {};
 const generateBreedFilter = () => {
   breedFilter = {};
@@ -69,7 +71,7 @@ const generateBreedFilter = () => {
   });
 };
 
-//Función para mostrar al primer perro
+//Función para mostrar al primer perro o a los que está filtrados y no se ven
 function renderPerricoArray() {
   const dogList = document.querySelector("#dog-list");
   dogList.innerHTML = "";
@@ -89,16 +91,18 @@ function renderPerricoArray() {
   generateBreedFilter();
 }
 
+//EventListener para el select de todas las razas de perro
 let dogBreed = "random";
 document
   .querySelector("#dog-select")
   .addEventListener("change", function (event) {
     dogBreed = event.target.value;
   });
-
+//Función para añadir los contenedores de los perros cuanod se pulsa en alguno denlos botones
 const dogList = document.querySelector("#dog-list");
 const addPerrico = async (breed, addToStart) => {
   document.querySelector("#add-1-perrico").setAttribute("disabled", "disabled");
+
   const perricoImg = await getDogImageBreed(breed);
   console.log(perricoImg);
   document.querySelector("#add-1-perrico").removeAttribute("disabled");
@@ -142,8 +146,7 @@ const addPerrico = async (breed, addToStart) => {
   generateBreedFilter();
 };
 
-const buttonDisabled = () => {};
-
+//EvenListeners de los botones que añaden perros
 document.querySelector("#add-1-perrico").addEventListener("click", function () {
   clearWarningMessage();
   addPerrico(dogBreed);
@@ -169,6 +172,7 @@ document
     addPerrico(dogBreed);
   });
 
+//EventListeners para los botones del filtro de Like y Dislike
 const likeFilterButton = document.querySelector("#like-filter");
 
 likeFilterButton.addEventListener("click", function () {
@@ -183,6 +187,7 @@ dislikeFilter.addEventListener("click", function () {
   filterPerricos();
 });
 
+// Función que filtra a los perros en funciónd e si tienen like o dislike
 function filterPerricos() {
   const isLikeFilterSelected =
     likeFilterButton.classList.contains("filter-selected");
@@ -224,8 +229,10 @@ document
 
 renderPerricoArray();
 
+//Función para generar el select con todas las razas de los perros
 const generateSelect = async () => {
   const dogBreed = await getDogBreed();
+  console.log(Object.keys(dogBreed).length);
   Object.keys(dogBreed).forEach((breed) => {
     const option = document.createElement("option");
     option.className = `${breed}`;
@@ -235,6 +242,7 @@ const generateSelect = async () => {
 };
 generateSelect();
 
+//EventListener del select para filtrar por las razas de perros que hay en la web
 let breedFilterDog = "";
 document
   .querySelector("#filter-dog-select")
@@ -250,6 +258,7 @@ document
     filterByBreed();
   });
 
+// Función que filtra por razas
 const filterByBreed = () => {
   const onlyBreedName = breedFilterDog.split(" ");
   const filterBreed = perricosArray.filter((dogObject) => {
@@ -271,17 +280,3 @@ const filterByBreed = () => {
 
   addSocialListeners();
 };
-
-// const filterButton = document.querySelector("#breed-filter");
-// filterButton.addEventListener("click", function () {
-//   filterButton.classList.toggle("filter-selected");
-//   if (filterButton.classList.contains("filter-selected")) {
-//     filterByBreed();
-//     return;
-//   }
-//   //Esta parte de la función no funciona y no es la correcta, tengo que revisar
-//   dogList.innerHTML = "";
-//   perricosArray.forEach((dog) => {
-//     renderPerricoArray();
-//   });
-// });
