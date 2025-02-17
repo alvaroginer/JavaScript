@@ -172,6 +172,7 @@ const createCounter = () => {
     });
 };
 
+//Función para modificar el tiempo
 const modifyTime = (add) => {
   const minuteNode = document.querySelector(
     ".timer-counter-container--button-min"
@@ -219,6 +220,7 @@ const modifyTime = (add) => {
   }:${secondsTimer < 10 ? `0${secondsTimer}` : secondsTimer}`;
 };
 
+//EventListener para que aparezca el contador
 if (document.querySelector(".menu-container--button__big")) {
   document
     .querySelector(".menu-container--button__big")
@@ -229,6 +231,7 @@ if (document.querySelector(".menu-container--button__big")) {
     });
 }
 
+//EventListeners para los botones que amrcan el tiempo
 if (document.querySelector(".egg-container--button-1")) {
   document
     .querySelector(".egg-container--button-1")
@@ -329,7 +332,6 @@ if (document.querySelector(".form-container-title")) {
     });
 }
 
-// Una vez termine el último form hay que reiniciar todas las variables para futuras recetas
 //Segundo Form
 const ingredients = [];
 if (document.querySelector(".form-container-ingredients")) {
@@ -357,8 +359,8 @@ if (document.querySelector(".form-container-ingredients")) {
     });
 }
 
+// Una vez termine el último form hay que reiniciar todas las variables para futuras recetas, hacerlo cuando se pulse el botón de terminar receta
 //Tercer form
-// No se está añadiendo el array de steps correctamente, se añade como null, toca revisar
 const steps = [];
 if (document.querySelector(".steps-form")) {
   document
@@ -368,6 +370,7 @@ if (document.querySelector(".steps-form")) {
 
       const formData = new FormData(event.target);
       const stepsText = formData.get("stepsText");
+      console.log(stepsText);
       //Falta añadir los steps al html
 
       steps.push(stepsText);
@@ -378,7 +381,6 @@ if (document.querySelector(".steps-form")) {
       updateReceipe(receipesFromLocalStorage[receipeLength - 1].id, {
         steps: steps,
       });
-      console.log(steps);
 
       event.target.reset();
     });
@@ -445,7 +447,7 @@ const eliminateReceipe = () => {
   } else {
     console.log("titleData está vacío");
   }
-  //window.location.href = "./receipes.html";
+  window.location.href = "./receipes.html";
 };
 
 if (document.querySelectorAll(".button-back")) {
