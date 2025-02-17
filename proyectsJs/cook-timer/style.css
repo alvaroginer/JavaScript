@@ -115,6 +115,25 @@ body {
   transform: scale(1.1);
 }
 
+.movement-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background-color: #f6bd60;
+  border: 3px solid #f6bd60;
+  padding: 10px;
+  font-family: "Pixelify Sans", serif;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all ease 0.15s;
+}
+
+.movement-button:hover {
+  transform: scale(1.1);
+}
+
 .counter-container--button {
   display: flex;
   justify-content: center;

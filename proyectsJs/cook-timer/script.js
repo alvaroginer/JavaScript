@@ -301,7 +301,7 @@ let categoryType = "";
 let receipes = JSON.parse(localStorage.getItem("receipes")) || [];
 
 //Primer Form
-const titleData = "";
+let titleData = "";
 if (document.querySelector(".form-container-title")) {
   document
     .querySelector(".form-container-title")
@@ -312,7 +312,10 @@ if (document.querySelector(".form-container-title")) {
         receipes.push(receipeObject);
       }
 
+      //Guardamos titleData en localStorage para hacer una copia de seguridad para el borrado
       titleData = event.target.value.trim();
+      localStorage.setItem("titleData", titleData);
+
       updateReceipe(receipeObject.id, { title: titleData });
       console.log(JSON.stringify(receipeObject));
     });
@@ -349,6 +352,33 @@ if (document.querySelector(".form-container-ingredients")) {
       });
       //console.log(receipesResult);
       console.log(ingredients);
+
+      event.target.reset();
+    });
+}
+
+//Tercer form
+// No se está añadiendo el array de steps correctamente, se añade como null, toca revisar
+const steps = [];
+if (document.querySelector(".steps-form")) {
+  document
+    .querySelector(".steps-form")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const formData = new FormData(event.target);
+      const stepsText = formData.get("stepsText");
+      //Falta añadir los steps al html
+
+      steps.push(stepsText);
+      const receipesFromLocalStorage = JSON.parse(
+        localStorage.getItem("receipes")
+      );
+      const receipeLength = receipesFromLocalStorage.length;
+      updateReceipe(receipesFromLocalStorage[receipeLength - 1].id, {
+        steps: steps,
+      });
+      console.log(steps);
 
       event.target.reset();
     });
@@ -401,6 +431,23 @@ if (document.querySelector(".button-next-1")) {
     });
 }
 
+// Cuando se termine de crear una receta toca reiniciar el titleData de localStorage
+const eliminateReceipe = () => {
+  titleData = localStorage.getItem("titleData");
+  if (titleData !== "") {
+    const receipesLocalStorage = JSON.parse(localStorage.getItem("receipes"));
+    if (receipesLocalStorage.length > 0) {
+      receipesLocalStorage.pop();
+      console.log("estás borrando");
+      console.log(receipesLocalStorage);
+      localStorage.setItem("receipes", JSON.stringify(receipesLocalStorage));
+    }
+  } else {
+    console.log("titleData está vacío");
+  }
+  //window.location.href = "./receipes.html";
+};
+
 if (document.querySelectorAll(".button-back")) {
   document.querySelectorAll(".button-back").forEach((btn) => {
     btn.addEventListener("click", function () {
@@ -421,19 +468,6 @@ const updateReceipe = (id, propToChange) => {
   }
   console.log("no lo encuentra");
   return null;
-};
-
-const eliminateReceipe = () => {
-  console.log(titleData);
-  if (titleData !== "") {
-    const receipesLocalStorage = JSON.parse(localStorage.getItem("receipes"));
-    if (receipesLocalStorage.length > 0) {
-      receipesLocalStorage.pop();
-      console.log(receipesLocalStorage);
-      localStorage.setItem("receipes", JSON.stringify(receipesLocalStorage));
-    }
-  }
-  //window.location.href = "./receipes.html";
 };
 
 const creatIngredient = (ingredient) => {
