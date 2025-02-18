@@ -55,11 +55,15 @@ async function getDogImageBreed(breed) {
           url: json.message,
           breedName: randomBreed,
           id: new Date().getTime() + Math.random(),
+          like: 0,
+          dislike: 0,
         }
       : {
           url: json.message,
           breedName: breed,
           id: new Date().getTime() + Math.random(),
+          like: 0,
+          dislike: 0,
         };
   } catch (error) {
     console.error(error.message);
