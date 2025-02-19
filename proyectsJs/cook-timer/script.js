@@ -465,6 +465,7 @@ if (document.querySelector(".finish-receipe-button")) {
     .querySelector(".finish-receipe-button")
     .addEventListener("click", function () {
       if (steps.length > 0) {
+        finishNotification();
       }
     });
 }
@@ -476,7 +477,6 @@ const updateReceipe = (id, propToChange) => {
     const receipesToStr = JSON.stringify(receipes);
     localStorage.setItem("receipes", receipesToStr);
     console.log("esta función es la guardado", receipes);
-    //receipes = JSON.parse(localStorage.getItem("receipes"));
     return receipes[index];
   }
   console.log("no lo encuentra");
@@ -501,5 +501,29 @@ const creatSteps = (steps) => {
   document.querySelector(".steps-container").appendChild(stepsContainer);
 };
 
-//Notificación de terminar receta
-const finishReceipe = () => {};
+const finishNotification = () => {
+  const finishNot = document.createElement("div");
+  finishNot.className = "finish-container--notification";
+  finishNot.innerHTML = `
+            <p class="font-size__24 color__yellow timer-counter-container--title">Are you sure you want to finish your recipe?</p>
+            <div class="display__flex timer-counter-container--button-container">
+              <button class="timer-counter-container--button finish-conatiner-yes font-size__24">Yes</button>
+              <button class="timer-counter-container--button finish-container-no font-size__24">No</button>
+            </div>`;
+  const timeContainer = document.querySelector(".finish--container");
+  timeContainer.appendChild(finishNot);
+
+  document
+    .querySelector(".finish-conatiner-yes")
+    .addEventListener("click", function () {
+      titleData = "";
+      document(".steps-container").innerHTML = "";
+      window.location.href = "./home.html";
+    });
+
+  document
+    .querySelector(".finish-container-no")
+    .addEventListener("click", function () {
+      document(".steps-container").innerHTML = "";
+    });
+};

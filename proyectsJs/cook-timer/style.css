@@ -65,6 +65,28 @@ body {
   position: relative;
 }
 
+.finish--container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.finish-container--notification {
+  width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f7ede2;
+  border: #f6bd60 5px dotted;
+  position: relative;
+}
+
 .form-container {
   text-align: left;
 }
@@ -167,7 +189,26 @@ body {
   transition: all ease 0.15s;
 }
 
+.finish-container--button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background-color: #f6bd60;
+  border: 3px solid #f6bd60;
+  padding: 10px;
+  font-family: "Pixelify Sans", serif;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all ease 0.15s;
+}
+
 .counter-container--button:hover {
+  transform: scale(1.1);
+}
+
+.finish-container--button:hover {
   transform: scale(1.1);
 }
 
