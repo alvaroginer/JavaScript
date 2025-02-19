@@ -3341,3 +3341,38 @@ function upArray(arr) {
 }
 
 console.log(upArray([1, 2, 3, 4]));
+
+class Shape {
+  constructor() {
+    this.name = "square";
+    this.sides = 4;
+    this.sideLength = 5;
+  }
+
+  calcPerimeter() {
+    const result = this.sides * this.sideLength;
+    console.log(result);
+  }
+}
+
+const square = new Shape();
+square.calcPerimeter();
+
+class Person {
+  constructor(name, age, country) {
+    this.name = name;
+    this.age = age;
+    this.country = country;
+  }
+
+  personDescription() {
+    console.log(
+      `Esta persona es ${this.name} tiene ${this.age} años y es de ${this.country}`
+    );
+  }
+}
+
+const person1 = new Person("Ruperto", 50, "Alemania");
+const person2 = new Person("Carlota", 22, "España");
+person1.personDescription();
+person2.personDescription();
