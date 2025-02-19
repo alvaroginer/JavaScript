@@ -3,6 +3,8 @@ const perricosArray = [
     url: "https://images.dog.ceo/breeds/affenpinscher/n02110627_10439.jpg",
     breedName: "affenpinscher",
     id: new Date().getTime() + Math.random(),
+    like: 0,
+    dislike: 0,
   },
 ];
 console.log(perricosArray);
@@ -54,25 +56,28 @@ const generateBreedButtons = (dog) => {
       if (!breedToFilter.includes(dog.breedName)) {
         activeFilter.breedToFilter.push(dog.breedName);
         buttonSelector.classList.add("filter-selected");
-        console.log(breedToFilter);
+        //console.log(breedToFilter);
       } else {
         activeFilter.breedToFilter.splice(
           breedToFilter.indexOf(dog.breedName),
           1
         );
         buttonSelector.classList.remove("filter-selected");
-        console.log(breedToFilter);
+        //console.log(breedToFilter);
       }
+      filterActive();
     });
     return;
   } else {
     breedFilter[dog.breedName].total++;
+    console.log("se está sumando aquí");
     document.querySelector(`.${dog.breedName}-filter`).textContent = `${
       dog.breedName
     } (${breedFilter[dog.breedName].total})`;
     return;
   }
 };
+generateBreedButtons(perricosArray[0]);
 
 //EventListener para el select de todas las razas de perro
 let dogBreed = "random";
@@ -88,7 +93,7 @@ const addPerrico = async (breed, addToStart) => {
   document.querySelector("#add-1-perrico").setAttribute("disabled", "disabled");
 
   const perricoImg = await getDogImageBreed(breed);
-  //console.log(perricoImg);
+
   document.querySelector("#add-1-perrico").removeAttribute("disabled");
   if (addToStart) {
     perricosArray.unshift(perricoImg);
@@ -96,43 +101,8 @@ const addPerrico = async (breed, addToStart) => {
     perricosArray.push(perricoImg);
   }
 
-  const isAnyFilterSelected = document.querySelector(".filter-selected");
-
-  const perricoCardElement = document.createElement("div");
-  perricoCardElement.className = "card";
-  perricoCardElement.style.display = isAnyFilterSelected ? "none" : "";
-
-  perricoCardElement.innerHTML = `
-  <img src="${perricoImg.url}" alt="Perro" />
-  <br />
-  <p><span class="like-count"></span>❤️ <span class="dislike-count"></span>🤮</p>
-  <button class="like">Preciosísimo</button> <button class="dislike">Feísisimo</button>`;
-
-  if (addToStart) {
-    dogList.prepend(perricoCardElement);
-  } else {
-    dogList.appendChild(perricoCardElement);
-  }
-
-  //Revisar este apartado
-  const likeButton = perricoCardElement.querySelector(".like");
-  const index = perricosArray.indexOf(perricoImg);
-  likeButton.addEventListener("click", function () {
-    console.log(perricosArray);
-    const likeCountNode = perricoCardElement.querySelector(".like-count");
-    perricosArray[index].like++;
-    likeCountNode.innerText = perricosArray[index].like;
-  });
-
-  const dislikeButton = perricoCardElement.querySelector(".dislike");
-  dislikeButton.addEventListener("click", function () {
-    console.log(perricosArray);
-    const likeCountNode = perricoCardElement.querySelector(".dislike-count");
-    perricosArray[index].dislike++;
-    likeCountNode.innerText = perricosArray[index].dislike;
-  });
-
   generateBreedButtons(perricoImg);
+  renderPerricoArray(perricoImg);
 };
 
 //EvenListeners de los botones que añaden perros
@@ -185,43 +155,78 @@ dislikeFilter.addEventListener("click", function () {
     dislikeFilter.classList.remove("filter-selected");
     activeFilter.dislike = false;
   }
-
   filterActive();
 });
 
-// Función que filtra a los perros en funciónd e si tienen like o dislike
-function filterPerricos() {
-  const isLikeFilterSelected =
-    likeFilterButton.classList.contains("filter-selected");
-  const isDislikeSelected = dislikeFilter.classList.contains("filter-selected");
-  console.log("filtering", {
-    isLikeFilterSelected,
-    isDislikeSelected,
+// Función que filtra a los perros en función de si tienen like o dislike
+// function filterPerricos() {
+//   const isLikeFilterSelected =
+//     likeFilterButton.classList.contains("filter-selected");
+//   const isDislikeSelected = dislikeFilter.classList.contains("filter-selected");
+//   console.log("filtering", {
+//     isLikeFilterSelected,
+//     isDislikeSelected,
+//   });
+
+//   document.querySelectorAll(".card").forEach((perricoNode) => {
+//     // si no hay ningún filtro aplicado, lo muestra
+//     if (!isLikeFilterSelected && !isDislikeSelected) {
+//       perricoNode.style.display = "";
+//       return;
+//     }
+//     // si preciosismo aplicado y hay preciosisimo lo muestra
+//     const likeCount = perricoNode.querySelector(".like-count").innerText;
+//     if (likeCount !== "" && isLikeFilterSelected) {
+//       perricoNode.style.display = "";
+//       return;
+//     }
+
+//     // si feísimo aplicado y hay feísimo lo muestra
+//     const dislikeCount = perricoNode.querySelector(".dislike-count").innerText;
+//     if (dislikeCount !== "" && isDislikeSelected) {
+//       perricoNode.style.display = "";
+//       return;
+//     }
+
+//     perricoNode.style.display = "none";
+//   });
+// }
+
+const renderPerricoArray = (dogObject, addToStart) => {
+  const perricoCardElement = document.createElement("div");
+  perricoCardElement.className = "card";
+
+  perricoCardElement.innerHTML = `
+    <img src="${dogObject.url}" alt="Perro" />
+    <br />
+    <p><span class="like-count">${dogObject.like}</span>❤️ <span class="dislike-count">${dogObject.dislike}</span>🤮</p>
+    <button class="like">Preciosísimo</button> <button class="dislike">Feísisimo</button>`;
+
+  if (addToStart) {
+    dogList.prepend(perricoCardElement);
+  } else {
+    dogList.appendChild(perricoCardElement);
+  }
+
+  const likeButton = perricoCardElement.querySelector(".like");
+  let index = perricosArray.indexOf(dogObject);
+  likeButton.addEventListener("click", function () {
+    const likeCountNode = perricoCardElement.querySelector(".like-count");
+    perricosArray[index].like++;
+    likeCountNode.innerText = perricosArray[index].like;
   });
 
-  document.querySelectorAll(".card").forEach((perricoNode) => {
-    // si no hay ningún filtro aplicado, lo muestra
-    if (!isLikeFilterSelected && !isDislikeSelected) {
-      perricoNode.style.display = "";
-      return;
-    }
-    // si preciosismo aplicado y hay preciosisimo lo muestra
-    const likeCount = perricoNode.querySelector(".like-count").innerText;
-    if (likeCount !== "" && isLikeFilterSelected) {
-      perricoNode.style.display = "";
-      return;
-    }
-
-    // si feísimo aplicado y hay feísimo lo muestra
-    const dislikeCount = perricoNode.querySelector(".dislike-count").innerText;
-    if (dislikeCount !== "" && isDislikeSelected) {
-      perricoNode.style.display = "";
-      return;
-    }
-
-    perricoNode.style.display = "none";
+  const dislikeButton = perricoCardElement.querySelector(".dislike");
+  dislikeButton.addEventListener("click", function () {
+    const likeCountNode = perricoCardElement.querySelector(".dislike-count");
+    perricosArray[index].dislike++;
+    likeCountNode.innerText = perricosArray[index].dislike;
   });
-}
+
+  //generateBreedButtons(dogObject);
+};
+
+renderPerricoArray(perricosArray[0]);
 
 //Falta terminar la lógica del filtro
 const filterActive = () => {
@@ -236,59 +241,34 @@ const filterActive = () => {
     ? perricosArray
     : perricosArray.filter((dog) => {
         if (activeFilter.like && dog.like === 0) {
+          console.log("entra en la condición 1");
           return false;
         }
 
         if (activeFilter.dislike && dog.dislike === 0) {
+          console.log("entra en la condición 2");
           return false;
         }
 
-        if (!activeFilter.breedToFilter.includes(dog.breedName)) {
+        if (
+          activeFilter.breedToFilter.length > 0 &&
+          !activeFilter.breedToFilter.includes(dog.breedName)
+        ) {
+          console.log("entra en la condición 3");
           return false;
         }
 
         if (activeFilter.like && activeFilter.dislike) {
+          console.log("entra en la condición 4");
           return dog.like > 0 && dog.dislike > 0;
         }
         return true;
       });
 
+  console.log(filterArray);
   //Añadimos el código al html
   filterArray.forEach((dog) => {
-    const isAnyFilterSelected = document.querySelector(".filter-selected");
-
-    const perricoCardElement = document.createElement("div");
-    perricoCardElement.className = "card";
-    perricoCardElement.style.display = isAnyFilterSelected ? "none" : "";
-
-    perricoCardElement.innerHTML = `
-    <img src="${perricoImg.url}" alt="Perro" />
-    <br />
-    <p><span class="like-count"></span>❤️ <span class="dislike-count"></span>🤮</p>
-    <button class="like">Preciosísimo</button> <button class="dislike">Feísisimo</button>`;
-
-    if (addToStart) {
-      dogList.prepend(perricoCardElement);
-    } else {
-      dogList.appendChild(perricoCardElement);
-    }
-
-    const likeButton = perricoCardElement.querySelector(".like");
-    const index = perricosArray.indexOf(perricoImg);
-    likeButton.addEventListener("click", function () {
-      console.log(perricosArray);
-      const likeCountNode = perricoCardElement.querySelector(".like-count");
-      perricosArray[index].like++;
-      likeCountNode.innerText = perricosArray[index].like;
-    });
-
-    const dislikeButton = perricoCardElement.querySelector(".dislike");
-    dislikeButton.addEventListener("click", function () {
-      console.log(perricosArray);
-      const likeCountNode = perricoCardElement.querySelector(".dislike-count");
-      perricosArray[index].dislike++;
-      likeCountNode.innerText = perricosArray[index].dislike;
-    });
+    renderPerricoArray(dog);
   });
 };
 
