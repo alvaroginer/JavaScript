@@ -87,11 +87,29 @@ body {
 .ingredients-container--text {
   padding: 10px;
   background-color: #f6bd608f;
-  border: 1px dotted #f6bd60;
+  border: 3px dotted #f6bd60;
   color: gray;
   font-size: 12px;
   border-radius: 10px;
   margin: 5px;
+}
+
+.steps-container {
+  padding: 5px;
+  width: 370px;
+  height: 170px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 10px 0;
+}
+
+.steps-container--text {
+  padding: 5px;
+  background-color: #f6bd6048;
+  border: 3px dotted #f6bd60;
+  color: gray;
+  border-radius: 10px;
+  text-align: left;
 }
 
 /* Buttons & Properties */

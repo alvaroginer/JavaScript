@@ -382,6 +382,8 @@ if (document.querySelector(".steps-form")) {
         steps: steps,
       });
 
+      creatSteps(stepsText);
+
       event.target.reset();
     });
 }
@@ -458,6 +460,15 @@ if (document.querySelectorAll(".button-back")) {
   });
 }
 
+if (document.querySelector(".finish-receipe-button")) {
+  document
+    .querySelector(".finish-receipe-button")
+    .addEventListener("click", function () {
+      if (steps.length > 0) {
+      }
+    });
+}
+
 const updateReceipe = (id, propToChange) => {
   const index = receipes.findIndex((r) => r.id === id);
   if (index !== -1) {
@@ -472,6 +483,8 @@ const updateReceipe = (id, propToChange) => {
   return null;
 };
 
+// Visibilize ingrdients and stpes in HTML
+
 const creatIngredient = (ingredient) => {
   const ingredientContainer = document.createElement("p");
   ingredientContainer.className = "ingredients-container--text";
@@ -480,3 +493,13 @@ const creatIngredient = (ingredient) => {
     .querySelector(".ingredients-container")
     .appendChild(ingredientContainer);
 };
+
+const creatSteps = (steps) => {
+  const stepsContainer = document.createElement("p");
+  stepsContainer.className = "steps-container--text";
+  stepsContainer.textContent = steps;
+  document.querySelector(".steps-container").appendChild(stepsContainer);
+};
+
+//Notificación de terminar receta
+const finishReceipe = () => {};
