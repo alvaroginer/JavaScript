@@ -466,6 +466,8 @@ if (document.querySelector(".finish-receipe-button")) {
     .addEventListener("click", function () {
       if (steps.length > 0) {
         finishNotification();
+      } else {
+        console.log("entra aquí");
       }
     });
 }
