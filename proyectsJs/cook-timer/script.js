@@ -439,12 +439,15 @@ if (document.querySelector(".button-next-1")) {
 const eliminateReceipe = () => {
   titleData = localStorage.getItem("titleData");
   if (titleData !== "") {
-    const receipesLocalStorage = JSON.parse(localStorage.getItem("receipes"));
+    const receipesLocalStorage =
+      JSON.parse(localStorage.getItem("receipes")) || [];
     if (receipesLocalStorage.length > 0) {
       receipesLocalStorage.pop();
       console.log("estás borrando");
       console.log(receipesLocalStorage);
       localStorage.setItem("receipes", JSON.stringify(receipesLocalStorage));
+      titleData = "";
+      localStorage.setItem("titleData", titleData);
     }
   } else {
     console.log("titleData está vacío");
@@ -466,6 +469,7 @@ if (document.querySelector(".finish-receipe-button")) {
     .addEventListener("click", function () {
       if (steps.length > 0) {
         finishNotification();
+        console.log("está en la condición adecuada");
       } else {
         console.log("entra aquí");
       }
@@ -504,6 +508,8 @@ const creatSteps = (steps) => {
 };
 
 const finishNotification = () => {
+  document.querySelector(".finish--container").style.display = "flex";
+
   const finishNot = document.createElement("div");
   finishNot.className = "finish-container--notification";
   finishNot.innerHTML = `
@@ -519,13 +525,36 @@ const finishNotification = () => {
     .querySelector(".finish-conatiner-yes")
     .addEventListener("click", function () {
       titleData = "";
-      document(".steps-container").innerHTML = "";
+      localStorage.setItem("titleData", titleData);
+      document.querySelector(".finish--container").innerHTML = "";
+      document.querySelector(".finish--container").style.display = "none";
       window.location.href = "./home.html";
     });
 
   document
     .querySelector(".finish-container-no")
     .addEventListener("click", function () {
-      document(".steps-container").innerHTML = "";
+      document.querySelector(".finish--container").innerHTML = "";
+      document.querySelector(".finish--container").style.display = "none";
+      document.querySelector(".ingredients-container").innerHTML = "";
     });
+};
+
+const showReceipes = () => {
+  const localStorageReceipe =
+    JSON.parse(localStorage.getItem("receipes")) || [];
+  if (localStorageReceipe.length > 0) {
+    localStorageReceipe.forEach((receipe, index) => {
+      const receipeCard = document.createElement("div");
+      receipeCard.className = "creceipe-card";
+      receipeCard.innerHTML = `<span class="receipe-category">${
+        index + 1
+      }.</span><p class="font-size__24 color__yellow timer-counter-container--title">${
+        receipe.title
+      }</p>`;
+      //Falta appendChild
+    });
+  } else {
+    //Falta reinicar el html del contenedor
+  }
 };

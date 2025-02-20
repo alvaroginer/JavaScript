@@ -134,6 +134,10 @@ body {
   text-align: left;
 }
 
+.receipes-card-container {
+  width: 350px;
+}
+
 /* Buttons & Properties */
 .egg-container--button {
   background-color: #f5cac3;
@@ -336,6 +340,10 @@ body {
 /* Text-align */
 .text-align__left {
   text-align: left;
+}
+
+.text-align__center {
+  text-align: center;
 }
 
 /* Margin */
