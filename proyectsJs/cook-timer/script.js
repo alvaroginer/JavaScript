@@ -221,11 +221,12 @@ const modifyTime = (add) => {
 };
 
 //EventListener para que aparezca el contador
-if (document.querySelector(".menu-container--button__big")) {
-  document
+const timerButton = document.querySelector(".personalized-timer--button");
+if (timerButton.querySelector(".menu-container--button__big")) {
+  timerButton
     .querySelector(".menu-container--button__big")
     .addEventListener("click", function () {
-      document.querySelector(".timer--container").style.display = "flex";
+      timerButton.querySelector(".timer--container").style.display = "flex";
       console.log("esto funciona");
       createCounter(false);
     });
@@ -528,7 +529,7 @@ const finishNotification = () => {
       localStorage.setItem("titleData", titleData);
       document.querySelector(".finish--container").innerHTML = "";
       document.querySelector(".finish--container").style.display = "none";
-      window.location.href = "./home.html";
+      window.location.href = "./receipes.html";
     });
 
   document
@@ -540,21 +541,36 @@ const finishNotification = () => {
     });
 };
 
+if (document.querySelector(".receipe-storage-button")) {
+  document
+    .querySelector(".receipe-storage-button")
+    .addEventListener("click", function () {
+      showReceipes();
+    });
+}
+
+const receipeStorage = document.querySelector(".receipes-card-container");
 const showReceipes = () => {
   const localStorageReceipe =
     JSON.parse(localStorage.getItem("receipes")) || [];
   if (localStorageReceipe.length > 0) {
+    document.querySelector(".receipes-card-container").innerHTML = "";
     localStorageReceipe.forEach((receipe, index) => {
-      const receipeCard = document.createElement("div");
-      receipeCard.className = "creceipe-card";
-      receipeCard.innerHTML = `<span class="receipe-category">${
-        index + 1
-      }.</span><p class="font-size__24 color__yellow timer-counter-container--title">${
-        receipe.title
-      }</p>`;
-      //Falta appendChild
+      const receipeCard = document.createElement("a");
+      receipeCard.className = "receipe-card";
+      receipeCard.innerHTML = `<a href="" class="receipe-card">
+      <div class="display__flex-basic">
+        <span class="receipe-number font-size__24">${index + 1}</span>
+        <p class="receipe-name font-size__24 margin__0">${receipe.title}</p>
+      </div>
+      <p class="receipe-category"> Dessert</p>
+    </a>`;
+      receipeCard.setAttribute("href", "");
+      receipeStorage.appendChild(receipeCard);
     });
+    //window.location.href = './storage-receipes.html'
   } else {
+    console.log("entra aquí");
     //Falta reinicar el html del contenedor
   }
 };
