@@ -158,6 +158,7 @@ body {
   border-radius: 10px;
   transition: all ease 0.3s;
   text-decoration: none;
+  margin-bottom: 10px;
 }
 
 .receipe-card:hover {
@@ -302,6 +303,24 @@ body {
   transform: scale(1.1);
 }
 
+.button__close-menu {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #f6bd60;
+  cursor: pointer;
+  display: block;
+  margin-right: 0;
+  margin-left: auto;
+  text-decoration: none;
+}
+
+.button__close-menu:hover {
+  color: #84a59d;
+  font-weight: 600;
+  transform: scale(1.1);
+}
+
 /* Font-Size */
 .font-size__60 {
   font-size: 60px;
@@ -359,6 +378,11 @@ body {
 
 .display__flex-basic {
   display: flex;
+}
+
+.display__flex-right {
+  display: flex;
+  justify-content: right;
 }
 
 .display__flex-space-between {

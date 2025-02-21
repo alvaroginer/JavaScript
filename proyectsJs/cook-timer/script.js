@@ -221,15 +221,13 @@ const modifyTime = (add) => {
 };
 
 //EventListener para que aparezca el contador
-const timerButton = document.querySelector(".personalized-timer--button");
-if (timerButton.querySelector(".menu-container--button__big")) {
-  timerButton
-    .querySelector(".menu-container--button__big")
-    .addEventListener("click", function () {
-      timerButton.querySelector(".timer--container").style.display = "flex";
-      console.log("esto funciona");
-      createCounter(false);
-    });
+const menuBigButton = document.querySelector(".menu-container--button__big");
+if (menuBigButton) {
+  menuBigButton.addEventListener("click", function () {
+    document.querySelector(".timer--container").style.display = "flex";
+    console.log("esto funciona");
+    createCounter(false);
+  });
 }
 
 //EventListeners para los botones que amrcan el tiempo
@@ -541,36 +539,41 @@ const finishNotification = () => {
     });
 };
 
-if (document.querySelector(".receipe-storage-button")) {
-  document
-    .querySelector(".receipe-storage-button")
-    .addEventListener("click", function () {
-      showReceipes();
-    });
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const receipeStorage = document.querySelector(".receipes-card-container");
 
-const receipeStorage = document.querySelector(".receipes-card-container");
-const showReceipes = () => {
-  const localStorageReceipe =
-    JSON.parse(localStorage.getItem("receipes")) || [];
-  if (localStorageReceipe.length > 0) {
-    document.querySelector(".receipes-card-container").innerHTML = "";
-    localStorageReceipe.forEach((receipe, index) => {
-      const receipeCard = document.createElement("a");
-      receipeCard.className = "receipe-card";
-      receipeCard.innerHTML = `<a href="" class="receipe-card">
-      <div class="display__flex-basic">
-        <span class="receipe-number font-size__24">${index + 1}</span>
-        <p class="receipe-name font-size__24 margin__0">${receipe.title}</p>
-      </div>
-      <p class="receipe-category"> Dessert</p>
-    </a>`;
-      receipeCard.setAttribute("href", "");
-      receipeStorage.appendChild(receipeCard);
-    });
-    //window.location.href = './storage-receipes.html'
-  } else {
-    console.log("entra aquí");
-    //Falta reinicar el html del contenedor
+  if (!receipeStorage) {
+    console.log("No se encontró el contenedor de recetas en esta página.");
+    return;
   }
-};
+
+  const showReceipes = () => {
+    const localStorageReceipe =
+      JSON.parse(localStorage.getItem("receipes")) || [];
+
+    if (localStorageReceipe.length > 0) {
+      receipeStorage.innerHTML = ""; // Limpiar el contenedor antes de agregar recetas
+      localStorageReceipe.forEach((receipe, index) => {
+        const receipeCard = document.createElement("a");
+        receipeCard.className = "receipe-card";
+        receipeCard.innerHTML = `
+          <div class="display__flex-basic">
+            <span class="receipe-number font-size__24">${index + 1}</span>
+            <p class="receipe-name font-size__24 margin__0">${receipe.title}</p>
+          </div>
+          <p class="receipe-category">${receipe.category}</p>`;
+        receipeStorage.appendChild(receipeCard);
+      });
+    } else {
+      console.log("No hay recetas almacenadas.");
+    }
+  };
+
+  showReceipes();
+
+  // const receipePage = document.querySelector(".receipe-page");
+  // if (receipePage) {
+  // }
+});
+
+//Falta crear página donde ver las recetas al completo y que luego se puedan modificar
