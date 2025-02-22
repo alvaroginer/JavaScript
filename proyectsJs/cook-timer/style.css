@@ -177,9 +177,44 @@ body {
   border: 2px dotted #f6bd60;
   border-radius: 4px;
   margin: 0;
+  color: #f5cac3;
+}
+
+.receipe-info--container {
+  width: 350px;
+  padding: 10px;
+  border: 3px dotted #f6bd60;
+}
+
+.receipe-info--container__text {
+  font-size: 16px;
+  text-align: left;
+  margin: 0;
+  padding: 4px;
+  color: #f6bd60;
 }
 
 /* Buttons & Properties */
+.receipe-edit--button {
+  background-color: #84a59d;
+  padding: 3px;
+  border: 2px solid #84a59d;
+  padding: 8px 10px;
+  border-radius: 6px;
+  margin: 0;
+  color: #f7ede2;
+  font-family: "Pixelify Sans";
+  font-size: 16px;
+  display: block;
+  margin-top: 10px;
+  transition: all ease 0.15s;
+}
+
+.receipe-edit--button:hover {
+  color: #84a59d;
+  background-color: #f7ede2;
+}
+
 .egg-container--button {
   background-color: #f5cac3;
   padding: 20px;
@@ -376,6 +411,13 @@ body {
   gap: 20px;
 }
 
+.display__flex-top {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 20px;
+}
+
 .display__flex-basic {
   display: flex;
 }
@@ -398,6 +440,10 @@ body {
 
 .display__block {
   display: block;
+}
+
+.display__inline-block {
+  display: inline-block;
 }
 
 /* Viewports */

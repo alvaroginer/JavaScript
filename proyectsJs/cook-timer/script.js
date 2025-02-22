@@ -558,11 +558,17 @@ document.addEventListener("DOMContentLoaded", () => {
         receipeCard.className = "receipe-card";
         receipeCard.innerHTML = `
           <div class="display__flex-basic">
-            <span class="receipe-number font-size__24">${index + 1}</span>
-            <p class="receipe-name font-size__24 margin__0">${receipe.title}</p>
+            <p class="receipe-name font-size__24 margin__0">${index + 1}. ${
+          receipe.title
+        }</p>
           </div>
           <p class="receipe-category">${receipe.category}</p>`;
         receipeStorage.appendChild(receipeCard);
+
+        receipeCard.addEventListener("click", function () {
+          localStorage.setItem("temporalyReceipe", JSON.stringify(receipe));
+          window.location.href = "./info-receipe.html";
+        });
       });
     } else {
       console.log("No hay recetas almacenadas.");
@@ -570,10 +576,46 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   showReceipes();
-
-  // const receipePage = document.querySelector(".receipe-page");
-  // if (receipePage) {
-  // }
 });
+
+//Declaramos variables
+const receipeTitle = document.querySelector(".receipe-info-title");
+const categoryContainer = document.querySelector(".receipe-info-category");
+const ingredientsContainer = document.querySelector(
+  ".receipe-info-ingredients"
+);
+const stepsContainer = document.querySelector(".receipe-info-steps");
+
+const fillReceipeInformation = () => {
+  const receipe = JSON.parse(localStorage.getItem("temporalyReceipe"));
+  window.location.href = "./info-receipe.html";
+  //Modificamos titular
+  receipeTitle.textContent = `${receipe.title}`;
+
+  //Modificamos categoría
+  categoryContainer.textContent = `${receipe.category}`;
+
+  //Añadimos los ingredientes
+  const receipeIngredients = receipe.ingredients;
+  receipeIngredients.forEach((ingredient, index) => {
+    const ingredientText = document.createElement("p");
+    ingredientText.className = "receipe-info--container__text";
+    ingredientText.textContent = `${index + 1}. ${ingredient}`;
+    ingredientsContainer.appendChild(ingredientText);
+  });
+
+  const receipeSteps = receipe.steps;
+  receipeSteps.forEach((step, index) => {
+    const stepText = document.createElement("p");
+    stepText.className = "receipe-info--container__text";
+    stepText.textContent = `${index}. ${step}`;
+    stepsContainer.appendChild(stepText);
+  });
+};
+
+//Función para rellenar el html de receta con la info correspondiente
+if (document.querySelector(".receipe-info-title")) {
+  fillReceipeInformation();
+}
 
 //Falta crear página donde ver las recetas al completo y que luego se puedan modificar
