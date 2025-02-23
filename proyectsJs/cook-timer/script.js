@@ -588,7 +588,6 @@ const stepsContainer = document.querySelector(".receipe-info-steps");
 
 const fillReceipeInformation = () => {
   const receipe = JSON.parse(localStorage.getItem("temporalyReceipe"));
-  window.location.href = "./info-receipe.html";
   //Modificamos titular
   receipeTitle.textContent = `${receipe.title}`;
 
