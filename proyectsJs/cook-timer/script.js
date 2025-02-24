@@ -1,3 +1,5 @@
+const activeFilter = [];
+
 let minutesTimer = 0;
 let secondsTimer = 0;
 let countContainer =
@@ -539,41 +541,40 @@ const finishNotification = () => {
     });
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  const receipeStorage = document.querySelector(".receipes-card-container");
+const showReceipes = () => {
+  const localStorageReceipe =
+    JSON.parse(localStorage.getItem("receipes")) || [];
 
+  if (localStorageReceipe.length > 0) {
+    receipeStorage.innerHTML = ""; // Limpiar el contenedor antes de agregar recetas
+    localStorageReceipe.forEach((receipe, index) => {
+      const receipeCard = document.createElement("a");
+      receipeCard.className = "receipe-card";
+      receipeCard.innerHTML = `
+        <div class="display__flex-basic">
+          <p class="receipe-name font-size__24 margin__0">${index + 1}. ${
+        receipe.title
+      }</p>
+        </div>
+        <p class="receipe-category">${receipe.category}</p>`;
+      receipeStorage.appendChild(receipeCard);
+
+      receipeCard.addEventListener("click", function () {
+        localStorage.setItem("temporalyReceipe", JSON.stringify(receipe));
+        window.location.href = "./info-receipe.html";
+      });
+    });
+  } else {
+    console.log("No hay recetas almacenadas.");
+  }
+};
+
+const receipeStorage = document.querySelector(".receipes-card-container");
+document.addEventListener("DOMContentLoaded", () => {
   if (!receipeStorage) {
     console.log("No se encontró el contenedor de recetas en esta página.");
     return;
   }
-
-  const showReceipes = () => {
-    const localStorageReceipe =
-      JSON.parse(localStorage.getItem("receipes")) || [];
-
-    if (localStorageReceipe.length > 0) {
-      receipeStorage.innerHTML = ""; // Limpiar el contenedor antes de agregar recetas
-      localStorageReceipe.forEach((receipe, index) => {
-        const receipeCard = document.createElement("a");
-        receipeCard.className = "receipe-card";
-        receipeCard.innerHTML = `
-          <div class="display__flex-basic">
-            <p class="receipe-name font-size__24 margin__0">${index + 1}. ${
-          receipe.title
-        }</p>
-          </div>
-          <p class="receipe-category">${receipe.category}</p>`;
-        receipeStorage.appendChild(receipeCard);
-
-        receipeCard.addEventListener("click", function () {
-          localStorage.setItem("temporalyReceipe", JSON.stringify(receipe));
-          window.location.href = "./info-receipe.html";
-        });
-      });
-    } else {
-      console.log("No hay recetas almacenadas.");
-    }
-  };
 
   showReceipes();
 });
@@ -585,32 +586,6 @@ const ingredientsContainer = document.querySelector(
   ".receipe-info-ingredients"
 );
 const stepsContainer = document.querySelector(".receipe-info-steps");
-
-// const fillReceipeInformation = () => {
-//   const receipe = JSON.parse(localStorage.getItem("temporalyReceipe"));
-//   //Modificamos titular
-//   receipeTitle.textContent = `${receipe.title}`;
-
-//   //Modificamos categoría
-//   categoryContainer.textContent = `${receipe.category}`;
-
-//   //Añadimos los ingredientes
-//   const receipeIngredients = receipe.ingredients;
-//   receipeIngredients.forEach((ingredient, index) => {
-//     const ingredientText = document.createElement("p");
-//     ingredientText.className = "receipe-info--container__text";
-//     ingredientText.textContent = `${index + 1}. ${ingredient}`;
-//     ingredientsContainer.appendChild(ingredientText);
-//   });
-
-//   const receipeSteps = receipe.steps;
-//   receipeSteps.forEach((step, index) => {
-//     const stepText = document.createElement("p");
-//     stepText.className = "receipe-info--container__text";
-//     stepText.textContent = `${index}. ${step}`;
-//     stepsContainer.appendChild(stepText);
-//   });
-// };
 
 const fillReceipeInformation = () => {
   const { category, id, ingredients, steps, title } = JSON.parse(
@@ -635,7 +610,7 @@ const fillReceipeInformation = () => {
   receipeSteps.forEach((step, index) => {
     const stepText = document.createElement("p");
     stepText.className = "receipe-info--container__text";
-    stepText.textContent = `${index}. ${step}`;
+    stepText.textContent = `${index + 1}. ${step}`;
     stepsContainer.appendChild(stepText);
   });
 };
@@ -645,4 +620,80 @@ if (document.querySelector(".receipe-info-title")) {
   fillReceipeInformation();
 }
 
-//Falta crear página donde ver las recetas al completo y que luego se puedan modificar
+const filterReceipe = () => {
+  const receipes = JSON.parse(localStorage.getItem("receipes"));
+
+  const withoutFilter = activeFilter.length === 0;
+  if (withoutFilter) {
+    showReceipes();
+    return;
+  }
+  const filteredReceipes = receipes.filter((receipe) => {
+    return activeFilter.includes(receipe.category);
+  });
+
+  receipeStorage.innerHTML = "";
+  filteredReceipes.forEach((receipe, index) => {
+    const receipeCard = document.createElement("a");
+    receipeCard.className = "receipe-card";
+    receipeCard.innerHTML = `
+      <div class="display__flex-basic">
+        <p class="receipe-name font-size__24 margin__0">${index + 1}. ${
+      receipe.title
+    }</p>
+      </div>
+      <p class="receipe-category">${receipe.category}</p>`;
+    receipeStorage.appendChild(receipeCard);
+
+    receipeCard.addEventListener("click", function () {
+      localStorage.setItem("temporalyReceipe", JSON.stringify(receipe));
+      window.location.href = "./info-receipe.html";
+    });
+  });
+};
+
+//Declaramos los addEventListener de los filtros∫
+const appetizerFilter = document.querySelector(".filter-appetizer");
+if (appetizerFilter) {
+  appetizerFilter.addEventListener("click", function () {
+    appetizerFilter.classList.toggle("filter-button--selected");
+    if (appetizerFilter.classList.contains("filter-button--selected")) {
+      activeFilter.push("appetizer");
+      filterReceipe();
+    } else {
+      const index = activeFilter.indexOf("appetizer");
+      activeFilter.splice(index, 1);
+      filterReceipe();
+    }
+  });
+}
+
+const mainCourseFilter = document.querySelector(".filter-main-course");
+if (mainCourseFilter) {
+  mainCourseFilter.addEventListener("click", function () {
+    mainCourseFilter.classList.toggle("filter-button--selected");
+    if (mainCourseFilter.classList.contains("filter-button--selected")) {
+      activeFilter.push("main-course");
+      filterReceipe();
+    } else {
+      const index = activeFilter.indexOf("main-course");
+      activeFilter.splice(index, 1);
+      filterReceipe();
+    }
+  });
+}
+
+const dessertFilter = document.querySelector(".filter-dessert");
+if (dessertFilter) {
+  dessertFilter.addEventListener("click", function () {
+    dessertFilter.classList.toggle("filter-button--selected");
+    if (dessertFilter.classList.contains("filter-button--selected")) {
+      activeFilter.push("dessert");
+      filterReceipe();
+    } else {
+      const index = activeFilter.indexOf("dessert");
+      activeFilter.splice(index, 1);
+      filterReceipe();
+    }
+  });
+}

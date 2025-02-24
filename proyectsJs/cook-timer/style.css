@@ -135,7 +135,7 @@ body {
 }
 
 .receipes-card-container {
-  width: 350px;
+  width: 400px;
 }
 
 .text-decoration {
@@ -356,6 +356,23 @@ body {
   transform: scale(1.1);
 }
 
+.filter-button {
+  font-family: "Pixelify Sans";
+  background-color: #f5cac3;
+  border: 2px dotted #f7ede2;
+  color: #f7ede2;
+  font-size: 14px;
+  transition: all ease 0.15s;
+}
+
+.filter-button:hover {
+  transform: scale(1.1);
+}
+
+.filter-button--selected {
+  background-color: #84a59d;
+}
+
 /* Font-Size */
 .font-size__60 {
   font-size: 60px;
@@ -444,6 +461,14 @@ body {
 
 .display__inline-block {
   display: inline-block;
+}
+
+.align-items__center {
+  align-items: center;
+}
+
+.gap__10 {
+  gap: 10px;
 }
 
 /* Viewports */
