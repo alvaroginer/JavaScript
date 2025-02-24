@@ -586,16 +586,44 @@ const ingredientsContainer = document.querySelector(
 );
 const stepsContainer = document.querySelector(".receipe-info-steps");
 
+// const fillReceipeInformation = () => {
+//   const receipe = JSON.parse(localStorage.getItem("temporalyReceipe"));
+//   //Modificamos titular
+//   receipeTitle.textContent = `${receipe.title}`;
+
+//   //Modificamos categoría
+//   categoryContainer.textContent = `${receipe.category}`;
+
+//   //Añadimos los ingredientes
+//   const receipeIngredients = receipe.ingredients;
+//   receipeIngredients.forEach((ingredient, index) => {
+//     const ingredientText = document.createElement("p");
+//     ingredientText.className = "receipe-info--container__text";
+//     ingredientText.textContent = `${index + 1}. ${ingredient}`;
+//     ingredientsContainer.appendChild(ingredientText);
+//   });
+
+//   const receipeSteps = receipe.steps;
+//   receipeSteps.forEach((step, index) => {
+//     const stepText = document.createElement("p");
+//     stepText.className = "receipe-info--container__text";
+//     stepText.textContent = `${index}. ${step}`;
+//     stepsContainer.appendChild(stepText);
+//   });
+// };
+
 const fillReceipeInformation = () => {
-  const receipe = JSON.parse(localStorage.getItem("temporalyReceipe"));
+  const { category, id, ingredients, steps, title } = JSON.parse(
+    localStorage.getItem("temporalyReceipe")
+  );
   //Modificamos titular
-  receipeTitle.textContent = `${receipe.title}`;
+  receipeTitle.textContent = `${title}`;
 
   //Modificamos categoría
-  categoryContainer.textContent = `${receipe.category}`;
+  categoryContainer.textContent = `${category}`;
 
   //Añadimos los ingredientes
-  const receipeIngredients = receipe.ingredients;
+  const receipeIngredients = ingredients;
   receipeIngredients.forEach((ingredient, index) => {
     const ingredientText = document.createElement("p");
     ingredientText.className = "receipe-info--container__text";
@@ -603,7 +631,7 @@ const fillReceipeInformation = () => {
     ingredientsContainer.appendChild(ingredientText);
   });
 
-  const receipeSteps = receipe.steps;
+  const receipeSteps = steps;
   receipeSteps.forEach((step, index) => {
     const stepText = document.createElement("p");
     stepText.className = "receipe-info--container__text";
