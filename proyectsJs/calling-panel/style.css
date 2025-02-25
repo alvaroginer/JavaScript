@@ -6,6 +6,7 @@ body {
   margin: 0;
   font-family: "Inter";
   padding-top: 201px;
+  background: linear-gradient(90deg, #0b4052 0%, #f0e0d6 100%);
 }
 
 /* Personalized clases */
@@ -23,6 +24,13 @@ body {
   top: 0;
   left: 0;
   z-index: 10;
+  padding-top: 10px;
+}
+
+.event-card {
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .event-card--text__title {
@@ -68,6 +76,10 @@ body {
 
 .align-itmes__center {
   align-items: center;
+}
+
+.flex-direction-column {
+  flex-direction: column;
 }
 
 .space--between {
@@ -139,6 +151,10 @@ body {
 /* Margin */
 .margin--bt__24 {
   margin-bottom: 24px;
+}
+
+.margin-none {
+  margin: 0;
 }
 
 /* Border-radius */

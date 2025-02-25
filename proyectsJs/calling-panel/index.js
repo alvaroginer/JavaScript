@@ -1,17 +1,28 @@
 //Tipo de objeto que hay que pasar
-const person = {
+const person1 = {
   id: 12345,
   name: "John Doe",
   number: "+1234567890",
+  email: "johndoe@gmail.com",
+  currentInterest: true,
   calls: [
     {
       number: 1,
-      customerInterest: { score: 0, weight: 0.2 },
-      objectionsRaised: { score: 0, weight: 0.15 },
-      conversionPotential: { score: 0, weight: 0.2 },
-      callClosure: { score: 0, weight: 0.2 },
-      callDuration: { score: 0, weight: 0.1 },
-      technicalQuality: { score: 0, weight: 0.15 },
+      customerInterest: 5,
+      objectionsRaised: 4,
+      conversionPotential: 5,
+      callClosure: 5,
+      callDuration: 3,
+      technicalQuality: 4,
+    },
+    {
+      number: 2,
+      customerInterest: 4,
+      objectionsRaised: 2,
+      conversionPotential: 3,
+      callClosure: 2,
+      callDuration: 2,
+      technicalQuality: 4,
     },
   ],
   callsRating: 0,
@@ -19,7 +30,7 @@ const person = {
     sent: 4,
     open: 2,
     clicked: 1,
-    openRate: 50,
+    openRate: Math.round(50 / 10),
     block: 0,
     rebound: 0,
     rating: 0,
@@ -42,14 +53,14 @@ const calculateGeneralRating = (person) => {
 
   //Calculamos el Call Rating
   const callsRating = [];
-  person[calls].forEach((call) => {
+  person.calls.forEach((call) => {
     const callRate =
-      person.calls.customerInterest * 0.2 +
-      person.calls.objectionsRaised * 0.15 +
-      person.calls.conversionPotential * 0.2 +
-      person.calls.callClosure * 0.2 +
-      person.calls.callDuration * 0.1 +
-      person.calls.technicalQuality * 0.15;
+      call.customerInterest * 0.2 +
+      call.objectionsRaised * 0.15 +
+      call.conversionPotential * 0.2 +
+      call.callClosure * 0.2 +
+      call.callDuration * 0.1 +
+      call.technicalQuality * 0.15;
     callsRating.push(callRate);
   });
 
@@ -62,4 +73,8 @@ const calculateGeneralRating = (person) => {
 
   //Final rating
   person.overallRating = emailRating + totalCallsRating;
+
+  return person;
 };
+
+console.log(calculateGeneralRating(person1));
