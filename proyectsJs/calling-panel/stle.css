@@ -1,0 +1,184 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter";
+  padding-top: 201px;
+}
+
+/* Personalized clases */
+.search-bar {
+  height: 48px;
+  border-radius: 24px;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.header-fixed {
+  position: fixed;
+  background-color: white;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.event-card--text__title {
+  margin: 6px 0;
+}
+
+.event-card--text__p {
+  margin: 2px 0;
+}
+
+.filter-button {
+  padding: 5px;
+}
+
+.fav-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: white;
+  font-size: 30px;
+  background-color: transparent;
+  border: none;
+}
+
+.fav-button:hover {
+  color: grey;
+}
+
+/* Width */
+.max-width {
+  max-width: 100%;
+}
+
+/* Position */
+.position-relative {
+  position: relative;
+}
+
+/* Display-Flex */
+.display--flex {
+  display: flex;
+}
+
+.align-itmes__center {
+  align-items: center;
+}
+
+.space--between {
+  justify-content: space-between;
+}
+
+.space--around {
+  justify-content: space-around;
+}
+
+/* Grid Display */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.grid-cell {
+  flex: 0 0 100%;
+}
+
+.grid-row {
+  display: flex;
+  gap: 5px;
+}
+
+.item__100 {
+  flex: 0 0 1;
+}
+
+.item__50 {
+  flex: 0 0 50%;
+}
+
+.item__33 {
+  flex: 0 0 33.333%;
+}
+
+.item__25 {
+  flex: 0 0 25%;
+}
+
+.item__20 {
+  flex: 0 0 20%;
+}
+
+.scroll-grid {
+  display: grid;
+  grid-auto-columns: 25%;
+  grid-auto-flow: column;
+  grid-gap: 12px;
+  overflow-x: auto;
+}
+
+.scroll-grid::-webkit-scrollbar {
+  display: none;
+}
+
+/* Padding */
+.padding__6 {
+  padding: 6px;
+}
+
+.padding--lateral__24 {
+  padding: 0 24px;
+}
+
+/* Margin */
+.margin--bt__24 {
+  margin-bottom: 24px;
+}
+
+/* Border-radius */
+.border-radius__12 {
+  border-radius: 12px;
+}
+
+/* Media Queries */
+@media (min-width: 600px) {
+  .grid-cell {
+    flex: 0 0 calc(50% - 6px);
+  }
+
+  .scroll-grid {
+    grid-auto-columns: 20%;
+  }
+}
+
+@media (min-width: 900px) {
+  .grid-cell {
+    flex: 0 0 calc(33.333% - 8px);
+  }
+
+  .scroll-grid {
+    grid-auto-columns: 15%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .grid-cell {
+    flex: 0 0 calc(25% - 10px);
+  }
+
+  .scroll-grid {
+    grid-auto-columns: 12.5%;
+  }
+}
+
+@media (min-width: 1500px) {
+  .grid-cell {
+    flex: 0 0 calc(20% - 10px);
+  }
+}
