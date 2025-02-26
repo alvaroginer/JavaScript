@@ -2,29 +2,35 @@
   box-sizing: border-box;
 }
 
+html {
+  background: linear-gradient(90deg, #0b4052 0%, #f0e0d6 100%);
+}
+
 body {
   margin: 0;
   font-family: "Inter";
   padding-top: 201px;
-  background: linear-gradient(90deg, #0b4052 0%, #f0e0d6 100%);
+  color: #3c3c3c;
 }
 
 /* Personalized clases */
 .search-bar {
   height: 48px;
   border-radius: 24px;
-  width: 100%;
   margin-bottom: 12px;
 }
 
 .header-fixed {
   position: fixed;
-  background-color: white;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 10;
   padding-top: 10px;
+  backdrop-filter: blur(0px) saturate(180%);
+  -webkit-backdrop-filter: blur(0px) saturate(180%);
+  background-color: rgba(17, 25, 40, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.125);
 }
 
 .event-card {
@@ -41,6 +47,18 @@ body {
   margin: 2px 0;
 }
 
+.rating-container {
+  padding: 25px;
+  font-size: 36px;
+  font-weight: 700;
+  backdrop-filter: blur(0px) saturate(180%);
+  -webkit-backdrop-filter: blur(0px) saturate(180%);
+  background-color: rgba(82, 116, 79, 0.75);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+/* Personalized buttons */
 .filter-button {
   padding: 5px;
 }
@@ -57,6 +75,16 @@ body {
 
 .fav-button:hover {
   color: grey;
+}
+
+.button-container--button {
+  background-color: transparent;
+  border: none;
+}
+
+.button-container--button:hover img {
+  filter: brightness(0) saturate(100%) invert(24%) sepia(2%) saturate(6%)
+    hue-rotate(314deg) brightness(97%) contrast(91%);
 }
 
 /* Width */
@@ -139,6 +167,11 @@ body {
   display: none;
 }
 
+/* Colors */
+.color-orange {
+  color: #ff8000;
+}
+
 /* Padding */
 .padding__6 {
   padding: 6px;
@@ -153,13 +186,31 @@ body {
   margin-bottom: 24px;
 }
 
+.margin--left__24 {
+  margin-left: 24px;
+}
+
+.margin--left__6 {
+  margin-left: 6px;
+}
+
 .margin-none {
   margin: 0;
+}
+
+/* Font-size */
+.font-size__12 {
+  font-size: 12px;
 }
 
 /* Border-radius */
 .border-radius__12 {
   border-radius: 12px;
+}
+
+/* Text-align-center */
+.text-align-center {
+  text-align: center;
 }
 
 /* Media Queries */

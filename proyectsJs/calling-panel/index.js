@@ -78,3 +78,18 @@ const calculateGeneralRating = (person) => {
 };
 
 console.log(calculateGeneralRating(person1));
+
+/* Sort by:
+ - Call Rating
+ - Email Rating
+ - General Rating
+ - Less time to call
+ - Total Calls
+ - Name A-Z
+
+  Filter by:
+ - Call Rating positive (>=3)
+ - Email Rating positive (>=3)
+ - Minium Number of Calls
+ - Combined data
+ */
