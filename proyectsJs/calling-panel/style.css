@@ -14,6 +14,14 @@ body {
 }
 
 /* Personalized clases */
+
+.scroll-container {
+  overflow-x: auto; /* Activa el scroll horizontal */
+  white-space: nowrap; /* Evita que los elementos se vayan a la siguiente línea */
+  display: flex; /* Mantiene los elementos en fila */
+  gap: 10px; /* Espacio entre elementos (opcional) */
+}
+
 .search-bar {
   height: 48px;
   border-radius: 24px;
@@ -41,7 +49,7 @@ body {
 
 .event-card--sub-section {
   background-color: rgb(185, 184, 184);
-  padding: 2px;
+  padding: 6px;
   border-radius: 5px;
 }
 
@@ -54,6 +62,8 @@ body {
 .sub-section--container {
   background-color: white;
   border: 1px solid #3c3c3c;
+  padding: 10px;
+  border-radius: 6px;
 }
 
 .sub-section--container__title {
@@ -64,6 +74,13 @@ body {
 .sub-section--select-number {
   border: 1px solid #3c3c3c;
   border-radius: 2px;
+}
+
+.sub-section--rating--container {
+  margin: 0;
+  background-color: rgba(82, 116, 79, 0.75);
+  padding: 4px;
+  border-radius: 4px;
 }
 
 .event-card--text__title {
@@ -114,6 +131,28 @@ body {
     hue-rotate(314deg) brightness(97%) contrast(91%);
 }
 
+.finish-edit--button {
+  background-color: #ff8000;
+  border-radius: 4px;
+  border: 1px solid #ff8000;
+  padding: 4px 8px;
+  color: white;
+  transition: all ease 0.15s;
+}
+
+.finish-edit--button:hover {
+  background-color: white;
+  color: #ff8000;
+}
+
+.start-call-button {
+  color: #ff8000;
+}
+
+.start-call-button:hover {
+  text-decoration: underline #ff8000;
+}
+
 /* Width */
 .max-width {
   max-width: 100%;
@@ -133,8 +172,20 @@ body {
   align-items: center;
 }
 
+.align-items__flex-start {
+  align-items: flex-start;
+}
+
+.align-items__flex-end {
+  align-items: flex-end;
+}
+
 .flex-direction-column {
   flex-direction: column;
+}
+
+.justify-content-right {
+  justify-content: flex-end;
 }
 
 .space--between {
@@ -184,7 +235,7 @@ body {
 
 .scroll-grid {
   display: grid;
-  grid-auto-columns: 25%;
+  grid-auto-columns: 100%;
   grid-auto-flow: column;
   grid-gap: 12px;
   overflow-x: auto;
@@ -221,6 +272,14 @@ body {
   margin-left: 6px;
 }
 
+.margin--left__12 {
+  margin-left: 12px;
+}
+
+.margin_6 {
+  margin: 6px;
+}
+
 .margin-none {
   margin: 0;
 }
@@ -239,6 +298,18 @@ body {
 .text-align-center {
   text-align: center;
 }
+
+.text-align-right {
+  text-align: right;
+}
+
+/* width */
+
+.width__100 {
+  width: 100%;
+}
+
+/* Components */
 
 /* Media Queries */
 @media (min-width: 600px) {

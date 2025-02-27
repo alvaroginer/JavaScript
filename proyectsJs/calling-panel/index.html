@@ -34,8 +34,8 @@
         </div>
       </div>
     </header>
-    <section class="grid padding--lateral__24">
-      <div class="event-card grid-cell margin--bt__24">
+    <section class="grid padding--lateral__24 users-grid">
+      <div class="event-card user-card grid-cell margin--bt__24">
         <div class="event-card--text">
           <div class="display--flex">
             <div>
@@ -72,27 +72,155 @@
               <img src="./imgs/account-box-edit-outline.svg" alt="" />
             </button>
           </div>
-          <div class="event-card--sub-section">
-            <p class="sub-section--title">Calls:</p>
-            <div class="sub-section--container">
-              <p>Call Rating:</p>
-              <hr />
-              <p class="sub-section--container__title">Interest:</p>
-              <select
-                name="interestRating"
-                class="sub-section--select-number"
-                id=""
-              >
-                <option value="text">1</option>
-                <option value="text">2</option>
-                <option value="text">3</option>
-                <option value="text">4</option>
-                <option value="text">5</option>
-              </select>
+            <div class="event-card--sub-section">
+                <div class="sub-section--container">
+                  <div class="display--flex space--between align-itmes__center">
+                    <p class="margin-none">Call 1</p>
+                    <p class="sub-section--rating--container">4.3</p>
+                  </div>
+                  <hr />
+                  <div class="display--flex">
+                    <div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Interest:</p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Objections:</p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Duration:</p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="margin--left__12">
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Potential:</p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Clousure:</p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="display--flex width__100 align-items__flex-end justify-content-right">
+                      <button class="finish-edit--button">Finish</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="event-card user-card grid-cell margin--bt__24">
+        <div class="event-card--text">
+          <div class="display--flex">
+            <div>
+              <div class="rating-container">9.6</div>
+              <p class="margin-none text-align-center font-size__12">
+                ID: 1243422
+              </p>
+            </div>
+            <div
+              class="event-card--text__p display--flex flex-direction-column margin--left__24"
+            >
+              <h3 class="event-card--text__title">Álvaro Giner</h3>
+              <div class="display--flex">
+                <p class="margin-none color-orange">Estado:</p>
+                <select name="userState" id="" class="margin--left__6">
+                  <option class="" value="text">Interesado</option>
+                  <option value="text">No interesado</option>
+                  <option value="text">Conversión</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div
+            class="event-card--button-container display--flex space--between"
+          >
+            <button class="button-container--button">
+              <img src="./imgs/phone.svg" alt="" />
+            </button>
+            <button class="button-container--button">
+              <img src="./imgs/email.svg" alt="" />
+            </button>
+            <button class="button-container--button">
+              <img src="./imgs/account-box-edit-outline.svg" alt="" />
+            </button>
+          </div>
+            <div class="event-card--sub-section">
+                <div class="sub-section--container">
+                  <p>No calls registred, <span class="start-call-button">start one now.</span></p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
   </body>
+  <script src="./index.js"></script>
 </html>
