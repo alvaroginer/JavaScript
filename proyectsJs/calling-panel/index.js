@@ -64,6 +64,110 @@ uploadData();
 //Función para crear el div de la llamada
 // Hacer prependChild y ordenar las llamadas de última a anterior
 
+const createDataCall = (callArray) => {
+  callArray.forEach((call) => {});
+};
+
+const createCall = () => {
+  const callContainer = document.createElement("div");
+  callContainer.className = "sub-section--container";
+  callContainer.innerHTML = `<div class="display--flex space--between align-itmes__center">
+                    <p class="margin-none">Call 1</p>
+                    <p class="sub-section--rating--container">4.3</p>
+                  </div>
+                  <hr />
+                  <div class="display--flex">
+                    <div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Interest:</p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Objections:</p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Duration:</p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="margin--left__12">
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Potential:</p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Clousure:</p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="display--flex width__100 align-items__flex-end justify-content-right">
+                      <button class="finish-edit--button">Finish</button>
+                    </div>
+                  </div>`;
+  return callContainer;
+};
+
 //renderizamos la información y creamos el html con los user-cards
 const usersContainer = document.querySelector(".users-grid");
 const renderData = () => {
