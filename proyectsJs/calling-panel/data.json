@@ -14,7 +14,8 @@
           "conversionPotential": 4,
           "callClosure": 2,
           "callDuration": 5,
-          "technicalQuality": 3
+          "technicalQuality": 3,
+          "callRating": 0
         }
       ],
       "callsRating": 0,
@@ -62,7 +63,8 @@
           "conversionPotential": 5,
           "callClosure": 5,
           "callDuration": 7,
-          "technicalQuality": 4
+          "technicalQuality": 4,
+          "callRating": 0
         },
         {
           "number": 2,
@@ -71,7 +73,8 @@
           "conversionPotential": 4,
           "callClosure": 3,
           "callDuration": 6,
-          "technicalQuality": 5
+          "technicalQuality": 5,
+          "callRating": 0
         }
       ],
       "callsRating": 0,
@@ -100,7 +103,8 @@
           "conversionPotential": 2,
           "callClosure": 1,
           "callDuration": 3,
-          "technicalQuality": 2
+          "technicalQuality": 2,
+          "callRating": 0
         }
       ],
       "callsRating": 0,
@@ -148,7 +152,8 @@
           "conversionPotential": 5,
           "callClosure": 5,
           "callDuration": 8,
-          "technicalQuality": 5
+          "technicalQuality": 5,
+          "callRating": 0
         },
         {
           "number": 2,
@@ -157,7 +162,8 @@
           "conversionPotential": 3,
           "callClosure": 3,
           "callDuration": 6,
-          "technicalQuality": 4
+          "technicalQuality": 4,
+          "callRating": 0
         },
         {
           "number": 3,
@@ -166,7 +172,8 @@
           "conversionPotential": 2,
           "callClosure": 1,
           "callDuration": 4,
-          "technicalQuality": 3
+          "technicalQuality": 3,
+          "callRating": 0
         }
       ],
       "callsRating": 0,
@@ -214,7 +221,8 @@
           "conversionPotential": 4,
           "callClosure": 4,
           "callDuration": 5,
-          "technicalQuality": 3
+          "technicalQuality": 3,
+          "callRating": 0
         }
       ],
       "callsRating": 0,
@@ -262,7 +270,8 @@
           "conversionPotential": 4,
           "callClosure": 4,
           "callDuration": 6,
-          "technicalQuality": 4
+          "technicalQuality": 4,
+          "callRating": 0
         }
       ],
       "callsRating": 0,

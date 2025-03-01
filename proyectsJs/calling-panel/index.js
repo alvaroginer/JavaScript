@@ -14,6 +14,7 @@ const person1 = {
       callClosure: 5,
       callDuration: 3,
       technicalQuality: 4,
+      callRating: 0,
     },
     {
       number: 2,
@@ -23,6 +24,7 @@ const person1 = {
       callClosure: 2,
       callDuration: 2,
       technicalQuality: 4,
+      callRating: 0,
     },
   ],
   callsRating: 0,
@@ -61,11 +63,34 @@ const uploadData = async () => {
 
 uploadData();
 
-//Función para crear el div de la llamada
-// Hacer prependChild y ordenar las llamadas de última a anterior
-
-const createDataCall = (callArray) => {
-  callArray.forEach((call) => {});
+//Función para crear el div con la info de la llamada
+const createDataCall = (eventCard, callArray) => {
+  callArray.forEach((call, index) => {
+    const callInfoContainer = document.createElement("div");
+    callInfoContainer.className = "sub-section--container";
+    callInfoContainer.innerHTML = `<div class="display--flex space--between align-itmes__center">
+                    <p class="margin-none">Call ${index}</p>
+                    <p class="sub-section--rating--container">${call.callRating}</p>
+                  </div>
+                  <hr />
+                  <div class="display--flex">
+                    <div>
+                        <p class="sub-section--container__title">Interest: <span class="call-interest-text">${call.customerInterest}</span></p>
+                        <p class="sub-section--container__title">Objections:  <span class="call-objections-text">${call.objectionsRaised}</span></p>
+                        <p class="sub-section--container__title">Duration: <span class="call-duration-text">${call.conversionPotential}</span></p>
+                    </div>
+                    <div class="margin--left__12">
+                        <p class="sub-section--container__title">Potential: <span class="call-potential-text">${call.conversionPotential}</span></p>
+                        <p class="sub-section--container__title">Clousure: <span class="call-clousure-text">${call.callClosure}</span></p>
+                        <p class="sub-section--container__title">Technical: <span class="call-clousure-text">${call.technicalQuality}</span></p>
+                    </div>
+                    <div class="display--flex width__100 align-items__flex-end justify-content-right">
+                      <button class="edit--button">Edit</button>
+                    </div>
+                  </div>
+                `;
+    eventCard.appendChild(callInfoContainer);
+  });
 };
 
 const createCall = () => {
@@ -213,6 +238,10 @@ const renderData = () => {
           </div><div class="event-card--sub-section"></div>`;
     usersContainer.appendChild(userCard);
 
+    const subSectionContainer = usersContainer.querySelector(
+      ".event-card--sub-section"
+    );
+
     userCard
       .querySelector(".calls-button-section")
       .addEventListener("click", function () {
@@ -230,6 +259,7 @@ const renderData = () => {
           ).style.borderRadius = "0 5px 5px 5px";
           userCard.querySelector(".event-card--sub-section").style.display =
             "block";
+          createDataCall(userCard, user.calls);
         } else {
           userCard.querySelector(
             ".event-card--sub-section"
@@ -248,7 +278,7 @@ const renderData = () => {
           .classList.toggle("button-container--button__selected");
         if (
           userCard
-            .querySelector(".calls-button-section")
+            .querySelector(".mails-button-section")
             .classList.contains("button-container--button__selected")
         ) {
           userCard.querySelector(".event-card--sub-section").style.display =

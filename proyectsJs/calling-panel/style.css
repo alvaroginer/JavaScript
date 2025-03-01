@@ -150,6 +150,15 @@ body {
   transition: all ease 0.15s;
 }
 
+.edit--button {
+  background-color: #ff8000;
+  border-radius: 4px;
+  border: 1px solid #ff8000;
+  padding: 4px 8px;
+  color: white;
+  transition: all ease 0.15s;
+}
+
 .finish-edit--button:hover {
   background-color: white;
   color: #ff8000;
