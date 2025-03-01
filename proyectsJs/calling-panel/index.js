@@ -113,18 +113,72 @@ const renderData = () => {
       .querySelector(".calls-button-section")
       .addEventListener("click", function () {
         console.log("botón llamada funciona");
+        userCard
+          .querySelector(".calls-button-section")
+          .classList.toggle("button-container--button__selected");
+        if (
+          userCard
+            .querySelector(".calls-button-section")
+            .classList.contains("button-container--button__selected")
+        ) {
+          userCard.querySelector(
+            ".event-card--sub-section"
+          ).style.borderRadius = "0 5px 5px 5px";
+          userCard.querySelector(".event-card--sub-section").style.display =
+            "block";
+        } else {
+          userCard.querySelector(
+            ".event-card--sub-section"
+          ).style.borderRadius = "5px";
+          userCard.querySelector(".event-card--sub-section").style.display =
+            "none";
+        }
       });
 
     userCard
       .querySelector(".mails-button-section")
       .addEventListener("click", function () {
         console.log("botón mail funciona");
+        userCard
+          .querySelector(".mails-button-section")
+          .classList.toggle("button-container--button__selected");
+        if (
+          userCard
+            .querySelector(".calls-button-section")
+            .classList.contains("button-container--button__selected")
+        ) {
+          userCard.querySelector(".event-card--sub-section").style.display =
+            "block";
+        } else {
+          userCard.querySelector(".event-card--sub-section").style.display =
+            "none";
+        }
       });
 
     userCard
       .querySelector(".notes-button-section")
       .addEventListener("click", function () {
         console.log("botón notas funciona");
+        userCard
+          .querySelector(".notes-button-section")
+          .classList.toggle("button-container--button__selected");
+        if (
+          userCard
+            .querySelector(".notes-button-section")
+            .classList.contains("button-container--button__selected")
+        ) {
+          userCard.querySelector(
+            ".event-card--sub-section"
+          ).style.borderRadius = "5px 0 5px 5px";
+          userCard.querySelector(".event-card--sub-section").style.display =
+            "block";
+        } else {
+          userCard.querySelector(
+            ".event-card--sub-section"
+          ).style.borderRadius = "5px";
+          userCard.querySelector(".event-card--sub-section").style.display =
+            "none";
+        }
       });
   });
 };

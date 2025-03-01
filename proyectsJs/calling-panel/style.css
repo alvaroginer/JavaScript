@@ -50,7 +50,8 @@ body {
 .event-card--sub-section {
   background-color: rgb(185, 184, 184);
   padding: 6px;
-  border-radius: 5px;
+  border-radius: 0 5px 5px 5px;
+  display: none;
 }
 
 .sub-section--title {
@@ -92,14 +93,13 @@ body {
 }
 
 .rating-container {
-  padding: 25px;
+  padding: 10px 0;
+  width: 80px;
   font-size: 36px;
   font-weight: 700;
-  backdrop-filter: blur(0px) saturate(180%);
-  -webkit-backdrop-filter: blur(0px) saturate(180%);
-  background-color: rgba(82, 116, 79, 0.75);
   border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  border: 2px solid #ff8000;
+  text-align: center;
 }
 
 /* Personalized buttons */
@@ -123,10 +123,21 @@ body {
 
 .button-container--button {
   background-color: transparent;
-  border: none;
+  border: 1px solid transparent;
+  padding-top: 4px;
 }
 
 .button-container--button:hover img {
+  filter: brightness(0) saturate(100%) invert(24%) sepia(2%) saturate(6%)
+    hue-rotate(314deg) brightness(97%) contrast(91%);
+}
+
+.button-container--button__selected {
+  background-color: rgb(185, 184, 184);
+  border-radius: 5px 5px 0 0;
+}
+
+.button-container--button__selected img {
   filter: brightness(0) saturate(100%) invert(24%) sepia(2%) saturate(6%)
     hue-rotate(314deg) brightness(97%) contrast(91%);
 }
