@@ -17,6 +17,8 @@ const uploadData = async () => {
   localStorage.setItem("users", JSON.stringify(usersData));
 };
 uploadData();
+//Función para añadir poder editar una llamada
+const renderCall = (call, eventCard) => {};
 
 //Función para crear el div con la info de la llamada
 const createDataCall = (eventCard, callArray) => {
@@ -66,11 +68,12 @@ const createDataCall = (eventCard, callArray) => {
                 `;
     eventCard.appendChild(callInfoContainer);
 
+    let editableCallContainer = "";
     callInfoContainer
       .querySelector(".edit--button")
       .addEventListener("click", function () {
         eventCard.innerHTML = "";
-        const editableCallContainer = document.createElement("div");
+        editableCallContainer = document.createElement("div");
         editableCallContainer.className = "sub-section--container";
         editableCallContainer.innerHTML = `<div class="display--flex space--between align-itmes__center">
                     <p class="margin-none">Call 1</p>
@@ -86,7 +89,7 @@ const createDataCall = (eventCard, callArray) => {
                         <select
                           name="interestRating"
                           class="sub-section--select-number margin--left__6"
-                          id=""
+                          id="interest-option"
                         >
                           <option value="text">1</option>
                           <option value="text">2</option>
@@ -100,9 +103,9 @@ const createDataCall = (eventCard, callArray) => {
                       >
                         <p class="sub-section--container__title">Objections:</p>
                         <select
-                          name="interestRating"
+                          name="objectionsRating"
                           class="sub-section--select-number margin--left__6"
-                          id=""
+                          id="objection-option"
                         >
                           <option value="text">1</option>
                           <option value="text">2</option>
@@ -116,9 +119,9 @@ const createDataCall = (eventCard, callArray) => {
                       >
                         <p class="sub-section--container__title">Duration:</p>
                         <select
-                          name="interestRating"
+                          name="durationRating"
                           class="sub-section--select-number margin--left__6"
-                          id=""
+                          id="duration-option"
                         >
                           <option value="text">1</option>
                           <option value="text">2</option>
@@ -134,9 +137,9 @@ const createDataCall = (eventCard, callArray) => {
                       >
                         <p class="sub-section--container__title">Potential:</p>
                         <select
-                          name="interestRating"
+                          name="potentialRating"
                           class="sub-section--select-number margin--left__6"
-                          id=""
+                          id="potential-option"
                         >
                           <option value="text">1</option>
                           <option value="text">2</option>
@@ -150,9 +153,9 @@ const createDataCall = (eventCard, callArray) => {
                       >
                         <p class="sub-section--container__title">Clousure:</p>
                         <select
-                          name="interestRating"
+                          name="clousureRating"
                           class="sub-section--select-number margin--left__6"
-                          id=""
+                          id="clousure-option"
                         >
                           <option value="text">1</option>
                           <option value="text">2</option>
@@ -166,9 +169,9 @@ const createDataCall = (eventCard, callArray) => {
                       >
                         <p class="sub-section--container__title">Technical:</p>
                         <select
-                          name="interestRating"
+                          name="technicalRating"
                           class="sub-section--select-number margin--left__6"
-                          id=""
+                          id="technical-option"
                         >
                           <option value="text">1</option>
                           <option value="text">2</option>
@@ -182,7 +185,67 @@ const createDataCall = (eventCard, callArray) => {
                       <button class="finish-edit--button">Finish</button>
                     </div>
                   </div>`;
+        eventCard.appendChild(editableCallContainer);
       });
+    console.log(editableCallContainer);
+
+    if (editableCallContainer) {
+      editableCallContainer.querySelector("#interest-option").value =
+        call.customerInterest;
+      editableCallContainer
+        .querySelector("#interest-option")
+        .addEventListener("change", function (event) {
+          let content = event.target.value;
+          updateUser(call.id, { customerInterest: content });
+        });
+
+      editableCallContainer.querySelector("#objection-option").value =
+        call.objectionsRaised;
+      editableCallContainer
+        .querySelector("#objection-option")
+        .addEventListener("change", function (event) {
+          let content = event.target.value;
+          updateUser(call.id, { objectionsRaised: content });
+        });
+
+      editableCallContainer.querySelector("#duration-option").value =
+        call.callDuration;
+      editableCallContainer
+        .querySelector("#duration-option")
+        .addEventListener("change", function (event) {
+          let content = event.target.value;
+          updateUser(call.id, { callDuration: content });
+        });
+
+      editableCallContainer.querySelector("#potential-option").value =
+        call.conversionPotential;
+      editableCallContainer
+        .querySelector("#potential-option")
+        .addEventListener("change", function (event) {
+          let content = event.target.value;
+          updateUser(call.id, { conversionPotential: content });
+        });
+
+      editableCallContainer.querySelector("#clousure-option").value =
+        call.callClosure;
+      editableCallContainer
+        .querySelector("#clousure-option")
+        .addEventListener("change", function (event) {
+          let content = event.target.value;
+          updateUser(call.id, { callClosure: content });
+        });
+
+      editableCallContainer.querySelector("#technical-option").value =
+        call.technicalQuality;
+      editableCallContainer
+        .querySelector("#technical-option")
+        .addEventListener("change", function (event) {
+          let content = event.target.value;
+          updateUser(call.id, { technicalQuality: content });
+        });
+    } else {
+      console.log("no se ejecuta editableCallContainer");
+    }
   });
 };
 
