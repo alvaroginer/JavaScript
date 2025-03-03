@@ -150,6 +150,11 @@ body {
   transition: all ease 0.15s;
 }
 
+.finish-edit--button:hover {
+  background-color: white;
+  color: #ff8000;
+}
+
 .edit--button {
   background-color: #ff8000;
   border-radius: 4px;
@@ -159,7 +164,7 @@ body {
   transition: all ease 0.15s;
 }
 
-.finish-edit--button:hover {
+.edit--button:hover {
   background-color: white;
   color: #ff8000;
 }

@@ -1,46 +1,3 @@
-//Tipo de objeto que hay que pasar
-const person1 = {
-  id: 12345,
-  name: "John Doe",
-  number: "+1234567890",
-  email: "johndoe@gmail.com",
-  currentInterest: true,
-  calls: [
-    {
-      number: 1,
-      customerInterest: 5,
-      objectionsRaised: 4,
-      conversionPotential: 5,
-      callClosure: 5,
-      callDuration: 3,
-      technicalQuality: 4,
-      callRating: 0,
-    },
-    {
-      number: 2,
-      customerInterest: 4,
-      objectionsRaised: 2,
-      conversionPotential: 3,
-      callClosure: 2,
-      callDuration: 2,
-      technicalQuality: 4,
-      callRating: 0,
-    },
-  ],
-  callsRating: 0,
-  emails: {
-    sent: 4,
-    open: 2,
-    clicked: 1,
-    openRate: Math.round(50 / 10),
-    block: 0,
-    rebound: 0,
-    rating: 0,
-  },
-
-  overallRating: 0,
-};
-
 //Función para extraer información del archivo json
 async function extractDataJson() {
   try {
@@ -108,6 +65,124 @@ const createDataCall = (eventCard, callArray) => {
                   </div>
                 `;
     eventCard.appendChild(callInfoContainer);
+
+    callInfoContainer
+      .querySelector(".edit--button")
+      .addEventListener("click", function () {
+        eventCard.innerHTML = "";
+        const editableCallContainer = document.createElement("div");
+        editableCallContainer.className = "sub-section--container";
+        editableCallContainer.innerHTML = `<div class="display--flex space--between align-itmes__center">
+                    <p class="margin-none">Call 1</p>
+                    <p class="sub-section--rating--container">${call.callRating}</p>
+                  </div>
+                  <hr />
+                  <div class="display--flex">
+                    <div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Interest: </p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Objections:</p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Duration:</p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="margin--left__12">
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Potential:</p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Clousure:</p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Technical:</p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id=""
+                        >
+                          <option value="text">1</option>
+                          <option value="text">2</option>
+                          <option value="text">3</option>
+                          <option value="text">4</option>
+                          <option value="text">5</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="display--flex width__100 align-items__flex-end justify-content-right margin--left__12">
+                      <button class="finish-edit--button">Finish</button>
+                    </div>
+                  </div>`;
+      });
   });
 };
 
@@ -256,7 +331,7 @@ const renderData = () => {
           </div><div class="event-card--sub-section"></div>`;
     usersContainer.appendChild(userCard);
 
-    const subSectionContainer = usersContainer.querySelector(
+    const subSectionContainer = userCard.querySelector(
       ".event-card--sub-section"
     );
 
@@ -277,13 +352,14 @@ const renderData = () => {
           ).style.borderRadius = "0 5px 5px 5px";
           userCard.querySelector(".event-card--sub-section").style.display =
             "block";
-          createDataCall(userCard, user.calls);
+          createDataCall(subSectionContainer, user.calls);
         } else {
           userCard.querySelector(
             ".event-card--sub-section"
           ).style.borderRadius = "5px";
           userCard.querySelector(".event-card--sub-section").style.display =
             "none";
+          subSectionContainer.innerHTML = "";
         }
       });
 
@@ -335,6 +411,15 @@ const renderData = () => {
   });
 };
 renderData();
+
+const updateUser = (id, propToChange) => {
+  const index = usersData.findInex((user) => user.id === id);
+  if (index !== -1) {
+    usersData[index] = { ...usersData[index], ...propToChange };
+    const usersToStr = JSON.stringify(usersData);
+    localStorage.setItem("users", usersData);
+  }
+};
 
 const calculateGeneralRating = (person) => {
   // Calculamos el Mail Rating
