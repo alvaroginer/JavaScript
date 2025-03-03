@@ -50,7 +50,6 @@ async function extractDataJson() {
     }
     const data = await answer.json();
     return data.persons;
-    console.log(data); // Aquí puedes usar los datos como un objeto
   } catch (error) {
     console.error("Hubo un problema con la carga del JSON:", error);
   }
@@ -60,7 +59,6 @@ const uploadData = async () => {
   const usersData = await extractDataJson();
   localStorage.setItem("users", JSON.stringify(usersData));
 };
-
 uploadData();
 
 //Función para crear el div con la info de la llamada
@@ -69,20 +67,34 @@ const createDataCall = (eventCard, callArray) => {
     const callInfoContainer = document.createElement("div");
     callInfoContainer.className = "sub-section--container";
     callInfoContainer.innerHTML = `<div class="display--flex space--between align-itmes__center">
-                    <p class="margin-none">Call ${index}</p>
-                    <p class="sub-section--rating--container">${call.callRating}</p>
+                    <p class="margin-none">Call ${index + 1}</p>
+                    <p class="sub-section--rating--container">${
+                      call.callRating
+                    }</p>
                   </div>
                   <hr />
                   <div class="display--flex">
                     <div>
-                        <p class="sub-section--container__title">Interest: <span class="call-interest-text">${call.customerInterest}</span></p>
-                        <p class="sub-section--container__title">Objections:  <span class="call-objections-text">${call.objectionsRaised}</span></p>
-                        <p class="sub-section--container__title">Duration: <span class="call-duration-text">${call.conversionPotential}</span></p>
+                        <p class="sub-section--container__title">Interest: <span class="call-interest-text">${
+                          call.customerInterest
+                        }</span></p>
+                        <p class="sub-section--container__title">Objections:  <span class="call-objections-text">${
+                          call.objectionsRaised
+                        }</span></p>
+                        <p class="sub-section--container__title">Duration: <span class="call-duration-text">${
+                          call.conversionPotential
+                        }</span></p>
                     </div>
                     <div class="margin--left__12">
-                        <p class="sub-section--container__title">Potential: <span class="call-potential-text">${call.conversionPotential}</span></p>
-                        <p class="sub-section--container__title">Clousure: <span class="call-clousure-text">${call.callClosure}</span></p>
-                        <p class="sub-section--container__title">Technical: <span class="call-clousure-text">${call.technicalQuality}</span></p>
+                        <p class="sub-section--container__title">Potential: <span class="call-potential-text">${
+                          call.conversionPotential
+                        }</span></p>
+                        <p class="sub-section--container__title">Clousure: <span class="call-clousure-text">${
+                          call.callClosure
+                        }</span></p>
+                        <p class="sub-section--container__title">Technical: <span class="call-clousure-text">${
+                          call.technicalQuality
+                        }</span></p>
                     </div>
                     <div class="display--flex width__100 align-items__flex-end justify-content-right">
                       <button class="edit--button">Edit</button>
