@@ -290,6 +290,9 @@ body {
 .margin--left__6 {
   margin-left: 6px;
 }
+.width__100 {
+  width: 100%;
+}
 
 .margin--left__12 {
   margin-left: 12px;
@@ -297,6 +300,10 @@ body {
 
 .margin_6 {
   margin: 6px;
+}
+
+.margin_12 {
+  margin: 12px;
 }
 
 .margin-none {

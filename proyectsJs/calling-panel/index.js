@@ -63,6 +63,12 @@ uploadData();
 
 //Función para crear el div con la info de la llamada
 const createDataCall = (eventCard, callArray) => {
+  if (callArray.length === 0) {
+    const emptyCallContainer = document.createElement("div");
+    emptyCallContainer.className = "sub-section--container";
+    emptyCallContainer.innerHTML = `<p>No calls registred, <span class="start-call-button">start one now.</span></p>`;
+    eventCard.appendChild(emptyCallContainer);
+  }
   callArray.forEach((call, index) => {
     const callInfoContainer = document.createElement("div");
     callInfoContainer.className = "sub-section--container";
@@ -74,7 +80,7 @@ const createDataCall = (eventCard, callArray) => {
                   </div>
                   <hr />
                   <div class="display--flex">
-                    <div>
+                    <div class"width__100">
                         <p class="sub-section--container__title">Interest: <span class="call-interest-text">${
                           call.customerInterest
                         }</span></p>
@@ -96,7 +102,7 @@ const createDataCall = (eventCard, callArray) => {
                           call.technicalQuality
                         }</span></p>
                     </div>
-                    <div class="display--flex width__100 align-items__flex-end justify-content-right">
+                    <div class="display--flex align-items__flex-end margin_12 justify-content-right">
                       <button class="edit--button">Edit</button>
                     </div>
                   </div>
@@ -199,7 +205,7 @@ const createCall = () => {
                       </div>
                     </div>
                     <div class="display--flex width__100 align-items__flex-end justify-content-right">
-                      <button class="finish-edit--button">Finish</button>
+                      <button class="finish-edit--button margin--left__12">Finish</button>
                     </div>
                   </div>`;
   return callContainer;
