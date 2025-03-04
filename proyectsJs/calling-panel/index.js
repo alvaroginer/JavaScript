@@ -17,11 +17,189 @@ const uploadData = async () => {
   localStorage.setItem("users", JSON.stringify(usersData));
 };
 uploadData();
+
 //Función para añadir poder editar una llamada
-const renderCall = (call, eventCard) => {};
+const renderCall = (eventCard, user, index) => {
+  eventCard.innerHTML = "";
+  const editableCallContainer = document.createElement("div");
+  editableCallContainer.className = "sub-section--container";
+  editableCallContainer.innerHTML = `<div class="display--flex space--between align-itmes__center">
+                    <p class="margin-none">Call 1</p>
+                    <p class="sub-section--rating--container">${user.calls[index].callRating}</p>
+                  </div>
+                  <hr />
+                  <div class="display--flex">
+                    <div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Interest: </p>
+                        <select
+                          name="interestRating"
+                          class="sub-section--select-number margin--left__6"
+                          id="interest-option"
+                        >
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Objections:</p>
+                        <select
+                          name="objectionsRating"
+                          class="sub-section--select-number margin--left__6"
+                          id="objection-option"
+                        >
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Duration:</p>
+                        <select
+                          name="durationRating"
+                          class="sub-section--select-number margin--left__6"
+                          id="duration-option"
+                        >
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="margin--left__12">
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Potential:</p>
+                        <select
+                          name="potentialRating"
+                          class="sub-section--select-number margin--left__6"
+                          id="potential-option"
+                        >
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Clousure:</p>
+                        <select
+                          name="clousureRating"
+                          class="sub-section--select-number margin--left__6"
+                          id="clousure-option"
+                        >
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                      <div
+                        class="display--flex align-itmes__center space--between"
+                      >
+                        <p class="sub-section--container__title">Technical:</p>
+                        <select
+                          name="technicalRating"
+                          class="sub-section--select-number margin--left__6"
+                          id="technical-option"
+                        >
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="display--flex width__100 align-items__flex-end justify-content-right margin--left__12">
+                      <button class="finish-edit--button">Finish</button>
+                    </div>
+                  </div>`;
+  eventCard.appendChild(editableCallContainer);
+
+  //eventListener for the forms
+  if (editableCallContainer) {
+    editableCallContainer.querySelector("#interest-option").value =
+      user.calls[index].customerInterest;
+    editableCallContainer
+      .querySelector("#interest-option")
+      .addEventListener("change", function (event) {
+        //console.log(call.id);
+        let content = event.target.value;
+        updateUser(user.id, index, { customerInterest: Number(content) });
+      });
+
+    editableCallContainer.querySelector("#objection-option").value =
+      user.calls[index].objectionsRaised;
+    editableCallContainer
+      .querySelector("#objection-option")
+      .addEventListener("change", function (event) {
+        let content = event.target.value;
+        updateUser(user.id, index, { objectionsRaised: Number(content) });
+      });
+
+    editableCallContainer.querySelector("#duration-option").value =
+      user.calls[index].callDuration;
+    editableCallContainer
+      .querySelector("#duration-option")
+      .addEventListener("change", function (event) {
+        let content = event.target.value;
+        updateUser(user.id, index, { callDuration: Number(content) });
+      });
+
+    editableCallContainer.querySelector("#potential-option").value =
+      user.calls[index].conversionPotential;
+    editableCallContainer
+      .querySelector("#potential-option")
+      .addEventListener("change", function (event) {
+        let content = event.target.value;
+        updateUser(user.id, index, { conversionPotential: Number(content) });
+      });
+
+    editableCallContainer.querySelector("#clousure-option").value =
+      user.calls[index].callClosure;
+    editableCallContainer
+      .querySelector("#clousure-option")
+      .addEventListener("change", function (event) {
+        let content = event.target.value;
+        updateUser(user.id, index, { callClosure: Number(content) });
+      });
+
+    editableCallContainer.querySelector("#technical-option").value =
+      user.calls[index].technicalQuality;
+    editableCallContainer
+      .querySelector("#technical-option")
+      .addEventListener("change", function (event) {
+        let content = event.target.value;
+        updateUser(user.id, index, { technicalQuality: Number(content) });
+      });
+  } else {
+    console.log("no se ejecuta editableCallContainer");
+  }
+};
 
 //Función para crear el div con la info de la llamada
-const createDataCall = (eventCard, callArray) => {
+const createDataCall = (eventCard, user) => {
+  const callArray = user.calls;
+  console.log(callArray);
   if (callArray.length === 0) {
     const emptyCallContainer = document.createElement("div");
     emptyCallContainer.className = "sub-section--container";
@@ -68,184 +246,12 @@ const createDataCall = (eventCard, callArray) => {
                 `;
     eventCard.appendChild(callInfoContainer);
 
-    let editableCallContainer = "";
+    console.log(call);
     callInfoContainer
       .querySelector(".edit--button")
       .addEventListener("click", function () {
-        eventCard.innerHTML = "";
-        editableCallContainer = document.createElement("div");
-        editableCallContainer.className = "sub-section--container";
-        editableCallContainer.innerHTML = `<div class="display--flex space--between align-itmes__center">
-                    <p class="margin-none">Call 1</p>
-                    <p class="sub-section--rating--container">${call.callRating}</p>
-                  </div>
-                  <hr />
-                  <div class="display--flex">
-                    <div>
-                      <div
-                        class="display--flex align-itmes__center space--between"
-                      >
-                        <p class="sub-section--container__title">Interest: </p>
-                        <select
-                          name="interestRating"
-                          class="sub-section--select-number margin--left__6"
-                          id="interest-option"
-                        >
-                          <option value="text">1</option>
-                          <option value="text">2</option>
-                          <option value="text">3</option>
-                          <option value="text">4</option>
-                          <option value="text">5</option>
-                        </select>
-                      </div>
-                      <div
-                        class="display--flex align-itmes__center space--between"
-                      >
-                        <p class="sub-section--container__title">Objections:</p>
-                        <select
-                          name="objectionsRating"
-                          class="sub-section--select-number margin--left__6"
-                          id="objection-option"
-                        >
-                          <option value="text">1</option>
-                          <option value="text">2</option>
-                          <option value="text">3</option>
-                          <option value="text">4</option>
-                          <option value="text">5</option>
-                        </select>
-                      </div>
-                      <div
-                        class="display--flex align-itmes__center space--between"
-                      >
-                        <p class="sub-section--container__title">Duration:</p>
-                        <select
-                          name="durationRating"
-                          class="sub-section--select-number margin--left__6"
-                          id="duration-option"
-                        >
-                          <option value="text">1</option>
-                          <option value="text">2</option>
-                          <option value="text">3</option>
-                          <option value="text">4</option>
-                          <option value="text">5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="margin--left__12">
-                      <div
-                        class="display--flex align-itmes__center space--between"
-                      >
-                        <p class="sub-section--container__title">Potential:</p>
-                        <select
-                          name="potentialRating"
-                          class="sub-section--select-number margin--left__6"
-                          id="potential-option"
-                        >
-                          <option value="text">1</option>
-                          <option value="text">2</option>
-                          <option value="text">3</option>
-                          <option value="text">4</option>
-                          <option value="text">5</option>
-                        </select>
-                      </div>
-                      <div
-                        class="display--flex align-itmes__center space--between"
-                      >
-                        <p class="sub-section--container__title">Clousure:</p>
-                        <select
-                          name="clousureRating"
-                          class="sub-section--select-number margin--left__6"
-                          id="clousure-option"
-                        >
-                          <option value="text">1</option>
-                          <option value="text">2</option>
-                          <option value="text">3</option>
-                          <option value="text">4</option>
-                          <option value="text">5</option>
-                        </select>
-                      </div>
-                      <div
-                        class="display--flex align-itmes__center space--between"
-                      >
-                        <p class="sub-section--container__title">Technical:</p>
-                        <select
-                          name="technicalRating"
-                          class="sub-section--select-number margin--left__6"
-                          id="technical-option"
-                        >
-                          <option value="text">1</option>
-                          <option value="text">2</option>
-                          <option value="text">3</option>
-                          <option value="text">4</option>
-                          <option value="text">5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="display--flex width__100 align-items__flex-end justify-content-right margin--left__12">
-                      <button class="finish-edit--button">Finish</button>
-                    </div>
-                  </div>`;
-        eventCard.appendChild(editableCallContainer);
+        renderCall(eventCard, user, index);
       });
-    console.log(editableCallContainer);
-
-    if (editableCallContainer) {
-      editableCallContainer.querySelector("#interest-option").value =
-        call.customerInterest;
-      editableCallContainer
-        .querySelector("#interest-option")
-        .addEventListener("change", function (event) {
-          let content = event.target.value;
-          updateUser(call.id, { customerInterest: content });
-        });
-
-      editableCallContainer.querySelector("#objection-option").value =
-        call.objectionsRaised;
-      editableCallContainer
-        .querySelector("#objection-option")
-        .addEventListener("change", function (event) {
-          let content = event.target.value;
-          updateUser(call.id, { objectionsRaised: content });
-        });
-
-      editableCallContainer.querySelector("#duration-option").value =
-        call.callDuration;
-      editableCallContainer
-        .querySelector("#duration-option")
-        .addEventListener("change", function (event) {
-          let content = event.target.value;
-          updateUser(call.id, { callDuration: content });
-        });
-
-      editableCallContainer.querySelector("#potential-option").value =
-        call.conversionPotential;
-      editableCallContainer
-        .querySelector("#potential-option")
-        .addEventListener("change", function (event) {
-          let content = event.target.value;
-          updateUser(call.id, { conversionPotential: content });
-        });
-
-      editableCallContainer.querySelector("#clousure-option").value =
-        call.callClosure;
-      editableCallContainer
-        .querySelector("#clousure-option")
-        .addEventListener("change", function (event) {
-          let content = event.target.value;
-          updateUser(call.id, { callClosure: content });
-        });
-
-      editableCallContainer.querySelector("#technical-option").value =
-        call.technicalQuality;
-      editableCallContainer
-        .querySelector("#technical-option")
-        .addEventListener("change", function (event) {
-          let content = event.target.value;
-          updateUser(call.id, { technicalQuality: content });
-        });
-    } else {
-      console.log("no se ejecuta editableCallContainer");
-    }
   });
 };
 
@@ -415,7 +421,7 @@ const renderData = () => {
           ).style.borderRadius = "0 5px 5px 5px";
           userCard.querySelector(".event-card--sub-section").style.display =
             "block";
-          createDataCall(subSectionContainer, user.calls);
+          createDataCall(subSectionContainer, user);
         } else {
           userCard.querySelector(
             ".event-card--sub-section"
@@ -475,12 +481,18 @@ const renderData = () => {
 };
 renderData();
 
-const updateUser = (id, propToChange) => {
-  const index = usersData.findInex((user) => user.id === id);
+const updateUser = (id, callIndex, propToChange) => {
+  const userDataLocalStorage = JSON.parse(localStorage.getItem("users"));
+  const index = userDataLocalStorage.findIndex((user) => user.id === id);
+  console.log(propToChange);
   if (index !== -1) {
-    usersData[index] = { ...usersData[index], ...propToChange };
-    const usersToStr = JSON.stringify(usersData);
-    localStorage.setItem("users", usersData);
+    userDataLocalStorage[index].calls[callIndex] = {
+      ...userDataLocalStorage[index].calls[callIndex],
+      ...propToChange,
+    };
+    console.log(userDataLocalStorage[index].calls[callIndex]);
+    const usersToStr = JSON.stringify(userDataLocalStorage);
+    localStorage.setItem("users", usersToStr);
   }
 };
 
