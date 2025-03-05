@@ -136,64 +136,75 @@ const renderCall = (eventCard, user, index) => {
   eventCard.appendChild(editableCallContainer);
 
   //eventListener for the forms
+  let userUpdated = "";
   if (editableCallContainer) {
-    editableCallContainer.querySelector("#interest-option").value =
-      user.calls[index].customerInterest;
-    editableCallContainer
-      .querySelector("#interest-option")
-      .addEventListener("change", function (event) {
-        //console.log(call.id);
-        let content = event.target.value;
-        updateUser(user.id, index, { customerInterest: Number(content) });
+    const interestOption =
+      editableCallContainer.querySelector("#interest-option");
+    interestOption.value = user.calls[index].customerInterest;
+    interestOption.addEventListener("change", function (event) {
+      //console.log(call.id);
+      let content = event.target.value;
+      userUpdated = updateUser(user.id, index, {
+        customerInterest: Number(content),
       });
+    });
 
-    editableCallContainer.querySelector("#objection-option").value =
-      user.calls[index].objectionsRaised;
-    editableCallContainer
-      .querySelector("#objection-option")
-      .addEventListener("change", function (event) {
-        let content = event.target.value;
-        updateUser(user.id, index, { objectionsRaised: Number(content) });
+    const objectionOption =
+      editableCallContainer.querySelector("#objection-option");
+    objectionOption.value = user.calls[index].objectionsRaised;
+    objectionOption.addEventListener("change", function (event) {
+      let content = event.target.value;
+      userUpdated = updateUser(user.id, index, {
+        objectionsRaised: Number(content),
       });
+    });
 
-    editableCallContainer.querySelector("#duration-option").value =
-      user.calls[index].callDuration;
-    editableCallContainer
-      .querySelector("#duration-option")
-      .addEventListener("change", function (event) {
-        let content = event.target.value;
-        updateUser(user.id, index, { callDuration: Number(content) });
-      });
+    const durationOption =
+      editableCallContainer.querySelector("#duration-option");
+    durationOption.value = user.calls[index].callDuration;
+    durationOption.addEventListener("change", function (event) {
+      let content = event.target.value;
+      updateUser(user.id, index, { callDuration: Number(content) });
+    });
 
-    editableCallContainer.querySelector("#potential-option").value =
-      user.calls[index].conversionPotential;
-    editableCallContainer
-      .querySelector("#potential-option")
-      .addEventListener("change", function (event) {
-        let content = event.target.value;
-        updateUser(user.id, index, { conversionPotential: Number(content) });
+    const potentialOption =
+      editableCallContainer.querySelector("#potential-option");
+    potentialOption.value = user.calls[index].conversionPotential;
+    potentialOption.addEventListener("change", function (event) {
+      let content = event.target.value;
+      userUpdated = updateUser(user.id, index, {
+        conversionPotential: Number(content),
       });
+    });
 
-    editableCallContainer.querySelector("#clousure-option").value =
-      user.calls[index].callClosure;
-    editableCallContainer
-      .querySelector("#clousure-option")
-      .addEventListener("change", function (event) {
-        let content = event.target.value;
-        updateUser(user.id, index, { callClosure: Number(content) });
+    const clousureOption =
+      editableCallContainer.querySelector("#clousure-option");
+    clousureOption.value = user.calls[index].callClosure;
+    clousureOption.addEventListener("change", function (event) {
+      let content = event.target.value;
+      userUpdated = updateUser(user.id, index, {
+        callClosure: Number(content),
       });
+    });
 
-    editableCallContainer.querySelector("#technical-option").value =
-      user.calls[index].technicalQuality;
-    editableCallContainer
-      .querySelector("#technical-option")
-      .addEventListener("change", function (event) {
-        let content = event.target.value;
-        updateUser(user.id, index, { technicalQuality: Number(content) });
+    const technicalOption =
+      editableCallContainer.querySelector("#technical-option");
+    technicalOption.value = user.calls[index].technicalQuality;
+    technicalOption.addEventListener("change", function (event) {
+      let content = event.target.value;
+      userUpdated = updateUser(user.id, index, {
+        technicalQuality: Number(content),
       });
-  } else {
-    console.log("no se ejecuta editableCallContainer");
+    });
   }
+  //EventListener para el botón de finalizar
+
+  eventCard
+    .querySelector(".finish-edit--button")
+    .addEventListener("click", function () {
+      eventCard.innerHTML = "";
+      createDataCall(eventCard, userUpdated);
+    });
 };
 
 //Función para crear el div con la info de la llamada
@@ -355,11 +366,83 @@ const createCall = () => {
   return callContainer;
 };
 
+//Función para crear el GeneralRating
+const calculateGeneralRating = (person) => {
+  // Calculamos el Mail Rating
+  const emailValue =
+    person.emails.sent * 0.1 +
+    person.emails.open * 0.2 +
+    person.emails.clicked * 0.3 +
+    person.emails.openRate * 0.2 +
+    person.emails.block * -0.1 +
+    person.emails.rebound * -0.1;
+  const emailRating = (emailValue / 2) * 5;
+  person.emails.rating = emailRating;
+
+  //Calculamos el Call Rating
+  const callsRating = [];
+  let totalCallsRating = 0;
+  if (person.calls.length > 0) {
+    person.calls.forEach((call) => {
+      const callRate =
+        call.customerInterest * 0.2 +
+        call.objectionsRaised * 0.15 +
+        call.conversionPotential * 0.2 +
+        call.callClosure * 0.2 +
+        call.callDuration * 0.1 +
+        call.technicalQuality * 0.15;
+      callsRating.push(callRate);
+    });
+
+    const sumAllRates = callsRating.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+    totalCallsRating = sumAllRates / callsRating.length;
+    person.callsRating = totalCallsRating;
+  }
+
+  //Final rating
+  person.overallRating = ((emailRating + totalCallsRating) / 10).toFixed(2);
+  console.log(person.overallRating);
+  return person;
+};
+
+//Función que actualiza la información de un contacto
+const updateUser = (id, callIndex, propToChange) => {
+  const userDataLocalStorage = JSON.parse(localStorage.getItem("users"));
+  const index = userDataLocalStorage.findIndex((user) => user.id === id);
+  console.log(propToChange);
+
+  //Actualizamos el user entero
+  if (callIndex === false) {
+    userDataLocalStorage[index] = {
+      ...userDataLocalStorage[index],
+      ...propToChange,
+    };
+  }
+
+  //Actualizamos las llamadas de un User
+  if (index !== -1) {
+    userDataLocalStorage[index].calls[callIndex] = {
+      ...userDataLocalStorage[index].calls[callIndex],
+      ...propToChange,
+    };
+    console.log(userDataLocalStorage[index].calls[callIndex]);
+    const usersToStr = JSON.stringify(userDataLocalStorage);
+    localStorage.setItem("users", usersToStr);
+    return userDataLocalStorage[index];
+  }
+};
+
 //renderizamos la información y creamos el html con los user-cards
 const usersContainer = document.querySelector(".users-grid");
 const renderData = () => {
   const usersLocalStorage = JSON.parse(localStorage.getItem("users"));
   usersLocalStorage.forEach((user) => {
+    const newUserData = calculateGeneralRating(user);
+    updateUser(user.id, false, newUserData);
+
     const userCard = document.createElement("div");
     userCard.className = "event-card user-card grid-cell margin--bt__24";
     userCard.innerHTML = `<div class="event-card--text">
@@ -480,61 +563,6 @@ const renderData = () => {
   });
 };
 renderData();
-
-const updateUser = (id, callIndex, propToChange) => {
-  const userDataLocalStorage = JSON.parse(localStorage.getItem("users"));
-  const index = userDataLocalStorage.findIndex((user) => user.id === id);
-  console.log(propToChange);
-  if (index !== -1) {
-    userDataLocalStorage[index].calls[callIndex] = {
-      ...userDataLocalStorage[index].calls[callIndex],
-      ...propToChange,
-    };
-    console.log(userDataLocalStorage[index].calls[callIndex]);
-    const usersToStr = JSON.stringify(userDataLocalStorage);
-    localStorage.setItem("users", usersToStr);
-  }
-};
-
-const calculateGeneralRating = (person) => {
-  // Calculamos el Mail Rating
-  const emailValue =
-    person.emails.sent * 0.1 +
-    person.emails.open * 0.2 +
-    person.emails.clicked * 0.3 +
-    person.emails.openRate * 0.2 +
-    person.emails.block * -0.1 +
-    person.emails.rebound * -0.1;
-  const emailRating = (emailValue / 2) * 5;
-  person.emails.rating = emailRating;
-
-  //Calculamos el Call Rating
-  const callsRating = [];
-  person.calls.forEach((call) => {
-    const callRate =
-      call.customerInterest * 0.2 +
-      call.objectionsRaised * 0.15 +
-      call.conversionPotential * 0.2 +
-      call.callClosure * 0.2 +
-      call.callDuration * 0.1 +
-      call.technicalQuality * 0.15;
-    callsRating.push(callRate);
-  });
-
-  const sumAllRates = callsRating.reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-    0
-  );
-  const totalCallsRating = sumAllRates / callsRating.length;
-  person.callsRating = totalCallsRating;
-
-  //Final rating
-  person.overallRating = emailRating + totalCallsRating;
-
-  return person;
-};
-
-//console.log(calculateGeneralRating(person1));
 
 // More functionalities
 /* Sort by:
