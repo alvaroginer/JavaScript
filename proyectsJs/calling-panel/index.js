@@ -144,9 +144,13 @@ const renderCall = (eventCard, user, index) => {
     interestOption.addEventListener("change", function (event) {
       //console.log(call.id);
       let content = event.target.value;
-      userUpdated = updateUser(user.id, index, {
-        customerInterest: Number(content),
-      });
+      userUpdated = updateUser(
+        user.id,
+        {
+          customerInterest: Number(content),
+        },
+        index
+      );
     });
 
     const objectionOption =
@@ -154,9 +158,13 @@ const renderCall = (eventCard, user, index) => {
     objectionOption.value = user.calls[index].objectionsRaised;
     objectionOption.addEventListener("change", function (event) {
       let content = event.target.value;
-      userUpdated = updateUser(user.id, index, {
-        objectionsRaised: Number(content),
-      });
+      userUpdated = updateUser(
+        user.id,
+        {
+          objectionsRaised: Number(content),
+        },
+        index
+      );
     });
 
     const durationOption =
@@ -164,7 +172,7 @@ const renderCall = (eventCard, user, index) => {
     durationOption.value = user.calls[index].callDuration;
     durationOption.addEventListener("change", function (event) {
       let content = event.target.value;
-      updateUser(user.id, index, { callDuration: Number(content) });
+      updateUser(user.id, { callDuration: Number(content) }, index);
     });
 
     const potentialOption =
@@ -172,9 +180,13 @@ const renderCall = (eventCard, user, index) => {
     potentialOption.value = user.calls[index].conversionPotential;
     potentialOption.addEventListener("change", function (event) {
       let content = event.target.value;
-      userUpdated = updateUser(user.id, index, {
-        conversionPotential: Number(content),
-      });
+      userUpdated = updateUser(
+        user.id,
+        {
+          conversionPotential: Number(content),
+        },
+        index
+      );
     });
 
     const clousureOption =
@@ -182,26 +194,38 @@ const renderCall = (eventCard, user, index) => {
     clousureOption.value = user.calls[index].callClosure;
     clousureOption.addEventListener("change", function (event) {
       let content = event.target.value;
-      userUpdated = updateUser(user.id, index, {
-        callClosure: Number(content),
-      });
+      userUpdated = updateUser(
+        user.id,
+        {
+          callClosure: Number(content),
+        },
+        index
+      );
     });
 
     const technicalOption =
       editableCallContainer.querySelector("#technical-option");
     technicalOption.value = user.calls[index].technicalQuality;
     technicalOption.addEventListener("change", function (event) {
+      console.log("estás cambiando technical");
       let content = event.target.value;
-      userUpdated = updateUser(user.id, index, {
-        technicalQuality: Number(content),
-      });
+      userUpdated = updateUser(
+        user.id,
+        {
+          technicalQuality: Number(content),
+        },
+        index
+      );
     });
   }
-  //EventListener para el botón de finalizar
 
+  //EventListener para el botón de finalizar
   eventCard
     .querySelector(".finish-edit--button")
     .addEventListener("click", function () {
+      console.log("estás cambiando el rating general");
+      const newCallRating = calculateGeneralRating(userUpdated);
+      userUpdated = updateUser(user.id, newCallRating);
       eventCard.innerHTML = "";
       createDataCall(eventCard, userUpdated);
     });
@@ -210,7 +234,8 @@ const renderCall = (eventCard, user, index) => {
 //Función para crear el div con la info de la llamada
 const createDataCall = (eventCard, user) => {
   const callArray = user.calls;
-  console.log(callArray);
+  console.log("callArray", callArray);
+
   if (callArray.length === 0) {
     const emptyCallContainer = document.createElement("div");
     emptyCallContainer.className = "sub-section--container";
@@ -266,6 +291,7 @@ const createDataCall = (eventCard, user) => {
   });
 };
 
+//Falta actualizar el rating general
 const createCall = () => {
   const callContainer = document.createElement("div");
   callContainer.className = "sub-section--container";
@@ -376,7 +402,7 @@ const calculateGeneralRating = (person) => {
     person.emails.openRate * 0.2 +
     person.emails.block * -0.1 +
     person.emails.rebound * -0.1;
-  const emailRating = (emailValue / 2) * 5;
+  const emailRating = ((emailValue / 2) * 5) / 10;
   person.emails.rating = emailRating;
 
   //Calculamos el Call Rating
@@ -392,6 +418,8 @@ const calculateGeneralRating = (person) => {
         call.callDuration * 0.1 +
         call.technicalQuality * 0.15;
       callsRating.push(callRate);
+      call.callRating = callRate.toFixed(1);
+      console.log("callRating", call.callRating);
     });
 
     const sumAllRates = callsRating.reduce(
@@ -403,23 +431,27 @@ const calculateGeneralRating = (person) => {
   }
 
   //Final rating
-  person.overallRating = ((emailRating + totalCallsRating) / 10).toFixed(2);
-  console.log(person.overallRating);
+  person.overallRating = (emailRating + totalCallsRating).toFixed(1);
+  //console.log(person.overallRating);
   return person;
 };
 
 //Función que actualiza la información de un contacto
-const updateUser = (id, callIndex, propToChange) => {
+const updateUser = (id, propToChange, callIndex) => {
   const userDataLocalStorage = JSON.parse(localStorage.getItem("users"));
   const index = userDataLocalStorage.findIndex((user) => user.id === id);
-  console.log(propToChange);
+  console.log("prop to change", propToChange);
 
   //Actualizamos el user entero
-  if (callIndex === false) {
+  if (callIndex === undefined) {
     userDataLocalStorage[index] = {
       ...userDataLocalStorage[index],
       ...propToChange,
     };
+    console.log("updated entire user", userDataLocalStorage[index]);
+    const usersToStr = JSON.stringify(userDataLocalStorage);
+    localStorage.setItem("users", usersToStr);
+    return userDataLocalStorage[index];
   }
 
   //Actualizamos las llamadas de un User
@@ -428,7 +460,7 @@ const updateUser = (id, callIndex, propToChange) => {
       ...userDataLocalStorage[index].calls[callIndex],
       ...propToChange,
     };
-    console.log(userDataLocalStorage[index].calls[callIndex]);
+    console.log("call updated", userDataLocalStorage[index].calls[callIndex]);
     const usersToStr = JSON.stringify(userDataLocalStorage);
     localStorage.setItem("users", usersToStr);
     return userDataLocalStorage[index];
@@ -441,7 +473,7 @@ const renderData = () => {
   const usersLocalStorage = JSON.parse(localStorage.getItem("users"));
   usersLocalStorage.forEach((user) => {
     const newUserData = calculateGeneralRating(user);
-    updateUser(user.id, false, newUserData);
+    updateUser(user.id, newUserData);
 
     const userCard = document.createElement("div");
     userCard.className = "event-card user-card grid-cell margin--bt__24";
