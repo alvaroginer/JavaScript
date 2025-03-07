@@ -242,11 +242,11 @@ const createDataCall = (eventCard, user) => {
     emptyCallContainer.className = "sub-section--container";
     emptyCallContainer.innerHTML = `<p>No calls registred, <span class="start-call-button">start one now.</span></p>`;
     eventCard.appendChild(emptyCallContainer);
-  }
-  callArray.forEach((call, index) => {
-    const callInfoContainer = document.createElement("div");
-    callInfoContainer.className = "sub-section--container";
-    callInfoContainer.innerHTML = `<div class="display--flex space--between align-itmes__center">
+  } else {
+    callArray.forEach((call, index) => {
+      const callInfoContainer = document.createElement("div");
+      callInfoContainer.className = "sub-section--container";
+      callInfoContainer.innerHTML = `<div class="display--flex space--between align-itmes__center">
                     <p class="margin-none">Call ${index + 1}</p>
                     <p class="sub-section--rating--container">${
                       call.callRating
@@ -281,18 +281,30 @@ const createDataCall = (eventCard, user) => {
                     </div>
                   </div>
                 `;
-    eventCard.appendChild(callInfoContainer);
+      eventCard.appendChild(callInfoContainer);
 
-    console.log(call);
-    callInfoContainer
-      .querySelector(".edit--button")
-      .addEventListener("click", function () {
-        renderCall(eventCard, user, index);
-      });
-  });
+      console.log(call);
+      callInfoContainer
+        .querySelector(".edit--button")
+        .addEventListener("click", function () {
+          renderCall(eventCard, user, index);
+        });
+    });
+  }
+
+  //Modificamos el rating general
+  const ratingContainerText = eventCard.closest(".event-card--text");
+  if (ratingContainerText) {
+    //ratingContainerText.textContent = `${user.overallRating}`;
+    console.log("está encontrado el event-card--text");
+    ratingContainerText.querySelector(
+      ".rating-container--text"
+    ).textContent = `${user.overallRating}`;
+  }
 };
 
 //Falta actualizar el rating general
+//Función para añadir y modificar calls en una card
 const createCall = () => {
   const callContainer = document.createElement("div");
   callContainer.className = "sub-section--container";
@@ -452,6 +464,10 @@ const updateUser = (id, propToChange, callIndex) => {
     console.log("updated entire user", userDataLocalStorage[index]);
     const usersToStr = JSON.stringify(userDataLocalStorage);
     localStorage.setItem("users", usersToStr);
+    console.log(
+      "esto es users en local",
+      JSON.parse(localStorage.getItem("users"))
+    );
     return userDataLocalStorage[index];
   }
 
@@ -469,9 +485,10 @@ const updateUser = (id, propToChange, callIndex) => {
 };
 
 //renderizamos la información y creamos el html con los user-cards
+//Aquí hay un error porque una vez se llama renderData los addEventListeners se quedan con el user que carga al principio, habría que actualizar rendercall de alguna manera para que se actualice el user que se envía al cargar createDataCall
 const usersContainer = document.querySelector(".users-grid");
 const renderData = () => {
-  const usersLocalStorage = JSON.parse(localStorage.getItem("users"));
+  let usersLocalStorage = JSON.parse(localStorage.getItem("users"));
   usersLocalStorage.forEach((user) => {
     const newUserData = calculateGeneralRating(user);
     updateUser(user.id, newUserData);
@@ -481,7 +498,7 @@ const renderData = () => {
     userCard.innerHTML = `<div class="event-card--text">
           <div class="display--flex">
             <div>
-              <div class="rating-container">${user.overallRating}</div>
+              <div class="rating-container"><p class="margin-none rating-container--text">${user.overallRating}</p></div>
               <p class="margin-none text-align-center font-size__12">
                 ID: ${user.id}
               </p>
@@ -537,7 +554,7 @@ const renderData = () => {
           ).style.borderRadius = "0 5px 5px 5px";
           userCard.querySelector(".event-card--sub-section").style.display =
             "block";
-          createDataCall(subSectionContainer, user);
+          createDataCall(subSectionContainer, user); //aquí parece que está el problema
         } else {
           userCard.querySelector(
             ".event-card--sub-section"
