@@ -20,7 +20,7 @@ uploadData();
 
 //hola hola
 //Función para añadir poder editar una llamada
-const renderCall = (eventCard, user, index) => {
+const editCall = (eventCard, user, index) => {
   eventCard.innerHTML = "";
   const editableCallContainer = document.createElement("div");
   editableCallContainer.className = "sub-section--container";
@@ -228,12 +228,12 @@ const renderCall = (eventCard, user, index) => {
       const newCallRating = calculateGeneralRating(userUpdated);
       userUpdated = updateUser(user.id, newCallRating);
       eventCard.innerHTML = "";
-      createDataCall(eventCard, userUpdated);
+      showDataCall(eventCard, userUpdated);
     });
 };
 
 //Función para crear el div con la info de la llamada
-const createDataCall = (eventCard, user) => {
+const showDataCall = (eventCard, user) => {
   const callArray = user.calls;
   console.log("callArray", callArray);
 
@@ -287,7 +287,7 @@ const createDataCall = (eventCard, user) => {
       callInfoContainer
         .querySelector(".edit--button")
         .addEventListener("click", function () {
-          renderCall(eventCard, user, index);
+          editCall(eventCard, user, index);
         });
     });
   }
@@ -301,108 +301,6 @@ const createDataCall = (eventCard, user) => {
       ".rating-container--text"
     ).textContent = `${user.overallRating}`;
   }
-};
-
-//Falta actualizar el rating general
-//Función para añadir y modificar calls en una card
-const createCall = () => {
-  const callContainer = document.createElement("div");
-  callContainer.className = "sub-section--container";
-  callContainer.innerHTML = `<div class="display--flex space--between align-itmes__center">
-                    <p class="margin-none">Call 1</p>
-                    <p class="sub-section--rating--container">4.3</p>
-                  </div>
-                  <hr />
-                  <div class="display--flex">
-                    <div>
-                      <div
-                        class="display--flex align-itmes__center space--between"
-                      >
-                        <p class="sub-section--container__title">Interest:</p>
-                        <select
-                          name="interestRating"
-                          class="sub-section--select-number margin--left__6"
-                          id=""
-                        >
-                          <option value="text">1</option>
-                          <option value="text">2</option>
-                          <option value="text">3</option>
-                          <option value="text">4</option>
-                          <option value="text">5</option>
-                        </select>
-                      </div>
-                      <div
-                        class="display--flex align-itmes__center space--between"
-                      >
-                        <p class="sub-section--container__title">Objections:</p>
-                        <select
-                          name="interestRating"
-                          class="sub-section--select-number margin--left__6"
-                          id=""
-                        >
-                          <option value="text">1</option>
-                          <option value="text">2</option>
-                          <option value="text">3</option>
-                          <option value="text">4</option>
-                          <option value="text">5</option>
-                        </select>
-                      </div>
-                      <div
-                        class="display--flex align-itmes__center space--between"
-                      >
-                        <p class="sub-section--container__title">Duration:</p>
-                        <select
-                          name="interestRating"
-                          class="sub-section--select-number margin--left__6"
-                          id=""
-                        >
-                          <option value="text">1</option>
-                          <option value="text">2</option>
-                          <option value="text">3</option>
-                          <option value="text">4</option>
-                          <option value="text">5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="margin--left__12">
-                      <div
-                        class="display--flex align-itmes__center space--between"
-                      >
-                        <p class="sub-section--container__title">Potential:</p>
-                        <select
-                          name="interestRating"
-                          class="sub-section--select-number margin--left__6"
-                          id=""
-                        >
-                          <option value="text">1</option>
-                          <option value="text">2</option>
-                          <option value="text">3</option>
-                          <option value="text">4</option>
-                          <option value="text">5</option>
-                        </select>
-                      </div>
-                      <div
-                        class="display--flex align-itmes__center space--between"
-                      >
-                        <p class="sub-section--container__title">Clousure:</p>
-                        <select
-                          name="interestRating"
-                          class="sub-section--select-number margin--left__6"
-                          id=""
-                        >
-                          <option value="text">1</option>
-                          <option value="text">2</option>
-                          <option value="text">3</option>
-                          <option value="text">4</option>
-                          <option value="text">5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="display--flex width__100 align-items__flex-end justify-content-right">
-                      <button class="finish-edit--button margin--left__12">Finish</button>
-                    </div>
-                  </div>`;
-  return callContainer;
 };
 
 //Función para crear el GeneralRating
@@ -485,7 +383,7 @@ const updateUser = (id, propToChange, callIndex) => {
 };
 
 //renderizamos la información y creamos el html con los user-cards
-//Aquí hay un error porque una vez se llama renderData los addEventListeners se quedan con el user que carga al principio, habría que actualizar rendercall de alguna manera para que se actualice el user que se envía al cargar createDataCall
+//Aquí hay un error porque una vez se llama renderData los addEventListeners se quedan con el user que carga al principio, habría que actualizar rendercall de alguna manera para que se actualice el user que se envía al cargar showDataCall
 const usersContainer = document.querySelector(".users-grid");
 const renderData = () => {
   let usersLocalStorage = JSON.parse(localStorage.getItem("users"));
@@ -554,7 +452,7 @@ const renderData = () => {
           ).style.borderRadius = "0 5px 5px 5px";
           userCard.querySelector(".event-card--sub-section").style.display =
             "block";
-          createDataCall(subSectionContainer, user); //aquí parece que está el problema
+          showDataCall(subSectionContainer, user); //aquí parece que está el problema
         } else {
           userCard.querySelector(
             ".event-card--sub-section"
