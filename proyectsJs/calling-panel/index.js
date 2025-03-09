@@ -20,8 +20,8 @@ uploadData();
 
 //hola hola
 //Función para añadir poder editar una llamada
-const editCall = (eventCard, user, index) => {
-  eventCard.innerHTML = "";
+const editCall = (subSection, user, index) => {
+  subSection.innerHTML = "";
   const editableCallContainer = document.createElement("div");
   editableCallContainer.className = "sub-section--container";
   editableCallContainer.innerHTML = `<div class="display--flex space--between align-itmes__center">
@@ -134,7 +134,7 @@ const editCall = (eventCard, user, index) => {
                       <button class="finish-edit--button">Finish</button>
                     </div>
                   </div>`;
-  eventCard.appendChild(editableCallContainer);
+  subSection.appendChild(editableCallContainer);
 
   //eventListener for the forms
   let userUpdated = "";
@@ -221,19 +221,19 @@ const editCall = (eventCard, user, index) => {
   }
 
   //EventListener para el botón de finalizar
-  eventCard
+  subSection
     .querySelector(".finish-edit--button")
     .addEventListener("click", function () {
       console.log("estás cambiando el rating general");
       const newCallRating = calculateGeneralRating(userUpdated);
       userUpdated = updateUser(user.id, newCallRating);
-      eventCard.innerHTML = "";
-      showDataCall(eventCard, userUpdated);
+      subSection.innerHTML = "";
+      showDataCall(subSection, userUpdated);
     });
 };
 
 //Función para crear el div con la info de la llamada
-const showDataCall = (eventCard, user) => {
+const showDataCall = (subSection, user) => {
   const callArray = user.calls;
   console.log("callArray", callArray);
 
@@ -241,9 +241,10 @@ const showDataCall = (eventCard, user) => {
     const emptyCallContainer = document.createElement("div");
     emptyCallContainer.className = "sub-section--container";
     emptyCallContainer.innerHTML = `<p>No calls registred, <span class="start-call-button">start one now.</span></p>`;
-    eventCard.appendChild(emptyCallContainer);
+    subSection.appendChild(emptyCallContainer);
   } else {
     callArray.forEach((call, index) => {
+      //hay que hacer el updateUser
       const callInfoContainer = document.createElement("div");
       callInfoContainer.className = "sub-section--container";
       callInfoContainer.innerHTML = `<div class="display--flex space--between align-itmes__center">
@@ -281,22 +282,22 @@ const showDataCall = (eventCard, user) => {
                     </div>
                   </div>
                 `;
-      eventCard.appendChild(callInfoContainer);
+      subSection.appendChild(callInfoContainer);
 
       console.log(call);
       callInfoContainer
         .querySelector(".edit--button")
         .addEventListener("click", function () {
-          editCall(eventCard, user, index);
+          editCall(subSection, user, index);
         });
     });
   }
 
   //Modificamos el rating general
-  const ratingContainerText = eventCard.closest(".event-card--text");
+  const ratingContainerText = subSection.closest(".event-card--text");
   if (ratingContainerText) {
     //ratingContainerText.textContent = `${user.overallRating}`;
-    console.log("está encontrado el event-card--text");
+    console.log("está mostrandonel rating correcto");
     ratingContainerText.querySelector(
       ".rating-container--text"
     ).textContent = `${user.overallRating}`;
@@ -351,7 +352,7 @@ const calculateGeneralRating = (person) => {
 const updateUser = (id, propToChange, callIndex) => {
   const userDataLocalStorage = JSON.parse(localStorage.getItem("users"));
   const index = userDataLocalStorage.findIndex((user) => user.id === id);
-  console.log("prop to change", propToChange);
+  //console.log("prop to change", propToChange);
 
   //Actualizamos el user entero
   if (callIndex === undefined) {
@@ -359,13 +360,10 @@ const updateUser = (id, propToChange, callIndex) => {
       ...userDataLocalStorage[index],
       ...propToChange,
     };
-    console.log("updated entire user", userDataLocalStorage[index]);
+    //console.log("updated entire user", userDataLocalStorage[index]);
     const usersToStr = JSON.stringify(userDataLocalStorage);
     localStorage.setItem("users", usersToStr);
-    console.log(
-      "esto es users en local",
-      JSON.parse(localStorage.getItem("users"))
-    );
+    //console.log("esto es users en local", JSON.parse(localStorage.getItem("users")));
     return userDataLocalStorage[index];
   }
 
@@ -382,15 +380,18 @@ const updateUser = (id, propToChange, callIndex) => {
   }
 };
 
-//renderizamos la información y creamos el html con los user-cards
-//Aquí hay un error porque una vez se llama renderData los addEventListeners se quedan con el user que carga al principio, habría que actualizar rendercall de alguna manera para que se actualice el user que se envía al cargar showDataCall
 const usersContainer = document.querySelector(".users-grid");
-const renderData = () => {
-  let usersLocalStorage = JSON.parse(localStorage.getItem("users"));
+const renderUsers = () => {
+  //Update users with the new data
+  const usersLocalStorage = JSON.parse(localStorage.getItem("users"));
   usersLocalStorage.forEach((user) => {
     const newUserData = calculateGeneralRating(user);
     updateUser(user.id, newUserData);
+  });
 
+  const finalUsers = JSON.parse(localStorage.getItem("users"));
+  console.log("finalusers", finalUsers);
+  finalUsers.forEach((user, index) => {
     const userCard = document.createElement("div");
     userCard.className = "event-card user-card grid-cell margin--bt__24";
     userCard.innerHTML = `<div class="event-card--text">
@@ -435,33 +436,29 @@ const renderData = () => {
       ".event-card--sub-section"
     );
 
-    userCard
-      .querySelector(".calls-button-section")
-      .addEventListener("click", function () {
-        console.log("botón llamada funciona");
-        userCard
-          .querySelector(".calls-button-section")
-          .classList.toggle("button-container--button__selected");
-        if (
-          userCard
-            .querySelector(".calls-button-section")
-            .classList.contains("button-container--button__selected")
-        ) {
-          userCard.querySelector(
-            ".event-card--sub-section"
-          ).style.borderRadius = "0 5px 5px 5px";
-          userCard.querySelector(".event-card--sub-section").style.display =
-            "block";
-          showDataCall(subSectionContainer, user); //aquí parece que está el problema
-        } else {
-          userCard.querySelector(
-            ".event-card--sub-section"
-          ).style.borderRadius = "5px";
-          userCard.querySelector(".event-card--sub-section").style.display =
-            "none";
-          subSectionContainer.innerHTML = "";
-        }
-      });
+    console.log("in localStorage", JSON.parse(localStorage.getItem("users")));
+
+    const callSection = userCard.querySelector(".calls-button-section");
+    callSection.addEventListener("click", function () {
+      callSection.classList.toggle("button-container--button__selected");
+      if (
+        callSection.classList.contains("button-container--button__selected")
+      ) {
+        userCard.querySelector(".event-card--sub-section").style.borderRadius =
+          "0 5px 5px 5px";
+        userCard.querySelector(".event-card--sub-section").style.display =
+          "block";
+
+        let loadUsers = JSON.parse(localStorage.getItem("users"));
+        showDataCall(subSectionContainer, loadUsers[index]);
+      } else {
+        userCard.querySelector(".event-card--sub-section").style.borderRadius =
+          "5px";
+        userCard.querySelector(".event-card--sub-section").style.display =
+          "none";
+        subSectionContainer.innerHTML = "";
+      }
+    });
 
     userCard
       .querySelector(".mails-button-section")
@@ -510,7 +507,7 @@ const renderData = () => {
       });
   });
 };
-renderData();
+renderUsers();
 
 // More functionalities
 /* Sort by:
