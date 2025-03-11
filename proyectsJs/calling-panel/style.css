@@ -58,6 +58,7 @@ body {
   z-index: -1; /* Se coloca detrás */
   position: relative; /* Mantiene el flujo del documento */
   margin-top: -6px; /* Lo sube para que quede justo detrás del event-card */
+  display: none;
 }
 
 .sub-section--header {

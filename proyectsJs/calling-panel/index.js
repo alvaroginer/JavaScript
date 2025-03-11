@@ -233,8 +233,10 @@ const editCall = (subSection, user, index) => {
 };
 
 const paintInputs = (checkBoxContainer, value) => {
-  const checkBoxes = checkBoxContainer.querySelectorAll(".step-checkbox");
-  for (let i = 0; i <= value; i++) {
+  let checkBoxes = checkBoxContainer.querySelectorAll(".step-checkbox");
+  console.log(checkBoxes);
+  for (let i = 0; i < value; i++) {
+    console.log(value);
     if (checkBoxes[i]) {
       checkBoxes[i].style.backgroundColor = "#617383";
     }
@@ -247,8 +249,8 @@ const showDataCall = (subSection, user) => {
   console.log("callArray", callArray);
 
   if (callArray.length === 0) {
+    //subSection.querySelector(".sub-section--header").style.display = "none";
     const emptyCallContainer = document.createElement("div");
-    emptyCallContainer.className = "event-card--sub-section";
     emptyCallContainer.innerHTML = `<p>No calls registred, <span class="start-call-button">start one now.</span></p>`;
     subSection.appendChild(emptyCallContainer);
     return emptyCallContainer;
@@ -256,14 +258,10 @@ const showDataCall = (subSection, user) => {
     callArray.forEach((call, index) => {
       //hay que hacer el updateUser
       const callInfoContainer = document.createElement("div");
-      callInfoContainer.className = "event-card--sub-section";
-      callInfoContainer.innerHTML = `<div class="sub-section--header">
-            <p class="sub-section--header__title">Llamadas</p>
-            <button class="sub-section--header__button">+</button>
-          </div>
-          <div class="call-card">
+      callInfoContainer.className = "call-card";
+      callInfoContainer.innerHTML = `
             <div class="call-card--header">
-              <p class="call--title">Llamada 1</p>
+              <p class="call--title">Llamada ${index + 1}</p>
               <div class="call--header__data-container">
                 <div class="title-container">
                   <p class="title-container--text__orange">Fecha</p>
@@ -279,32 +277,32 @@ const showDataCall = (subSection, user) => {
             <hr>
             <div class="call-card--main display--flex space--between">
               <div class="main--data-container">
-                <div class="data-box">
-                  <p class="data-box--title data-box--interest">Interest</p>
+                <div class="data-box data-box--interest">
+                  <p class="data-box--title">Interest</p>
                   <input type="checkbox" class="step-checkbox">
                   <input type="checkbox" class="step-checkbox">
                   <input type="checkbox" class="step-checkbox">
                   <input type="checkbox" class="step-checkbox">
                   <input type="checkbox" class="step-checkbox">
                 </div>
-                <div class="data-box">
-                  <p class="data-box--title data-box--objections">Objections</p>
+                <div class="data-box data-box--objections">
+                  <p class="data-box--title">Objections</p>
                   <input type="checkbox" class="step-checkbox">
                   <input type="checkbox" class="step-checkbox">
                   <input type="checkbox" class="step-checkbox">
                   <input type="checkbox" class="step-checkbox">
                   <input type="checkbox" class="step-checkbox">
                 </div>
-                <div class="data-box">
-                  <p class="data-box--title data-box--potential">Potential</p>
+                <div class="data-box data-box--potential">
+                  <p class="data-box--title">Potential</p>
                   <input type="checkbox" class="step-checkbox">
                   <input type="checkbox" class="step-checkbox">
                   <input type="checkbox" class="step-checkbox">
                   <input type="checkbox" class="step-checkbox">
                   <input type="checkbox" class="step-checkbox">
                 </div>
-                <div class="data-box">
-                  <p class="data-box--title data-box--clousure">Clousure</p>
+                <div class="data-box data-box--clousure">
+                  <p class="data-box--title">Clousure</p>
                   <input type="checkbox" class="step-checkbox">
                   <input type="checkbox" class="step-checkbox">
                   <input type="checkbox" class="step-checkbox">
@@ -323,37 +321,45 @@ const showDataCall = (subSection, user) => {
       subSection.appendChild(callInfoContainer);
 
       //Pintas los cuadrados de los distintos colores
-      const dataInterest = subSection.querySelector(".data-box--interest");
+      const dataInterest = callInfoContainer.querySelector(
+        ".data-box--interest"
+      );
       if (dataInterest) {
         paintInputs(dataInterest, call.customerInterest);
       }
 
-      const dataObjections = subSection.querySelector(".data-box--objections");
+      const dataObjections = callInfoContainer.querySelector(
+        ".data-box--objections"
+      );
       if (dataObjections) {
         paintInputs(dataObjections, call.objectionsRaised);
       }
 
-      const dataPotential = subSection.querySelector(".data-box--interest");
+      const dataPotential = callInfoContainer.querySelector(
+        ".data-box--potential"
+      );
       if (dataPotential) {
         paintInputs(dataPotential, call.conversionPotential);
       }
 
-      const dataClousure = subSection.querySelector(".data-box--clousure");
-      if (dataInterest) {
-        paintInputs(dataInterest, call.callClosure);
+      const dataClousure = callInfoContainer.querySelector(
+        ".data-box--clousure"
+      );
+      if (dataClousure) {
+        paintInputs(dataClousure, call.callClosure);
       }
     });
   }
 
-  //Modificamos el rating general
-  const ratingContainerText = subSection.closest(".event-card--text");
-  if (ratingContainerText) {
-    //ratingContainerText.textContent = `${user.overallRating}`;
-    console.log("está mostrandonel rating correcto");
-    ratingContainerText.querySelector(
-      ".rating-container--text"
-    ).textContent = `${user.overallRating}`;
-  }
+  // //Modificamos el rating general
+  // const ratingContainerText = subSection.closest(".event-card--text");
+  // if (ratingContainerText) {
+  //   //ratingContainerText.textContent = `${user.overallRating}`;
+  //   console.log("está mostrandonel rating correcto");
+  //   ratingContainerText.querySelector(
+  //     ".rating-container--text"
+  //   ).textContent = `${user.overallRating}`;
+  // }
 };
 
 //Función para crear el GeneralRating
@@ -478,25 +484,32 @@ const renderUsers = () => {
               <img src="./imgs/account-box-edit-outline.svg" alt="" />
             </button>
           </div>
-          
-          </div>`;
+          </div>
+          <div class="event-card--sub-section">
+          <div class="sub-section--header">
+            <p class="sub-section--header__title">Llamadas</p>
+            <button class="sub-section--header__button">+</button>
+          </div>
+          <div class="call-cards--container"></div>`;
     usersContainer.appendChild(userCard);
 
     //console.log("in localStorage", JSON.parse(localStorage.getItem("users")));
 
     const callSection = userCard.querySelector(".calls-button-section");
+    const callCardsContainer = userCard.querySelector(".call-cards--container");
     callSection.addEventListener("click", function () {
       callSection.classList.toggle("button-container--button__selected");
       let loadUsers = JSON.parse(localStorage.getItem("users"));
       if (
         callSection.classList.contains("button-container--button__selected")
       ) {
-        showDataCall(userCard, loadUsers[index]);
+        userCard.querySelector(".event-card--sub-section").style.display =
+          "block";
+        showDataCall(callCardsContainer, loadUsers[index]);
       } else {
-        const subSectionContainer = userCard.querySelector(
-          ".event-card--sub-section"
-        );
-        subSectionContainer.remove();
+        userCard.querySelector(".event-card--sub-section").style.display =
+          "none";
+        callCardsContainer.innerHTML = "";
       }
     });
 
