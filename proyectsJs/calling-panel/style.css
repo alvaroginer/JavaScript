@@ -33,7 +33,7 @@ body {
   width: 100%;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 20;
   padding-top: 10px;
   backdrop-filter: blur(0px) saturate(180%);
   -webkit-backdrop-filter: blur(0px) saturate(180%);
@@ -129,6 +129,10 @@ body {
   height: 16px;
   border: 1px solid #787878;
 }
+
+/* .step-checkbox:checked {
+  background-color: #617383;
+} */
 
 /* .sub-section--container {
   background-color: white;
