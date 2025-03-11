@@ -232,6 +232,15 @@ const editCall = (subSection, user, index) => {
     });
 };
 
+const paintInputs = (checkBoxContainer, value) => {
+  const checkBoxes = checkBoxContainer.querySelectorAll(".step-checkbox");
+  for (let i = 0; i <= value; i++) {
+    if (checkBoxes[i]) {
+      checkBoxes[i].style.backgroundColor = "#617383";
+    }
+  }
+};
+
 //Función para crear el div con la info de la llamada
 const showDataCall = (subSection, user) => {
   const callArray = user.calls;
@@ -239,57 +248,100 @@ const showDataCall = (subSection, user) => {
 
   if (callArray.length === 0) {
     const emptyCallContainer = document.createElement("div");
-    emptyCallContainer.className = "sub-section--container";
+    emptyCallContainer.className = "event-card--sub-section";
     emptyCallContainer.innerHTML = `<p>No calls registred, <span class="start-call-button">start one now.</span></p>`;
     subSection.appendChild(emptyCallContainer);
+    return emptyCallContainer;
   } else {
     callArray.forEach((call, index) => {
       //hay que hacer el updateUser
       const callInfoContainer = document.createElement("div");
-      callInfoContainer.className = "sub-section--container";
-      callInfoContainer.innerHTML = `<div class="display--flex space--between align-itmes__center">
-                    <p class="margin-none">Call ${index + 1}</p>
-                    <p class="sub-section--rating--container">${
-                      call.callRating
-                    }</p>
-                  </div>
-                  <hr />
-                  <div class="display--flex">
-                    <div class"width__100">
-                        <p class="sub-section--container__title">Interest: <span class="call-interest-text">${
-                          call.customerInterest
-                        }</span></p>
-                        <p class="sub-section--container__title">Objections:  <span class="call-objections-text">${
-                          call.objectionsRaised
-                        }</span></p>
-                        <p class="sub-section--container__title">Duration: <span class="call-duration-text">${
-                          call.conversionPotential
-                        }</span></p>
-                    </div>
-                    <div class="margin--left__12">
-                        <p class="sub-section--container__title">Potential: <span class="call-potential-text">${
-                          call.conversionPotential
-                        }</span></p>
-                        <p class="sub-section--container__title">Clousure: <span class="call-clousure-text">${
-                          call.callClosure
-                        }</span></p>
-                        <p class="sub-section--container__title">Technical: <span class="call-clousure-text">${
-                          call.technicalQuality
-                        }</span></p>
-                    </div>
-                    <div class="display--flex align-items__flex-end margin_12 justify-content-right">
-                      <button class="edit--button">Edit</button>
-                    </div>
-                  </div>
-                `;
+      callInfoContainer.className = "event-card--sub-section";
+      callInfoContainer.innerHTML = `<div class="sub-section--header">
+            <p class="sub-section--header__title">Llamadas</p>
+            <button class="sub-section--header__button">+</button>
+          </div>
+          <div class="call-card">
+            <div class="call-card--header">
+              <p class="call--title">Llamada 1</p>
+              <div class="call--header__data-container">
+                <div class="title-container">
+                  <p class="title-container--text__orange">Fecha</p>
+                  <p class="title-container--text__grey">12/11/25</p>
+                </div>
+                <div class="title-container">
+                  <p class="title-container--text__orange">Duración</p>
+                  <p class="title-container--text__grey">00:12:24</p>
+                </div>
+                <button class="sub-section--header__button">...</button>
+              </div>
+            </div>
+            <hr>
+            <div class="call-card--main display--flex space--between">
+              <div class="main--data-container">
+                <div class="data-box">
+                  <p class="data-box--title data-box--interest">Interest</p>
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                </div>
+                <div class="data-box">
+                  <p class="data-box--title data-box--objections">Objections</p>
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                </div>
+                <div class="data-box">
+                  <p class="data-box--title data-box--potential">Potential</p>
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                </div>
+                <div class="data-box">
+                  <p class="data-box--title data-box--clousure">Clousure</p>
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                  <input type="checkbox" class="step-checkbox">
+                </div>
+              </div>
+              <div class="text-align-center display--flex align-itmes__center">
+                <div class="main--call-rating">
+                  <p class="call-rating--title">Call rate</p>
+                  <p class="call-rating--number">${call.callRating}</p>
+                </div>
+              </div>
+            </div>
+          </div>`;
       subSection.appendChild(callInfoContainer);
 
-      console.log(call);
-      callInfoContainer
-        .querySelector(".edit--button")
-        .addEventListener("click", function () {
-          editCall(subSection, user, index);
-        });
+      //Pintas los cuadrados de los distintos colores
+      const dataInterest = subSection.querySelector(".data-box--interest");
+      if (dataInterest) {
+        paintInputs(dataInterest, call.customerInterest);
+      }
+
+      const dataObjections = subSection.querySelector(".data-box--objections");
+      if (dataObjections) {
+        paintInputs(dataObjections, call.objectionsRaised);
+      }
+
+      const dataPotential = subSection.querySelector(".data-box--interest");
+      if (dataPotential) {
+        paintInputs(dataPotential, call.conversionPotential);
+      }
+
+      const dataClousure = subSection.querySelector(".data-box--clousure");
+      if (dataInterest) {
+        paintInputs(dataInterest, call.callClosure);
+      }
     });
   }
 
@@ -393,23 +445,21 @@ const renderUsers = () => {
   console.log("finalusers", finalUsers);
   finalUsers.forEach((user, index) => {
     const userCard = document.createElement("div");
-    userCard.className = "event-card user-card grid-cell margin--bt__24";
-    userCard.innerHTML = `<div class="event-card--text">
+    userCard.className = "card width__100";
+    userCard.innerHTML = `<div class="event-card user-card grid-cell">
           <div class="display--flex">
             <div>
-              <div class="rating-container"><p class="margin-none rating-container--text">${user.overallRating}</p></div>
-              <p class="margin-none text-align-center font-size__12">
-                ID: ${user.id}
-              </p>
+              <div class="rating-container">
+                <p class="margin-none">${user.overallRating}</p>
+              </div>
+              <p class="margin-none text-align-center font-size__12">ID: ${user.id}</p>
             </div>
-            <div
-              class="event-card--text__p display--flex flex-direction-column margin--left__24"
-            >
+            <div class="event-card--text__p display--flex flex-direction-column margin--left__24">
               <h3 class="event-card--text__title">${user.name}</h3>
               <div class="display--flex">
                 <p class="margin-none color-orange">Estado:</p>
-                <select name="userState" id="" class="margin--left__6">
-                  <option class="" value="text">Interesado</option>
+                <select name="userState" class="margin--left__6">
+                  <option value="text">Interesado</option>
                   <option value="text">No interesado</option>
                   <option value="text">Conversión</option>
                 </select>
@@ -417,9 +467,7 @@ const renderUsers = () => {
             </div>
           </div>
           <hr />
-          <div
-            class="event-card--button-container display--flex space--between"
-          >
+          <div class="event-card--button-container display--flex space--between">
             <button class="button-container--button calls-button-section">
               <img src="./imgs/phone.svg" alt="" />
             </button>
@@ -429,34 +477,26 @@ const renderUsers = () => {
             <button class="button-container--button notes-button-section">
               <img src="./imgs/account-box-edit-outline.svg" alt="" />
             </button>
-          </div><div class="event-card--sub-section"></div>`;
+          </div>
+          
+          </div>`;
     usersContainer.appendChild(userCard);
 
-    const subSectionContainer = userCard.querySelector(
-      ".event-card--sub-section"
-    );
-
-    console.log("in localStorage", JSON.parse(localStorage.getItem("users")));
+    //console.log("in localStorage", JSON.parse(localStorage.getItem("users")));
 
     const callSection = userCard.querySelector(".calls-button-section");
     callSection.addEventListener("click", function () {
       callSection.classList.toggle("button-container--button__selected");
+      let loadUsers = JSON.parse(localStorage.getItem("users"));
       if (
         callSection.classList.contains("button-container--button__selected")
       ) {
-        userCard.querySelector(".event-card--sub-section").style.borderRadius =
-          "0 5px 5px 5px";
-        userCard.querySelector(".event-card--sub-section").style.display =
-          "block";
-
-        let loadUsers = JSON.parse(localStorage.getItem("users"));
-        showDataCall(subSectionContainer, loadUsers[index]);
+        showDataCall(userCard, loadUsers[index]);
       } else {
-        userCard.querySelector(".event-card--sub-section").style.borderRadius =
-          "5px";
-        userCard.querySelector(".event-card--sub-section").style.display =
-          "none";
-        subSectionContainer.innerHTML = "";
+        const subSectionContainer = userCard.querySelector(
+          ".event-card--sub-section"
+        );
+        subSectionContainer.remove();
       }
     });
 
@@ -464,46 +504,46 @@ const renderUsers = () => {
       .querySelector(".mails-button-section")
       .addEventListener("click", function () {
         console.log("botón mail funciona");
-        userCard
-          .querySelector(".mails-button-section")
-          .classList.toggle("button-container--button__selected");
-        if (
-          userCard
-            .querySelector(".mails-button-section")
-            .classList.contains("button-container--button__selected")
-        ) {
-          userCard.querySelector(".event-card--sub-section").style.display =
-            "block";
-        } else {
-          userCard.querySelector(".event-card--sub-section").style.display =
-            "none";
-        }
+        // userCard
+        //   .querySelector(".mails-button-section")
+        //   .classList.toggle("button-container--button__selected");
+        // if (
+        //   userCard
+        //     .querySelector(".mails-button-section")
+        //     .classList.contains("button-container--button__selected")
+        // ) {
+        //   userCard.querySelector(".event-card--sub-section").style.display =
+        //     "block";
+        // } else {
+        //   userCard.querySelector(".event-card--sub-section").style.display =
+        //     "none";
+        // }
       });
 
     userCard
       .querySelector(".notes-button-section")
       .addEventListener("click", function () {
         console.log("botón notas funciona");
-        userCard
-          .querySelector(".notes-button-section")
-          .classList.toggle("button-container--button__selected");
-        if (
-          userCard
-            .querySelector(".notes-button-section")
-            .classList.contains("button-container--button__selected")
-        ) {
-          userCard.querySelector(
-            ".event-card--sub-section"
-          ).style.borderRadius = "5px 0 5px 5px";
-          userCard.querySelector(".event-card--sub-section").style.display =
-            "block";
-        } else {
-          userCard.querySelector(
-            ".event-card--sub-section"
-          ).style.borderRadius = "5px";
-          userCard.querySelector(".event-card--sub-section").style.display =
-            "none";
-        }
+        // userCard
+        //   .querySelector(".notes-button-section")
+        //   .classList.toggle("button-container--button__selected");
+        // if (
+        //   userCard
+        //     .querySelector(".notes-button-section")
+        //     .classList.contains("button-container--button__selected")
+        // ) {
+        //   userCard.querySelector(
+        //     ".event-card--sub-section"
+        //   ).style.borderRadius = "5px 0 5px 5px";
+        //   userCard.querySelector(".event-card--sub-section").style.display =
+        //     "block";
+        // } else {
+        //   userCard.querySelector(
+        //     ".event-card--sub-section"
+        //   ).style.borderRadius = "5px";
+        //   userCard.querySelector(".event-card--sub-section").style.display =
+        //     "none";
+        // }
       });
   });
 };

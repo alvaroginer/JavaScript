@@ -142,12 +142,14 @@ body {
 
 .call-rating--title {
   font-weight: 300;
+  margin: 0;
 }
 
 .call-rating--number {
   font-size: 48px;
   font-weight: bold;
   color: #3c3c3c;
+  margin: 0;
 }
 
 /* .step-checkbox:checked {
@@ -226,10 +228,10 @@ body {
     hue-rotate(314deg) brightness(97%) contrast(91%);
 }
 
-.button-container--button__selected {
+/* .button-container--button__selected {
   background-color: rgb(185, 184, 184);
   border-radius: 5px 5px 0 0;
-}
+} */
 
 .button-container--button__selected img {
   filter: brightness(0) saturate(100%) invert(24%) sepia(2%) saturate(6%)
