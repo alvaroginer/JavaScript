@@ -97,6 +97,13 @@ body {
   gap: 10px;
 }
 
+/* .call-cards--container {
+  display: flex;
+  max-width: 600px;
+  overflow: auto;
+  white-space: nowrap;
+} */
+
 .title-container--text__orange {
   font-weight: 400;
   color: #ff8000;
@@ -290,6 +297,10 @@ body {
   display: flex;
 }
 
+.display-inline-block {
+  display: inline-block;
+}
+
 .align-itmes__center {
   align-items: center;
 }
@@ -353,6 +364,10 @@ body {
 
 .item__20 {
   flex: 0 0 20%;
+}
+
+.item__auto {
+  flex: 0, 0, auto;
 }
 
 .scroll-grid {

@@ -451,7 +451,7 @@ const renderUsers = () => {
   console.log("finalusers", finalUsers);
   finalUsers.forEach((user, index) => {
     const userCard = document.createElement("div");
-    userCard.className = "card width__100";
+    userCard.className = "card width__100 display-inline-block";
     userCard.innerHTML = `<div class="event-card user-card grid-cell">
           <div class="display--flex">
             <div>
@@ -496,13 +496,13 @@ const renderUsers = () => {
     const finalRating = userCard.querySelector(".rating-container");
     if (user.overallRating >= 7.5) {
       finalRating.style.background =
-        "linear-gradient(225deg, #c8c3c3, #40AB16)";
+        "linear-gradient(180deg, #c8c3c3, #40AB16)";
     } else if (user.overallRating >= 5 && user.overallRating < 7.5) {
       finalRating.style.background =
-        "linear-gradient(225deg, #c8c3c3, #AB9C16)";
+        "linear-gradient(180deg, #c8c3c3, #AB9C16)";
     } else if (user.overallRating < 5) {
       finalRating.style.background =
-        "linear-gradient(225deg, #c8c3c3, #812433)";
+        "linear-gradient(180deg, #c8c3c3, #812433)";
     }
 
     const callSection = userCard.querySelector(".calls-button-section");
