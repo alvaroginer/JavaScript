@@ -493,19 +493,30 @@ const renderUsers = () => {
           <div class="call-cards--container"></div>`;
     usersContainer.appendChild(userCard);
 
-    //console.log("in localStorage", JSON.parse(localStorage.getItem("users")));
+    const finalRating = userCard.querySelector(".rating-container");
+    if (user.overallRating >= 7.5) {
+      finalRating.style.background =
+        "linear-gradient(225deg, #c8c3c3, #40AB16)";
+    } else if (user.overallRating >= 5 && user.overallRating < 7.5) {
+      finalRating.style.background =
+        "linear-gradient(225deg, #c8c3c3, #AB9C16)";
+    } else if (user.overallRating < 5) {
+      finalRating.style.background =
+        "linear-gradient(225deg, #c8c3c3, #812433)";
+    }
 
     const callSection = userCard.querySelector(".calls-button-section");
     const callCardsContainer = userCard.querySelector(".call-cards--container");
     callSection.addEventListener("click", function () {
       callSection.classList.toggle("button-container--button__selected");
-      let loadUsers = JSON.parse(localStorage.getItem("users"));
+      //let loadUsers = JSON.parse(localStorage.getItem("users"));
+      //console.log("users in local Storage", loadUsers);
       if (
         callSection.classList.contains("button-container--button__selected")
       ) {
         userCard.querySelector(".event-card--sub-section").style.display =
           "block";
-        showDataCall(callCardsContainer, loadUsers[index]);
+        showDataCall(callCardsContainer, finalUsers[index]);
       } else {
         userCard.querySelector(".event-card--sub-section").style.display =
           "none";
