@@ -271,14 +271,17 @@ const showDataCall = (subSection, user) => {
                   <p class="title-container--text__orange">Duración</p>
                   <p class="title-container--text__grey">00:12:24</p>
                 </div>
-                <div>
-                  <button class="sub-section--header__button">...</button>
+                <div class="position-relative">
+                  <button class="sub-section--header__button">
+                    <img src="./imgs/dots-vertical.png" alt="Edit Menu">
+                  </button>
                   <div class="call-card--select">
-                    <div class="display--flex gap--5 align-itmes__center call-card--button call-card--button__edit">
+                    <div class="display--flex gap--5 align-itmes__center call-card--select__button call-card--button__edit">
                       <img class="call-card--button__img" src="./imgs/pencil.png" alt="Edit button">
                       <p>Edit Call</p>
                     </div>
-                    <div class="display--flex gap--5 align-itmes__center call-card--button call-card--button__delete">
+                    <hr>
+                    <div class="display--flex gap--5 align-itmes__center call-card--select__button call-card--button__delete">
                       <img class="call-card--button__img" src="./imgs/delete.png" alt="Edit button">
                       <p>Delete Call</p>
                     </div>
@@ -331,6 +334,28 @@ const showDataCall = (subSection, user) => {
             </div>
           </div>`;
       subSection.appendChild(callInfoContainer);
+
+      //EventListeners
+
+      callInfoContainer
+        .querySelector(".sub-section--header__button")
+        .addEventListener("click", function () {
+          callInfoContainer
+            .querySelector(".call-card--select")
+            .classList.add("call-card--select__active");
+        });
+
+      window.addEventListener("click", function (event) {
+        const callCard = callInfoContainer.querySelector(".call-card--select");
+
+        if (callCard.classList.contains("call-card--select__active")) {
+          if (event.target.closest(".sub-section--header__button")) {
+            return;
+          }
+
+          callCard.classList.remove("call-card--select__active");
+        }
+      });
 
       //Pintas los cuadrados de los distintos colores
       const dataInterest = callInfoContainer.querySelector(
@@ -502,20 +527,16 @@ const renderUsers = () => {
             <p class="sub-section--header__title">Llamadas</p>
             <button class="sub-section--header__button">+</button>
           </div>
-          <div class="call-cards--container"></div>`;
+          <div class="call-cards--container scroll-grid"></div>`;
     usersContainer.appendChild(userCard);
 
     const finalRating = userCard.querySelector(".rating-container");
     if (user.overallRating >= 7.5) {
-      // finalRating.style.background =
-      //   "linear-gradient(180deg, #c8c3c3, #40AB16)";
       finalRating.classList.add("gradient-green");
     } else if (user.overallRating >= 5 && user.overallRating < 7.5) {
-      finalRating.style.background =
-        "linear-gradient(180deg, #c8c3c3, #AB9C16)";
+      finalRating.classList.add("gradient-yellow");
     } else if (user.overallRating < 5) {
-      finalRating.style.background =
-        "linear-gradient(180deg, #c8c3c3, #812433)";
+      finalRating.classList.add("gradient-red");
     }
 
     const callSection = userCard.querySelector(".calls-button-section");

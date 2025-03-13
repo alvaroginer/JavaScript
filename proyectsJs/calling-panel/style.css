@@ -41,6 +41,10 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.125);
 }
 
+/* .card {
+  pointer-events: none;
+} */
+
 .event-card {
   background-color: white;
   border-radius: 5px;
@@ -55,7 +59,7 @@ body {
   background-color: rgb(246, 246, 246);
   padding: 16px;
   border-radius: 0 0px 5px 5px;
-  z-index: -1; /* Se coloca detrás */
+  /*z-index: -1; Se coloca detrás */
   position: relative; /* Mantiene el flujo del documento */
   margin-top: -6px; /* Lo sube para que quede justo detrás del event-card */
   display: none;
@@ -75,6 +79,8 @@ body {
   font-size: 24px;
   color: #3c3c3c;
   font-weight: 700;
+  display: flex;
+  align-items: center;
 }
 
 .call-card {
@@ -94,6 +100,7 @@ body {
 
 .call--header__data-container {
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
@@ -148,7 +155,7 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: #e1e6eb;
+  background-color: #cad8e6;
   border-radius: 12px;
 }
 
@@ -162,6 +169,25 @@ body {
   font-weight: bold;
   color: #3c3c3c;
   margin: 0;
+}
+
+.call-card--select {
+  padding: 10px;
+  background-color: rgb(241, 241, 241);
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 110px;
+  display: none;
+}
+
+.call-card--select__active {
+  display: block;
+}
+
+.call-card--select__button:hover {
+  color: #ff8000;
 }
 
 /* .step-checkbox:checked {
@@ -236,8 +262,7 @@ body {
 }
 
 .button-container--button:hover img {
-  filter: brightness(0) saturate(100%) invert(24%) sepia(2%) saturate(6%)
-    hue-rotate(314deg) brightness(97%) contrast(91%);
+  opacity: 80%;
 }
 
 /* .button-container--button__selected {
@@ -380,9 +405,9 @@ body {
 
 .scroll-grid {
   display: grid;
-  grid-auto-columns: 100%;
+  grid-auto-columns: 40%;
   grid-auto-flow: column;
-  grid-gap: 12px;
+  grid-gap: 24px;
   overflow-x: auto;
 }
 
@@ -407,6 +432,10 @@ body {
 /* Margin */
 .margin--bt__24 {
   margin-bottom: 24px;
+}
+
+.margin--bt__5 {
+  margin-bottom: 5px;
 }
 
 .margin--left__24 {
@@ -461,8 +490,6 @@ body {
   width: 100%;
 }
 
-/* Components */
-
 /* Media Queries */
 /* @media (min-width: 600px) {
   .grid-cell {
@@ -504,27 +531,25 @@ body {
 
 .gradient-green {
   background: linear-gradient(334deg, #c8c3c3, #40ab16);
-  background-size: 180% 180%;
-  animation: gradient-animation 6s ease infinite;
+  background-size: 270% 100%;
+  animation: gradient-green 4s ease infinite;
 }
 
-/* .gradient-yellow {
-	width: 100vw;
-	height: 100vh;
-	background: linear-gradient(334deg, #c8c3c3, #B89233, #AB9C16);
-	background-size: 180% 180%;
-	animation: gradient-animation 6s ease infinite;
+.gradient-yellow {
+  background: linear-gradient(334deg, #c8c3c3, #b89233, #ab9c16);
+  background-size: 270% 100%;
+  animation: gradient-yellow 4s ease infinite;
+  animation-delay: 3s;
 }
 
 .gradient-red {
-	width: 100vw;
-	height: 100vh;
-	background: linear-gradient(334deg, #c8c3c3, #93405D, #812433);
-	background-size: 180% 180%;
-	animation: gradient-animation 6s ease infinite;
-} */
+  background: linear-gradient(334deg, #c8c3c3, #93405d, #812433);
+  background-size: 270% 100%;
+  animation: gradient-red 4s ease infinite;
+  animation-delay: 5s;
+}
 
-@keyframes gradient-animation {
+@keyframes gradient-green {
   0% {
     background-position: 0% 50%;
   }
@@ -536,7 +561,7 @@ body {
   }
 }
 
-@keyframes gradient-animation {
+@keyframes gradient-yellow {
   0% {
     background-position: 0% 50%;
   }
@@ -548,7 +573,7 @@ body {
   }
 }
 
-@keyframes gradient-animation {
+@keyframes gradient-red {
   0% {
     background-position: 0% 50%;
   }
