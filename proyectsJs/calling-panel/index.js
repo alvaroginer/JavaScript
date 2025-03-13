@@ -507,8 +507,9 @@ const renderUsers = () => {
 
     const finalRating = userCard.querySelector(".rating-container");
     if (user.overallRating >= 7.5) {
-      finalRating.style.background =
-        "linear-gradient(180deg, #c8c3c3, #40AB16)";
+      // finalRating.style.background =
+      //   "linear-gradient(180deg, #c8c3c3, #40AB16)";
+      finalRating.classList.add("gradient-green");
     } else if (user.overallRating >= 5 && user.overallRating < 7.5) {
       finalRating.style.background =
         "linear-gradient(180deg, #c8c3c3, #AB9C16)";
