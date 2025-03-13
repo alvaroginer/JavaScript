@@ -271,7 +271,19 @@ const showDataCall = (subSection, user) => {
                   <p class="title-container--text__orange">Duración</p>
                   <p class="title-container--text__grey">00:12:24</p>
                 </div>
-                <button class="sub-section--header__button">...</button>
+                <div>
+                  <button class="sub-section--header__button">...</button>
+                  <div class="call-card--select">
+                    <div class="display--flex gap--5 align-itmes__center call-card--button call-card--button__edit">
+                      <img class="call-card--button__img" src="./imgs/pencil.png" alt="Edit button">
+                      <p>Edit Call</p>
+                    </div>
+                    <div class="display--flex gap--5 align-itmes__center call-card--button call-card--button__delete">
+                      <img class="call-card--button__img" src="./imgs/delete.png" alt="Edit button">
+                      <p>Delete Call</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <hr>

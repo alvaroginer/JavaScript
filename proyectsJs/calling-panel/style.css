@@ -97,6 +97,10 @@ body {
   gap: 10px;
 }
 
+.call-card--button__img {
+  width: 20px;
+}
+
 /* .call-cards--container {
   display: flex;
   max-width: 600px;
@@ -368,6 +372,10 @@ body {
 
 .item__auto {
   flex: 0, 0, auto;
+}
+
+.gap--5 {
+  gap: 5px;
 }
 
 .scroll-grid {
