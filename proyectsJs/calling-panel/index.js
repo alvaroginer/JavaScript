@@ -18,7 +18,6 @@ const uploadData = async () => {
 };
 uploadData();
 
-//hola hola
 //Función para añadir poder editar una llamada
 const editCall = (subSection, user, index) => {
   subSection.innerHTML = "";
@@ -232,14 +231,72 @@ const editCall = (subSection, user, index) => {
     });
 };
 
-const paintInputs = (checkBoxContainer, value) => {
+const newEditCall = (callCard, user, index) => {
+  const interestCheckBoxContainer = callCard.querySelector(
+    ".data-box--interest"
+  );
+  const objectionsCheckBoxContainer = callCard.querySelector(
+    ".data-box--objections"
+  );
+  const potentialCheckBoxContainer = callCard.querySelector(
+    ".data-box--interest"
+  );
+  const clousureCheckBoxContainer = callCard.querySelector(
+    ".data-box--interest"
+  );
+
+  //Pintamos los contenedores de naranja
+  interestCheckBoxContainer
+    .querySelectorAll(".step-checkbox")
+    .forEach((checkbox, index) => {
+      checkbox.classList.remove("bg-color--blue");
+    });
+  paintInputs(
+    interestCheckBoxContainer,
+    user.calls[index].customerInterest,
+    "#ff8000"
+  );
+
+  objectionsCheckBoxContainer
+    .querySelectorAll(".step-checkbox")
+    .forEach((checkbox, index) => {
+      checkbox.classList.remove("bg-color--blue");
+    });
+  paintInputs(
+    objectionsCheckBoxContainer,
+    user.calls[index].objectionsRaised,
+    "#ff8000"
+  );
+
+  potentialCheckBoxContainer
+    .querySelectorAll(".step-checkbox")
+    .forEach((checkbox, index) => {
+      checkbox.classList.remove("bg-color--blue");
+    });
+  paintInputs(
+    potentialCheckBoxContainer,
+    user.calls[index].conversionPotential,
+    "#ff8000"
+  );
+
+  interestCheckBoxContainer
+    .querySelectorAll(".step-checkbox")
+    .forEach((checkbox, index) => {
+      checkbox.classList.remove("bg-color--blue");
+    });
+  paintInputs(
+    interestCheckBoxContainer,
+    user.calls[index].customerInterest,
+    "#ff8000"
+  );
+};
+
+const paintInputs = (checkBoxContainer, value, color) => {
   let checkBoxes = checkBoxContainer.querySelectorAll(".step-checkbox");
   console.log(checkBoxes);
   for (let i = 0; i < value; i++) {
     console.log(value);
-    if (checkBoxes[i]) {
-      checkBoxes[i].style.backgroundColor = "#617383";
-    }
+    checkBoxes[i].style.backgroundColor = color;
   }
 };
 
@@ -280,7 +337,6 @@ const showDataCall = (subSection, user) => {
                       <img class="call-card--button__img" src="./imgs/pencil.png" alt="Edit button">
                       <p>Edit Call</p>
                     </div>
-                    <hr>
                     <div class="display--flex gap--5 align-itmes__center call-card--select__button call-card--button__delete">
                       <img class="call-card--button__img" src="./imgs/delete.png" alt="Edit button">
                       <p>Delete Call</p>
@@ -333,16 +389,27 @@ const showDataCall = (subSection, user) => {
               </div>
             </div>
           </div>`;
-      subSection.appendChild(callInfoContainer);
+      subSection.prepend(callInfoContainer);
 
       //EventListeners
-
       callInfoContainer
         .querySelector(".sub-section--header__button")
         .addEventListener("click", function () {
           callInfoContainer
             .querySelector(".call-card--select")
             .classList.add("call-card--select__active");
+        });
+
+      callInfoContainer
+        .querySelector(".call-card--button__edit")
+        .addEventListener("click", function () {
+          console.log("click en edit");
+        });
+
+      callInfoContainer
+        .querySelector(".call-card--button__delete")
+        .addEventListener("click", function () {
+          console.log("click en delete");
         });
 
       window.addEventListener("click", function (event) {
@@ -362,28 +429,28 @@ const showDataCall = (subSection, user) => {
         ".data-box--interest"
       );
       if (dataInterest) {
-        paintInputs(dataInterest, call.customerInterest);
+        paintInputs(dataInterest, call.customerInterest, "#617383");
       }
 
       const dataObjections = callInfoContainer.querySelector(
         ".data-box--objections"
       );
       if (dataObjections) {
-        paintInputs(dataObjections, call.objectionsRaised);
+        paintInputs(dataObjections, call.objectionsRaised, "#617383");
       }
 
       const dataPotential = callInfoContainer.querySelector(
         ".data-box--potential"
       );
       if (dataPotential) {
-        paintInputs(dataPotential, call.conversionPotential);
+        paintInputs(dataPotential, call.conversionPotential, "#617383");
       }
 
       const dataClousure = callInfoContainer.querySelector(
         ".data-box--clousure"
       );
       if (dataClousure) {
-        paintInputs(dataClousure, call.callClosure);
+        paintInputs(dataClousure, call.callClosure, "#617383");
       }
     });
   }

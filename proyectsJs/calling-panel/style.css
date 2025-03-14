@@ -149,6 +149,10 @@ body {
   border: 1px solid #787878;
 }
 
+.step-checkbox--edit {
+  background-color: #ff8000;
+}
+
 .main--call-rating {
   display: flex;
   justify-content: center;
@@ -180,6 +184,7 @@ body {
   right: 0;
   min-width: 110px;
   display: none;
+  transition: all ease-in 0.2s;
 }
 
 .call-card--select__active {
@@ -187,7 +192,8 @@ body {
 }
 
 .call-card--select__button:hover {
-  color: #ff8000;
+  cursor: pointer;
+  background-color: #ffffff;
 }
 
 /* .step-checkbox:checked {
@@ -411,13 +417,17 @@ body {
   overflow-x: auto;
 }
 
-.scroll-grid::-webkit-scrollbar {
+.header-fixed .scroll-grid::-webkit-scrollbar {
   display: none;
 }
 
 /* Colors */
 .color-orange {
   color: #ff8000;
+}
+
+.bg-color--blue {
+  background-color: #617383;
 }
 
 /* Padding */
@@ -526,6 +536,12 @@ body {
     flex: 0 0 calc(20% - 10px);
   }
 } */
+
+@media screen and (width < 800px) {
+  .scroll-grid {
+    grid-auto-columns: 100%;
+  }
+}
 
 /* Container Colors Animation */
 
